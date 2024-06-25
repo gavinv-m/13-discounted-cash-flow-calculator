@@ -1,16 +1,36 @@
+import queryApiData from './api-data-utils';
+
 class DataCentre {
-  incomeStatement;
-  balanceSheet;
-  cashFlowStatament;
-  overview;
+  incomeStatement = null;
+  balanceSheet = null;
+  cashFlowStatement = null;
+  overview = null;
 
   constructor() {}
 
+  manageDataBase(tickerSymbol) {
+    this.requestAndHandleData(tickerSymbol);
+  }
+
+  async requestAndHandleData(tickerSymbol) {
+    const data = await queryApiData(tickerSymbol);
+    if (data.length === 4) {
+      this.storeFinancialStatements(data);
+    }
+  }
+
   storeFinancialStatements(apiData) {
-    this.incomeStatement = apiData[0];
-    this.balanceSheet = apiData[1];
-    this.cashFlowStatament = apiData[2];
-    this.overview = apiData[3];
+    const statements = [
+      'incomeStatement',
+      'balanceSheet',
+      'cashFlowStatement',
+      'overview',
+    ];
+
+    const apiDataLength = apiData.length;
+    for (let i = 0; i < apiDataLength; i++) {
+      this[statements[i]] = apiData[i];
+    }
   }
 }
 
