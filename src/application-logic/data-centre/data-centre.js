@@ -1,4 +1,7 @@
-import queryApiData from './api-data-utils';
+import queryApiData from './utils/api-data-utils';
+import { incomeStatementDataManager } from './refined-data/income-statement';
+import { balanceSheetDataManager } from './refined-data/balance-sheet';
+import { cashFlowStatementDataManager } from './refined-data/cash-flow-statement';
 
 class DataCentre {
   incomeStatement = null;
@@ -6,7 +9,15 @@ class DataCentre {
   cashFlowStatement = null;
   overview = null;
 
-  constructor() {}
+  constructor(
+    incomeStatementDataManager,
+    balanceSheetDataManager,
+    cashFlowStatementDataManager,
+  ) {
+    this.incomeStatementManager = incomeStatementDataManager;
+    this.balanceSheetDataManager = balanceSheetDataManager;
+    this.cashFlowStatementDataManager = cashFlowStatementDataManager;
+  }
 
   manageDataBase(tickerSymbol) {
     this.requestAndHandleData(tickerSymbol);
@@ -16,6 +27,17 @@ class DataCentre {
     const data = await queryApiData(tickerSymbol);
     if (data.length === 4) {
       this.storeFinancialStatements(data);
+
+      // Aggregate data by line items
+      this.incomeStatementManager.handleIncomeStatementData(
+        this.incomeStatement,
+      );
+
+      this.balanceSheetDataManager.handleBalanceSheetData(this.balanceSheet);
+
+      this.cashFlowStatementDataManager.handleCashFlowStatementData(
+        this.cashFlowStatement,
+      );
     }
   }
 
@@ -31,10 +53,15 @@ class DataCentre {
     for (let i = 0; i < apiDataLength; i++) {
       this[statements[i]] = apiData[i];
     }
+    return;
   }
 }
 
-const dataCentre = new DataCentre();
+const dataCentre = new DataCentre(
+  incomeStatementDataManager,
+  balanceSheetDataManager,
+  cashFlowStatementDataManager,
+);
 
 // Exports to app-manager.js
 export { dataCentre };
