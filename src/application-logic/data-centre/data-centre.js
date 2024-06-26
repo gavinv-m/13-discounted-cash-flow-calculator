@@ -2,6 +2,7 @@ import queryApiData from './utils/api-data-utils';
 import { incomeStatementDataManager } from './refined-data/income-statement';
 import { balanceSheetDataManager } from './refined-data/balance-sheet';
 import { cashFlowStatementDataManager } from './refined-data/cash-flow-statement';
+import { overviewDataManager } from './refined-data/overview';
 
 class DataCentre {
   incomeStatement = null;
@@ -13,10 +14,12 @@ class DataCentre {
     incomeStatementDataManager,
     balanceSheetDataManager,
     cashFlowStatementDataManager,
+    overviewDataManager,
   ) {
     this.incomeStatementManager = incomeStatementDataManager;
     this.balanceSheetDataManager = balanceSheetDataManager;
     this.cashFlowStatementDataManager = cashFlowStatementDataManager;
+    this.overviewDataManager = overviewDataManager;
   }
 
   manageDataBase(tickerSymbol) {
@@ -38,6 +41,8 @@ class DataCentre {
       this.cashFlowStatementDataManager.handleCashFlowStatementData(
         this.cashFlowStatement,
       );
+
+      this.overviewDataManager.handleOverViewData(this.overview);
     }
   }
 
@@ -61,6 +66,7 @@ const dataCentre = new DataCentre(
   incomeStatementDataManager,
   balanceSheetDataManager,
   cashFlowStatementDataManager,
+  overviewDataManager,
 );
 
 // Exports to app-manager.js
