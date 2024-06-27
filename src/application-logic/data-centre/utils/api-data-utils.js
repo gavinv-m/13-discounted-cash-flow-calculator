@@ -1,6 +1,11 @@
 export default async function queryApiData(tickerSymbol) {
   const apiKey = 'demo';
 
+  // Check if it exists in local storage
+  if (tickerSymbol in localStorage) {
+    return JSON.parse(localStorage.getItem(tickerSymbol));
+  }
+
   try {
     const responses = await Promise.all([
       fetch(

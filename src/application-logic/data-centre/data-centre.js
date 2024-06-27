@@ -29,6 +29,11 @@ class DataCentre {
   async requestAndHandleData(tickerSymbol) {
     const data = await queryApiData(tickerSymbol);
     if (data.length === 4) {
+      // Store in local storage
+      if (!(tickerSymbol in localStorage)) {
+        localStorage.setItem(tickerSymbol, JSON.stringify(data));
+      }
+
       this.storeFinancialStatements(data);
 
       // Aggregate data by line items
