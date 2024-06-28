@@ -4,14 +4,16 @@ import getFinancialLineItems from '../utils/financial-data-utils';
 class IncomeStatementDataManager {
   incomeStatementData = null;
 
-  constructor() {}
+  constructor() {
+    this.getFinancialLineItems = getFinancialLineItems.bind(this);
+  }
 
   handleIncomeStatementData(incomeStatementData) {
     this.incomeStatementData = aggregateFinancialData(incomeStatementData);
   }
 
   sendData(...args) {
-    getFinancialLineItems.call(this, args, this.incomeStatementData);
+    return this.getFinancialLineItems(args, this.incomeStatementData);
   }
 }
 

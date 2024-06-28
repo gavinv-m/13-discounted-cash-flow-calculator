@@ -2,4 +2,12 @@
 export default function getFinancialLineItems(
   lineItemsRequested,
   statementData,
-) {}
+) {
+  const lineItemsToReturn = {};
+
+  lineItemsRequested.forEach((financialLineItem) => {
+    lineItemsToReturn[financialLineItem] = statementData[financialLineItem];
+  });
+
+  return lineItemsToReturn;
+}

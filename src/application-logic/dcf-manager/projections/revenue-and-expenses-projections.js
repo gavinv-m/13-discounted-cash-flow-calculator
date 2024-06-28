@@ -12,8 +12,9 @@ class RevenueAndExpensesProjections {
   }
 
   projectRevenue() {
-    console.log(this.incomeStatementDataManager.incomeStatementData);
-    this.incomeStatementDataManager.sendData('totalRevenue');
+    const revenueByYear =
+      this.incomeStatementDataManager.sendData('totalRevenue');
+    console.log(revenueByYear);
   }
 }
 
