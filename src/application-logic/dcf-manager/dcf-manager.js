@@ -8,7 +8,9 @@ class DiscountedCashFlowManager {
     this.revenueAndExpenses = revenueAndExpenses;
   }
 
-  startProjections() {}
+  startProjections() {
+    this.revenueAndExpenses.projectRevenueAndExpenses();
+  }
 
   // TODO: Determine start and end years
 }
