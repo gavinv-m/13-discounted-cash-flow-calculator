@@ -7,8 +7,8 @@ class ApplicationManager {
     this.dcfManager = dcfManager;
   }
 
-  startApplication(tickerSymbol) {
-    this.dataCentre.manageDataBase(tickerSymbol);
+  async startApplication(tickerSymbol) {
+    await this.dataCentre.manageDataBase(tickerSymbol);
     this.dcfManager.startProjections();
   }
 }
