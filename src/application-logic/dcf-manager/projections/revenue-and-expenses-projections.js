@@ -14,7 +14,6 @@ class RevenueAndExpensesProjections {
   projectRevenue() {
     const revenueByYear =
       this.incomeStatementDataManager.sendData('totalRevenue');
-    console.log(revenueByYear);
   }
 }
 

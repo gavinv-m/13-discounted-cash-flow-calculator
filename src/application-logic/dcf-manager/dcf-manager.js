@@ -1,21 +1,22 @@
 import { revenueAndExpenses } from './projections/revenue-and-expenses-projections';
+import { projectionYears } from './projection-years-manager';
 
 class DiscountedCashFlowManager {
-  startingProjectionYear = null;
-  endingProjectionYear = null;
-
-  constructor(revenueAndExpenses) {
+  constructor(revenueAndExpenses, projectionYears) {
     this.revenueAndExpenses = revenueAndExpenses;
+    this.projectionYearsManager = projectionYears;
   }
 
   startProjections() {
+    this.projectionYearsManager.calculateProjectionYears();
     this.revenueAndExpenses.projectRevenueAndExpenses();
   }
-
-  // TODO: Determine start and end years
 }
 
-const dcfManager = new DiscountedCashFlowManager(revenueAndExpenses);
+const dcfManager = new DiscountedCashFlowManager(
+  revenueAndExpenses,
+  projectionYears,
+);
 
 // Exports to app-manager.js
 export { dcfManager };
