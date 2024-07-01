@@ -9,7 +9,12 @@ export default function aggregateFinancialData(financialStatementData) {
     for (let financialLineItem in year) {
       // Check if financial line item exists in statementData
       statementData[financialLineItem] = statementData[financialLineItem] || {};
-      statementData[financialLineItem][fiscalYear] = year[financialLineItem];
+
+      let amount = Math.abs(year[financialLineItem]);
+      if (isNaN(amount) === true) {
+        amount = 0;
+      }
+      statementData[financialLineItem][fiscalYear] = amount;
     }
   });
 

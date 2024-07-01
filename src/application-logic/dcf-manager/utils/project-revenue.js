@@ -1,5 +1,6 @@
 import { projectionYears } from '../projection-years-manager';
 
+// Exports to revenue-and-expenses-projections
 export default function projectRevenue(revenueByYear) {
   /**
    * Data is ordered from oldest to latest
@@ -18,8 +19,8 @@ export default function projectRevenue(revenueByYear) {
   // Calculate average growth rates
   reversedRevenueAmounts.reduce((sumGrowthRates, currentAmt, index, array) => {
     if (index <= revenueAmountsLength - 2) {
-      let priorYearAmount = Number(array[index + 1]);
-      currentAmt = Number(currentAmt);
+      let priorYearAmount = array[index + 1];
+      currentAmt = currentAmt;
 
       let growthRate = (currentAmt - priorYearAmount) / priorYearAmount;
       sumGrowthRates += growthRate;
