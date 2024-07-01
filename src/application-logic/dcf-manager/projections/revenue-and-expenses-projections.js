@@ -1,7 +1,9 @@
 import { incomeStatementDataManager } from '../../data-centre/refined-data/income-statement';
+import projectRevenue from '../utils/project-revenue';
 
 class RevenueAndExpensesProjections {
   projections = {};
+  revenueGrowthRates = null;
 
   constructor(incomeStatementDataManager) {
     this.incomeStatementDataManager = incomeStatementDataManager;
@@ -12,8 +14,16 @@ class RevenueAndExpensesProjections {
   }
 
   projectRevenue() {
-    const revenueByYear =
-      this.incomeStatementDataManager.sendData('totalRevenue');
+    const revenueLineItemDescription = 'totalRevenue';
+
+    let revenueByYear = this.incomeStatementDataManager.sendData(
+      revenueLineItemDescription,
+    );
+    revenueByYear = revenueByYear[revenueLineItemDescription];
+    const data = projectRevenue(revenueByYear);
+
+    this.projections.revenueProjections = data.projections;
+    this.revenueGrowthRates = data.growthRates;
   }
 }
 
