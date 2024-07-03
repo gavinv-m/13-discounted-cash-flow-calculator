@@ -3,6 +3,7 @@ import projectRevenue from '../utils/project-revenue';
 import projectExpenses from '../utils/project-expenses';
 import calculateProfitBeforeTax from '../utils/profit-before-tax';
 import calculateTaxExpense from '../utils/calculate-tax';
+import calculateNetProfit from '../utils/calculate-net-profit';
 
 class RevenueAndExpensesProjections {
   projections = {};
@@ -19,6 +20,7 @@ class RevenueAndExpensesProjections {
     this.projectExpensesAndOtherIncome();
     this.calculateProfitBeforeTax();
     this.calculateTax();
+    this.calculateNetProfit();
   }
 
   projectRevenue() {
@@ -78,7 +80,14 @@ class RevenueAndExpensesProjections {
   calculateTax() {
     const taxExpense = calculateTaxExpense(this.projections.profitBeforeTax);
     this.projections.taxExpense = taxExpense;
-    console.log(this.projections);
+  }
+
+  calculateNetProfit() {
+    const netProfit = calculateNetProfit(
+      this.projections.profitBeforeTax,
+      this.projections.taxExpense,
+    );
+    this.projections.netProfit = netProfit;
   }
 }
 
