@@ -1,6 +1,7 @@
 import { incomeStatementDataManager } from '../../data-centre/refined-data/income-statement';
 import projectRevenue from '../utils/project-revenue';
 import projectExpenses from '../utils/project-expenses';
+import calculateProfitBeforeTax from '../utils/profit-before-tax';
 
 class RevenueAndExpensesProjections {
   projections = {};
@@ -15,6 +16,7 @@ class RevenueAndExpensesProjections {
   projectRevenueAndExpenses() {
     this.projectRevenue();
     this.projectExpensesAndOtherIncome();
+    this.calculateProfitBeforeTax();
   }
 
   projectRevenue() {
@@ -64,6 +66,11 @@ class RevenueAndExpensesProjections {
       this.projections[projectedExpense] =
         projectedExpenses.projectedExpenses[projectedExpense];
     }
+  }
+
+  calculateProfitBeforeTax() {
+    const profitBeforeTax = calculateProfitBeforeTax(this.projections);
+    this.projections.profitBeforeTax = profitBeforeTax;
   }
 }
 
