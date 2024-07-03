@@ -1,5 +1,3 @@
-import { projectionYears } from '../projection-years-manager';
-
 const calculatePercentages = function calculateExpenseRevenueRatio(
   expenses,
   priorRevenues,
