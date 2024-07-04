@@ -4,6 +4,7 @@ import projectExpenses from '../utils/project-expenses';
 import calculateProfitBeforeTax from '../utils/profit-before-tax';
 import calculateTaxExpense from '../utils/calculate-tax';
 import calculateNetProfit from '../utils/calculate-net-profit';
+import getFinancialLineItems from '../../data-centre/utils/financial-data-utils';
 
 class RevenueAndExpensesProjections {
   projections = {};
@@ -12,6 +13,11 @@ class RevenueAndExpensesProjections {
 
   constructor(incomeStatementDataManager) {
     this.incomeStatementDataManager = incomeStatementDataManager;
+    this.getRevenueAndExpensesProjections = getFinancialLineItems.bind(this);
+  }
+
+  sendData(...args) {
+    return this.getRevenueAndExpensesProjections(args, this.projections);
   }
 
   // Main method that projects revenue, expenses and calculates tax

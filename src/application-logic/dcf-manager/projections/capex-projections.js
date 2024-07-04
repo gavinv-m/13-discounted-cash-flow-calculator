@@ -4,6 +4,9 @@ import { revenueAndExpenses } from './revenue-and-expenses-projections';
 import projectExpenses from '../utils/project-expenses';
 
 class CapexManager {
+  projectedCapex = {};
+  capexPercentageOfRevenue = 0;
+
   constructor(
     incomeStatementDataManager,
     revenueAndExpensesProjections,
@@ -20,15 +23,25 @@ class CapexManager {
     );
 
     // Send prior year revenue object with years and amounts to projectExpenses
-    const revenueLineItemDescription = 'totalRevenue';
-    let priorRevenues = this.incomeStatementDataManager.sendData(
-      revenueLineItemDescription,
+    const priorRevenues =
+      this.incomeStatementDataManager.sendData('totalRevenue').totalRevenue;
+
+    // Send projectedRevenues years and amounts object
+    let projectedRevenues =
+      this.revenueAndExpensesProjections.sendData(
+        'revenueProjections',
+      ).revenueProjections;
+
+    const projectedCapitalExpenditure = projectExpenses(
+      capitalExpenditures,
+      priorRevenues,
+      projectedRevenues,
     );
-    priorRevenues = priorRevenues[revenueLineItemDescription];
 
-    // TODO: Getter method in revenue-and-expenses projections, see if we cant use getFinancialLineItems
-
-    // TODO: Send capitalExpenditures, priorRevenues and projectedRevenues to projectExpenses
+    this.projectedCapex =
+      projectedCapitalExpenditure.projectedExpenses.capitalExpenditures;
+    this.capexPercentageOfRevenue =
+      projectedCapitalExpenditure.expensePercentages.capitalExpenditures;
   }
 }
 
