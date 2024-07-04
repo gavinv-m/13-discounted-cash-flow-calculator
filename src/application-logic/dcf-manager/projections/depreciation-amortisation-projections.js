@@ -3,7 +3,7 @@ import { cashFlowStatementDataManager } from '../../data-centre/refined-data/cas
 import projectDepreciationAmortisation from '../utils/project-depreciation';
 
 class DepreciationAmortizationManager {
-  projectedDepreciationAmortisation = {};
+  projectedDepreciationAmortisation = null;
 
   constructor(capexProjectionsManager, cashFlowStatementDataManager) {
     this.capexProjectionsManager = capexProjectionsManager;
@@ -13,9 +13,10 @@ class DepreciationAmortizationManager {
   projectDepreciationAmortisation() {
     const historicalCapex = this.cashFlowStatementDataManager.sendData(
       'capitalExpenditures',
-    );
+    ).capitalExpenditures;
     const projectedCapex = this.capexProjectionsManager.projectedCapex;
-    const projectedDepreciationAmortisation = projectDepreciationAmortisation(
+
+    this.projectedDepreciationAmortisation = projectDepreciationAmortisation(
       historicalCapex,
       projectedCapex,
     );
