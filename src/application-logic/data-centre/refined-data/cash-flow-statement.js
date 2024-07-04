@@ -1,12 +1,19 @@
 import aggregateFinancialData from '../utils/data-aggregator';
+import getFinancialLineItems from '../utils/financial-data-utils';
 
 class CashFlowStatementDataManager {
   cashFlowStatementData = null;
 
-  constructor() {}
+  constructor() {
+    this.getFinancialLineItems = getFinancialLineItems.bind(this);
+  }
 
   handleCashFlowStatementData(cashFlowStatementData) {
     this.cashFlowStatementData = aggregateFinancialData(cashFlowStatementData);
+  }
+
+  sendData(...args) {
+    return this.getFinancialLineItems(args, this.cashFlowStatementData);
   }
 }
 
