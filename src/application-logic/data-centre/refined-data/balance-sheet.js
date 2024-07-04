@@ -1,12 +1,19 @@
 import aggregateFinancialData from '../utils/data-aggregator';
+import getFinancialLineItems from '../utils/financial-data-utils';
 
 class BalanceSheetDataManager {
   balanceSheetData = null;
 
-  constructor() {}
+  constructor() {
+    this.getFinancialLineItems = getFinancialLineItems.bind(this);
+  }
 
   handleBalanceSheetData(balanceSheetData) {
     this.balanceSheetData = aggregateFinancialData(balanceSheetData);
+  }
+
+  sendData(...args) {
+    return this.getFinancialLineItems(args, this.balanceSheetData);
   }
 }
 

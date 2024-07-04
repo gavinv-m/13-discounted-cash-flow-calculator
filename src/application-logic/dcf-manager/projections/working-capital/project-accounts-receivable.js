@@ -2,12 +2,18 @@ import { balanceSheetDataManager } from '../../../data-centre/refined-data/balan
 import { revenueAndExpenses } from '../revenue-and-expenses-projections';
 
 class AccountsReceivableManager {
-  constructor() {}
+  constructor(balanceSheetDataManager) {
+    this.balanceSheetDataManager = balanceSheetDataManager;
+  }
 
-  projectAccountsReceivable() {}
+  projectAccountsReceivable() {
+    console.log(this.balanceSheetDataManager.sendData('currentNetReceivables'));
+  }
 }
 
-const accountsReceivableManager = new AccountsReceivableManager();
+const accountsReceivableManager = new AccountsReceivableManager(
+  balanceSheetDataManager,
+);
 
 // Exports to working-capital-manager.js
 export { accountsReceivableManager };
