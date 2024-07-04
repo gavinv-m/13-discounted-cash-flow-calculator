@@ -5,7 +5,7 @@ import projectExpenses from '../utils/project-expenses';
 
 class CapexManager {
   projectedCapex = {};
-  capexPercentageOfRevenue = 0;
+  capexPercentageOfRevenue = null;
 
   constructor(
     incomeStatementDataManager,
@@ -41,7 +41,7 @@ class CapexManager {
     this.projectedCapex =
       projectedCapitalExpenditure.projectedExpenses.capitalExpenditures;
     this.capexPercentageOfRevenue =
-      projectedCapitalExpenditure.expensePercentages.capitalExpenditures;
+      projectedCapitalExpenditure.expensePercentages;
   }
 }
 
