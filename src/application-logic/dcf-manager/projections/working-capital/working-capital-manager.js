@@ -1,11 +1,17 @@
+import { accountsReceivableManager } from './project-accounts-receivable';
+
 class WorkingCapitalManager {
-  constructor() {}
+  constructor(accountsReceivableManager) {
+    this.accountsReceivableManager = accountsReceivableManager;
+  }
 
   projectWorkingCapital() {
-    console.log('demo');
+    this.accountsReceivableManager.projectAccountsReceivable();
   }
 }
 
-const workingCapProjectionsManager = new WorkingCapitalManager();
+const workingCapProjectionsManager = new WorkingCapitalManager(
+  accountsReceivableManager,
+);
 
 export { workingCapProjectionsManager };
