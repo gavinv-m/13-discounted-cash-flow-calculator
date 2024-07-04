@@ -17,6 +17,8 @@ class CapexManager {
     this.cashFlowStatementDataManager = cashFlowStatementDataManager;
   }
 
+  sendData(...args) {}
+
   calculateCapexProjections() {
     const capitalExpenditures = this.cashFlowStatementDataManager.sendData(
       'capitalExpenditures',
