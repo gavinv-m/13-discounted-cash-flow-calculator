@@ -1,4 +1,5 @@
 import calculateDaysOutstanding from './calc-days-outstanding';
+import projectWorkingCapItem from './project-working-cap-item';
 
 // Exports to accounts-receivable-projections.js
 export default function projectReceivables(
@@ -7,13 +8,5 @@ export default function projectReceivables(
   projectedRevenue,
 ) {
   const daysSalesOutstanding = calculateDaysOutstanding(receivables, revenue);
-  const projectedReceivables = {};
-
-  for (let year in projectedRevenue) {
-    const projectedReceivable =
-      (projectedRevenue[year] / 365) * daysSalesOutstanding;
-    projectedReceivables[year] = projectedReceivable;
-  }
-
-  return projectedReceivables;
+  return projectWorkingCapItem(projectedRevenue, daysSalesOutstanding);
 }
