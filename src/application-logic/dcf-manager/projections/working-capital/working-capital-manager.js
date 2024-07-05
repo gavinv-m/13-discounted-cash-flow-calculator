@@ -22,7 +22,8 @@ class WorkingCapitalManager {
     this.projections.accountsPayable =
       this.accountsPayableManager.projectAccountsPayable();
 
-    this.inventoryManager.projectInventory();
+    this.projections.inventory = this.inventoryManager.projectInventory();
+    console.log(this.projections);
   }
 }
 
