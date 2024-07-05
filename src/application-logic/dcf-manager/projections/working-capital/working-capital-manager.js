@@ -1,12 +1,16 @@
 import { accountsReceivableManager } from './accounts-receivable-projections';
 
 class WorkingCapitalManager {
+  projections = {};
+
   constructor(accountsReceivableManager) {
     this.accountsReceivableManager = accountsReceivableManager;
   }
 
   projectWorkingCapital() {
-    this.accountsReceivableManager.projectAccountsReceivable();
+    this.projections.accountsReceivable =
+      this.accountsReceivableManager.projectAccountsReceivable();
+    console.log(this.projections);
   }
 }
 

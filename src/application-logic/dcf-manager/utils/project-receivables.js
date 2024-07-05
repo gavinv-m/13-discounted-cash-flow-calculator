@@ -7,5 +7,13 @@ export default function projectReceivables(
   projectedRevenue,
 ) {
   const daysSalesOutstanding = calculateDaysOutstanding(receivables, revenue);
-  console.log(daysSalesOutstanding);
+  const projectedReceivables = {};
+
+  for (let year in projectedRevenue) {
+    const projectedReceivable =
+      (projectedRevenue[year] / 365) * daysSalesOutstanding;
+    projectedReceivables[year] = projectedReceivable;
+  }
+
+  return projectedReceivables;
 }
