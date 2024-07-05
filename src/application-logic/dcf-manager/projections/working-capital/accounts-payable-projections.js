@@ -24,12 +24,10 @@ class AccountsPayableManager {
     const cogs =
       this.incomeStatementDataManager.sendData('costOfRevenue').costOfRevenue;
 
-    // TODO: Change to cost of revenue
-    const projectedCOGS = this.revenueAndExpenses.sendData(
-      'costofGoodsAndServicesSold',
-    ).costofGoodsAndServicesSold;
+    const projectedCostOfRevenue =
+      this.revenueAndExpenses.sendData('costOfRevenue').costOfRevenue;
 
-    return this.projectPayables(accountsPayable, cogs, projectedCOGS);
+    return this.projectPayables(accountsPayable, cogs, projectedCostOfRevenue);
   }
 }
 

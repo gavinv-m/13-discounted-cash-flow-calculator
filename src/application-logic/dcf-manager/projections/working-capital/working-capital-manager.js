@@ -12,7 +12,9 @@ class WorkingCapitalManager {
   projectWorkingCapital() {
     this.projections.accountsReceivable =
       this.accountsReceivableManager.projectAccountsReceivable();
-    this.accountsPayableManager.projectAccountsPayable();
+
+    this.projections.accountsPayable =
+      this.accountsPayableManager.projectAccountsPayable();
   }
 }
 

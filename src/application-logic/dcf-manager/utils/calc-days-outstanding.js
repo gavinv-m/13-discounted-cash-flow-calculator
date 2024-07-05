@@ -1,6 +1,6 @@
 import { projectionYears } from '../projection-years-manager';
 
-// Exports to project-receivables.js
+// Exports to project-receivables.js, project-payable.js
 export default function calculateDaysOutstanding(
   balSheetItem,
   incStatementItem,
