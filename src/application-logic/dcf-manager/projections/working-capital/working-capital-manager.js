@@ -1,4 +1,4 @@
-import { accountsReceivableManager } from './project-accounts-receivable';
+import { accountsReceivableManager } from './accounts-receivable-projections';
 
 class WorkingCapitalManager {
   constructor(accountsReceivableManager) {
