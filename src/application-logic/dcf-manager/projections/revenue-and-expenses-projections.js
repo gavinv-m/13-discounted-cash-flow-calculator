@@ -45,7 +45,7 @@ class RevenueAndExpensesProjections {
 
   projectExpensesAndOtherIncome() {
     const expenses = this.incomeStatementDataManager.sendData(
-      'costofGoodsAndServicesSold',
+      'costOfRevenue',
       'sellingGeneralAndAdministrative',
       'researchAndDevelopment',
       'otherNonOperatingIncome',
