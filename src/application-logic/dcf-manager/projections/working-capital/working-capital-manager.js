@@ -23,7 +23,6 @@ class WorkingCapitalManager {
       this.accountsPayableManager.projectAccountsPayable();
 
     this.projections.inventory = this.inventoryManager.projectInventory();
-    console.log(this.projections);
   }
 }
 

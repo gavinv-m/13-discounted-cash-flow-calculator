@@ -5,16 +5,17 @@ export default function calculateDaysOutstanding(
   balSheetItem,
   incStatementItem,
 ) {
-  // Calculate days outstanding recent 3 year average
+  // Calculate historical days outstanding recent 5 year average
+  const numberOfYears = 5;
   const recentFinancialYear = projectionYears.startingProjectionYear - 1;
-  const twoYearsAgo = recentFinancialYear - 2;
+  const startingYear = recentFinancialYear - 4;
 
   let avgDaysOutstanding = 0;
-  let year = twoYearsAgo;
+  let year = startingYear;
 
   while (year <= recentFinancialYear) {
     /**
-     * Error handling if no data from two years ago
+     * Error handling if no data from first year
      * Use most recent financial year
      */
     if (
@@ -34,7 +35,7 @@ export default function calculateDaysOutstanding(
     avgDaysOutstanding += daysOutstandingForYear;
 
     if (year === recentFinancialYear) {
-      avgDaysOutstanding = avgDaysOutstanding / 3;
+      avgDaysOutstanding = avgDaysOutstanding / numberOfYears;
     }
     year++;
   }
