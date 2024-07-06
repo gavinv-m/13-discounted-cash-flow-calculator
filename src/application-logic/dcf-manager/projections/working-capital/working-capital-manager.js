@@ -45,6 +45,11 @@ class WorkingCapitalManager {
     );
     this.historicalNetWorkingCapital =
       this.calculateNetWorkingCapital(historicalValues);
+
+    // Calculate projected net working capital
+    this.projectedNetWorkingCapital = this.calculateNetWorkingCapital(
+      this.projections,
+    );
   }
 }
 
