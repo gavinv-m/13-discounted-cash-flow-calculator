@@ -24,10 +24,10 @@ class WorkingCapitalManager {
   }
 
   projectWorkingCapital() {
-    this.projections.accountsReceivable =
+    this.projections.currentNetReceivables =
       this.accountsReceivableManager.projectAccountsReceivable();
 
-    this.projections.accountsPayable =
+    this.projections.currentAccountsPayable =
       this.accountsPayableManager.projectAccountsPayable();
 
     this.projections.inventory = this.inventoryManager.projectInventory();
