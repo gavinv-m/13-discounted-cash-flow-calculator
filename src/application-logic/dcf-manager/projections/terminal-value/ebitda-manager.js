@@ -1,17 +1,19 @@
 import { revenueAndExpenses } from '../revenue-and-expenses-projections';
 import { depreciationAmortisationProjectionsManager } from '../depreciation-amortisation-projections';
-import computeEbitda from '../../utils/calculate-ebidta';
+import sumValues from '../../utils/sum-values';
 
 class EbitdaCalculator {
+  projections = {};
+
   constructor(
     revenueAndExpenses,
     depreciationAmortisationProjectionsManager,
-    computeEbitda,
+    sumValues,
   ) {
     this.revenueAndExpenses = revenueAndExpenses;
     this.depreciationAmortisationProjectionsManager =
       depreciationAmortisationProjectionsManager;
-    this.computeEbitda = computeEbitda;
+    this.sumValues = sumValues;
   }
 
   calculateEbitda() {
@@ -24,14 +26,23 @@ class EbitdaCalculator {
     const depreciationAmortisation =
       this.depreciationAmortisationProjectionsManager.sendData('totals').totals;
 
-    this.computeEbitda(profitAndInterest, depreciationAmortisation);
+    const nonNegativeItems = [
+      'profitBeforeTax',
+      'interestExpense',
+      'depreciationAmortisation',
+    ];
+
+    this.projections.ebitda = this.sumValues(
+      { ...profitAndInterest, depreciationAmortisation },
+      nonNegativeItems,
+    );
   }
 }
 
 const ebitdaCalculator = new EbitdaCalculator(
   revenueAndExpenses,
   depreciationAmortisationProjectionsManager,
-  computeEbitda,
+  sumValues,
 );
 
 // Exports to terminal-value-manager.js
