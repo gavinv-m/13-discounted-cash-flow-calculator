@@ -1,12 +1,18 @@
+import { ebitdaCalculator } from './ebitda-calculator';
+
 class TerminalValueManager {
-  constructor() {}
+  projections = {};
+
+  constructor(ebitdaCalculator) {
+    this.ebitdaCalculator = ebitdaCalculator;
+  }
 
   calcuateSharePrice() {
-    console.log('sparrow');
+    this.ebitdaCalculator.calculateEbitda();
   }
 }
 
-const terminalValueManager = new TerminalValueManager();
+const terminalValueManager = new TerminalValueManager(ebitdaCalculator);
 
 // Exports to dcf-manager.js
 export { terminalValueManager };
