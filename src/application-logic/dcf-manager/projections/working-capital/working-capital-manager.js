@@ -3,11 +3,13 @@ import { accountsPayableManager } from './accounts-payable-projections';
 import { inventoryManager } from './inventory-projections';
 import { balanceSheetDataManager } from '../../../data-centre/refined-data/balance-sheet';
 import calculateNetWorkingCapital from '../../utils/calc-net-working-cap';
+import calculateChangeInNWC from '../../utils/change-in-nwc';
 
 class WorkingCapitalManager {
   projections = {};
   historicalNetWorkingCapital = null;
   projectedNetWorkingCapital = null;
+  changesInNetWorkingCapital = null;
 
   constructor(
     accountsReceivableManager,
@@ -15,12 +17,14 @@ class WorkingCapitalManager {
     inventoryManager,
     balanceSheetDataManager,
     calculateNetWorkingCapital,
+    calculateChangeInNWC,
   ) {
     this.accountsReceivableManager = accountsReceivableManager;
     this.accountsPayableManager = accountsPayableManager;
     this.inventoryManager = inventoryManager;
     this.balanceSheetDataManager = balanceSheetDataManager;
     this.calculateNetWorkingCapital = calculateNetWorkingCapital;
+    this.calculateChangeInNWC = calculateChangeInNWC;
   }
 
   projectWorkingCapital() {
@@ -32,8 +36,12 @@ class WorkingCapitalManager {
 
     this.projections.inventory = this.inventoryManager.projectInventory();
 
-    // Calculate totals:
+    // Calculate net working capital, and changes in net working capital
     this.calculateNetWorkingCap();
+    this.changesInNetWorkingCapital = this.calculateChangeInNWC(
+      this.historicalNetWorkingCapital,
+      this.projectedNetWorkingCapital,
+    );
   }
 
   calculateNetWorkingCap() {
@@ -59,6 +67,7 @@ const workingCapProjectionsManager = new WorkingCapitalManager(
   inventoryManager,
   balanceSheetDataManager,
   calculateNetWorkingCapital,
+  calculateChangeInNWC,
 );
 
 export { workingCapProjectionsManager };
