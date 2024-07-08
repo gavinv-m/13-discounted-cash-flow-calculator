@@ -2,22 +2,30 @@ import { incomeStatementDataManager } from '../../data-centre/refined-data/incom
 import { cashFlowStatementDataManager } from '../../data-centre/refined-data/cash-flow-statement';
 import { revenueAndExpenses } from './revenue-and-expenses-projections';
 import projectExpenses from '../utils/project-expenses';
+import getFinancialLineItems from '../../data-centre/utils/financial-data-utils';
 
 class CapexManager {
   projectedCapex = {};
-  capexPercentageOfRevenue = null;
 
   constructor(
     incomeStatementDataManager,
     revenueAndExpensesProjections,
     cashFlowStatementDataManager,
+    getFinancialLineItems,
   ) {
     this.incomeStatementDataManager = incomeStatementDataManager;
     this.revenueAndExpensesProjections = revenueAndExpensesProjections;
     this.cashFlowStatementDataManager = cashFlowStatementDataManager;
+    this.getProjectedCapexAndExpensePercentages =
+      getFinancialLineItems.bind(this);
   }
 
-  sendData(...args) {}
+  sendData(...args) {
+    return this.getProjectedCapexAndExpensePercentages(
+      args,
+      this.projectedCapex,
+    );
+  }
 
   calculateCapexProjections() {
     const capitalExpenditures = this.cashFlowStatementDataManager.sendData(
@@ -40,10 +48,9 @@ class CapexManager {
       projectedRevenues,
     );
 
-    this.projectedCapex =
-      projectedCapitalExpenditure.projectedExpenses.capitalExpenditures;
-    this.capexPercentageOfRevenue =
-      projectedCapitalExpenditure.expensePercentages;
+    this.projectedCapex = projectedCapitalExpenditure.projectedExpenses;
+    this.projectedCapex.capexPercentageOfRevenue =
+      projectedCapitalExpenditure.expensePercentages.capitalExpenditures;
   }
 }
 
@@ -51,6 +58,7 @@ const capexProjectionsManager = new CapexManager(
   incomeStatementDataManager,
   revenueAndExpenses,
   cashFlowStatementDataManager,
+  getFinancialLineItems,
 );
 
 export { capexProjectionsManager };
