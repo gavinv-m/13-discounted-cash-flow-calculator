@@ -3,24 +3,22 @@ import { projectionYears } from '../projection-years-manager';
 // Exports to revenue-and-expenses-projections
 export default function projectRevenue(revenueByYear) {
   /**
-   * Data is ordered from oldest to latest
-   * Must calculate in reverse, latest to oldest
-   * For the averages
+   * revenueByYear object is ordered from oldest to latest
+   * Must calculate in reverse, latest to oldest for the averages
    */
-  const revenueAmounts = Object.values(revenueByYear); // Oldest to latest
-  const revenueAmountsLength = revenueAmounts.length;
-  const reversedRevenueAmounts = revenueAmounts.reverse(); // Latest to oldest
+  const revenueAmounts = Object.values(revenueByYear); // Sorted oldest to latest
+  const reversedRevenueAmounts = [...revenueAmounts].reverse(); // Latest to oldest
+  const yearSpan = revenueAmounts.length;
   const growthRates = {};
 
   let threeYearAverage = null;
   let fiveYearAverage = null;
   let tenYearAverage = null;
 
-  // Calculate average growth rates
+  // Calculate average growth rates from latest to oldest
   reversedRevenueAmounts.reduce((sumGrowthRates, currentAmt, index, array) => {
-    if (index <= revenueAmountsLength - 2) {
+    if (index <= yearSpan - 2) {
       let priorYearAmount = array[index + 1];
-      currentAmt = currentAmt;
 
       let growthRate = (currentAmt - priorYearAmount) / priorYearAmount;
       sumGrowthRates += growthRate;
@@ -53,13 +51,12 @@ export default function projectRevenue(revenueByYear) {
 
   const startingYear = projectionYears.startingProjectionYear;
   const endingYear = projectionYears.endingProjectionYear;
-  const terminalStartingYear = endingYear + 1;
   const projections = {};
 
   let currentYear = startingYear;
 
-  while (currentYear < terminalStartingYear) {
-    let priorYearAmount = Number(revenueAmounts[revenueAmounts.length - 1]);
+  while (currentYear <= endingYear) {
+    let priorYearAmount = revenueAmounts[revenueAmounts.length - 1];
     let nextYearProjected = priorYearAmount * (1 + chosenGrowthRate);
 
     revenueAmounts.push(nextYearProjected);
