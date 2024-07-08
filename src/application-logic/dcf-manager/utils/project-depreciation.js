@@ -1,5 +1,20 @@
 import { projectionYears } from '../projection-years-manager';
 
+const calculateTotals = function calculateDepreciationAmortisationTotals(
+  projections,
+) {
+  const totals = {};
+
+  for (let year in projections) {
+    totals[year] = 0;
+
+    for (let pastYear in projections[year]) {
+      totals[year] += projections[year][pastYear];
+    }
+  }
+  return totals;
+};
+
 // Exports to depreciation-amortisation-projections.js
 export default function projectDepreciationAmortisation(
   historicalCapex,
@@ -29,5 +44,7 @@ export default function projectDepreciationAmortisation(
     }
   });
 
-  return projections;
+  const totals = calculateTotals(projections);
+
+  return { projections, totals };
 }
