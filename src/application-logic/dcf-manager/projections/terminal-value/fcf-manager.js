@@ -4,10 +4,9 @@ import { revenueAndExpenses } from '../revenue-and-expenses-projections';
 class FreeCashFlowManager {
   projections = {};
 
-  constructor(ebitdaCalculator, revenueAndExpenses, capexProjectionsManager) {
+  constructor(ebitdaCalculator, revenueAndExpenses) {
     this.ebitdaCalculator = ebitdaCalculator;
     this.revenueAndExpenses = revenueAndExpenses;
-    this.capexProjectionsManager = capexProjectionsManager;
   }
 
   calculateFreeCashFlow() {
@@ -21,7 +20,6 @@ class FreeCashFlowManager {
 const fcfManager = new FreeCashFlowManager(
   ebitdaCalculator,
   revenueAndExpenses,
-  capexProjectionsManager,
 );
 
 // Export to terminal-value-manager.js
