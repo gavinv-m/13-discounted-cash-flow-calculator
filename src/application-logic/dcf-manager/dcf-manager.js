@@ -3,6 +3,7 @@ import { projectionYears } from './projection-years-manager';
 import { capexProjectionsManager } from './projections/capex-projections';
 import { depreciationAmortisationProjectionsManager } from './projections/depreciation-amortisation-projections';
 import { workingCapProjectionsManager } from './projections/working-capital/working-capital-manager';
+import { terminalValueManager } from './projections/terminal-value/terminal-value-manager';
 
 class DiscountedCashFlowManager {
   constructor(
@@ -11,6 +12,7 @@ class DiscountedCashFlowManager {
     capexProjectionsManager,
     depreciationAmortisationProjectionsManager,
     workingCapProjectionsManager,
+    terminalValueManager,
   ) {
     this.revenueAndExpenses = revenueAndExpenses;
     this.projectionYearsManager = projectionYears;
@@ -18,6 +20,7 @@ class DiscountedCashFlowManager {
     this.depreciationAmortisationProjectionsManager =
       depreciationAmortisationProjectionsManager;
     this.workingCapProjectionsManager = workingCapProjectionsManager;
+    this.terminalValueManager = terminalValueManager;
   }
 
   startProjections() {
@@ -26,6 +29,7 @@ class DiscountedCashFlowManager {
     this.capexProjectionsManager.calculateCapexProjections();
     this.depreciationAmortisationProjectionsManager.projectDepreciationAmortisation();
     this.workingCapProjectionsManager.projectWorkingCapital();
+    this.terminalValueManager.calcuateSharePrice();
   }
 }
 
@@ -35,6 +39,7 @@ const dcfManager = new DiscountedCashFlowManager(
   capexProjectionsManager,
   depreciationAmortisationProjectionsManager,
   workingCapProjectionsManager,
+  terminalValueManager,
 );
 
 // Exports to app-manager.js
