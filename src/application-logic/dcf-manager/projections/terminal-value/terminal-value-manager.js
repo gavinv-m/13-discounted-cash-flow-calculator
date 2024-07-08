@@ -1,4 +1,4 @@
-import { ebitdaCalculator } from './ebitda-calculator';
+import { ebitdaCalculator } from './ebitda-manager';
 
 class TerminalValueManager {
   projections = {};
