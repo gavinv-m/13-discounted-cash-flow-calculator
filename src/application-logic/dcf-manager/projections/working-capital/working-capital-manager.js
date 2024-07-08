@@ -7,9 +7,6 @@ import calculateChangeInNWC from '../../utils/change-in-nwc';
 
 class WorkingCapitalManager {
   projections = {};
-  historicalNetWorkingCapital = null;
-  projectedNetWorkingCapital = null;
-  changesInNetWorkingCapital = null;
 
   constructor(
     accountsReceivableManager,
@@ -38,9 +35,9 @@ class WorkingCapitalManager {
 
     // Calculate net working capital, and changes in net working capital
     this.calculateNetWorkingCap();
-    this.changesInNetWorkingCapital = this.calculateChangeInNWC(
-      this.historicalNetWorkingCapital,
-      this.projectedNetWorkingCapital,
+    this.projections.changesInNetWorkingCapital = this.calculateChangeInNWC(
+      this.projections.historicalNetWorkingCapital,
+      this.projections.projectedNetWorkingCapital,
     );
   }
 
@@ -51,13 +48,17 @@ class WorkingCapitalManager {
       'currentAccountsPayable',
       'inventory',
     );
-    this.historicalNetWorkingCapital =
+
+    this.projections.historicalNetWorkingCapital =
       this.calculateNetWorkingCapital(historicalValues);
 
     // Calculate projected net working capital
-    this.projectedNetWorkingCapital = this.calculateNetWorkingCapital(
-      this.projections,
-    );
+    this.projections.projectedNetWorkingCapital =
+      this.calculateNetWorkingCapital({
+        currentNetReceivables: this.projections.currentNetReceivables,
+        currentAccountsPayable: this.projections.currentAccountsPayable,
+        inventory: this.projections.inventory,
+      });
   }
 }
 

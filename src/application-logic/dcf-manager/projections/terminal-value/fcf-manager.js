@@ -15,7 +15,6 @@ class FreeCashFlowManager {
     const ebitda = this.ebitdaCalculator.sendData('ebitda');
     const tax = this.revenueAndExpenses.sendData('taxExpense');
     const capex = this.capexProjectionsManager.sendData('capitalExpenditures');
-    console.log(capex);
   }
 }
 
