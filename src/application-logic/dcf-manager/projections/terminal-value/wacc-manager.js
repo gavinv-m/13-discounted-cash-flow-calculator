@@ -28,6 +28,7 @@ class WaccManager {
   calculateCostOfCapital() {
     this.calculateCostOfEquity();
     this.calculateCostOfDebt();
+    this.calculateWACC();
   }
 
   calculateCostOfEquity() {
@@ -52,6 +53,16 @@ class WaccManager {
     this.marketRates.costOfDebt = this.calculateDebtCost(
       totalDebt,
       interestExpense,
+    );
+  }
+
+  calculateWACC() {
+    const totalDebt =
+      this.balanceSheetDataManager.sendData('longTermDebt').longTermDebt;
+
+    const marketCap = Number(
+      this.overviewDataManager.sendData('MarketCapitalization')
+        .MarketCapitalization,
     );
   }
 }
