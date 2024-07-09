@@ -41,9 +41,8 @@ class WaccManager {
   }
 
   calculateCostOfDebt() {
-    const totalDebt = this.balanceSheetDataManager.sendData(
-      'shortLongTermDebtTotal',
-    ).shortLongTermDebtTotal;
+    const totalDebt =
+      this.balanceSheetDataManager.sendData('longTermDebt').longTermDebt;
 
     const interestExpense =
       this.incomeStatementDataManager.sendData(
