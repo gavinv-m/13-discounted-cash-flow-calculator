@@ -1,16 +1,17 @@
+import { waccManager } from './wacc-manager';
+
 class DiscountRateManager {
   discountRates = {};
 
-  constructor() {}
+  constructor(waccManager) {
+    this.waccManager = waccManager;
+  }
 
   // Main method
   calculateDiscountRates() {}
-
-  // TODO: Calculate WACC
-  // TODO: Calculate Long Term Growth Rate
 }
 
-const discountRatesManager = new DiscountRateManager();
+const discountRatesManager = new DiscountRateManager(waccManager);
 
 // Exports to terminal-value-manager.js
 export { discountRatesManager };
