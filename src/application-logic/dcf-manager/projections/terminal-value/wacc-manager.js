@@ -1,4 +1,5 @@
 import { overviewDataManager } from '../../../data-centre/refined-data/overview';
+import calculateEquityCost from '../../utils/calculate-equity-cost';
 
 class WaccManager {
   marketRates = {
@@ -6,8 +7,9 @@ class WaccManager {
     marketReturn: 0.1,
   };
 
-  constructor(overviewDataManager) {
+  constructor(overviewDataManager, calculateEquityCost) {
     this.overviewDataManager = overviewDataManager;
+    this.calculateEquityCost = calculateEquityCost;
   }
 
   // Main method:
@@ -17,10 +19,15 @@ class WaccManager {
 
   calculateCostOfEquity() {
     const beta = Number(this.overviewDataManager.sendData('Beta').Beta);
+    this.marketRates.costOfEquity = this.calculateEquityCost(
+      this.marketRates.riskFreeRate,
+      this.marketRates.marketReturn,
+      beta,
+    );
   }
 }
 
-const waccManager = new WaccManager(overviewDataManager);
+const waccManager = new WaccManager(overviewDataManager, calculateEquityCost);
 
 // Exports to discount-rate-manager.js
 export { waccManager };
