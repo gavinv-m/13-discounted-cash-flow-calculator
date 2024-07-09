@@ -8,7 +8,9 @@ class DiscountRateManager {
   }
 
   // Main method
-  calculateDiscountRates() {}
+  calculateDiscountRates() {
+    this.waccManager.calculateCostOfCapital();
+  }
 }
 
 const discountRatesManager = new DiscountRateManager(waccManager);
