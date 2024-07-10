@@ -15,6 +15,7 @@ class TerminalValueManager {
     this.ebitdaCalculator.calculateEbitda();
     this.fcfManager.calculateFreeCashFlow();
     this.discountRatesManager.calculateDiscountRates();
+    this.fcfManager.discountFreeCashFlows();
   }
 }
 

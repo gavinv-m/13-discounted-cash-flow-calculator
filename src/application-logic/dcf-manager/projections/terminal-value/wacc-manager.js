@@ -4,6 +4,7 @@ import { incomeStatementDataManager } from '../../../data-centre/refined-data/in
 import calculateEquityCost from '../../utils/calculate-equity-cost';
 import calculateDebtCost from '../../utils/calculate-debt-cost';
 import calculateWeightedCapital from '../../utils/calculate-cost-of-capital';
+import getFinancialLineItems from '../../../data-centre/utils/financial-data-utils';
 
 class WaccManager {
   marketRates = {
@@ -18,6 +19,7 @@ class WaccManager {
     calculateEquityCost,
     calculateDebtCost,
     calculateWeightedCapital,
+    getFinancialLineItems,
   ) {
     this.overviewDataManager = overviewDataManager;
     this.balanceSheetDataManager = balanceSheetDataManager;
@@ -25,6 +27,11 @@ class WaccManager {
     this.calculateEquityCost = calculateEquityCost;
     this.calculateDebtCost = calculateDebtCost;
     this.calculateCapitalCost = calculateWeightedCapital;
+    this.getRates = getFinancialLineItems.bind(this);
+  }
+
+  sendData(...args) {
+    return this.getRates(args, this.marketRates);
   }
 
   // Main method:
@@ -86,6 +93,7 @@ const waccManager = new WaccManager(
   calculateEquityCost,
   calculateDebtCost,
   calculateWeightedCapital,
+  getFinancialLineItems,
 );
 
 // Exports to discount-rate-manager.js
