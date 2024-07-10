@@ -24,6 +24,7 @@ class TerminalValueManager {
     this.discountRatesManager.calculateDiscountRates();
     this.fcfManager.discountFreeCashFlows();
     this.terminalValueCalculator.calculateTerminalValue();
+    this.terminalValueCalculator.discountTerminalValue();
   }
 }
 

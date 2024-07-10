@@ -2,6 +2,7 @@ import { fcfManager } from './fcf-manager';
 import { growthRateManager } from './growth-rate-manager';
 import { waccManager } from './wacc-manager';
 import computeTerminalValue from '../../utils/calculate-terminal-value';
+import calculatePresentTerminalValue from '../../utils/discount-terminal-value';
 
 class TerminalValueCalculator {
   projections = {};
@@ -11,11 +12,13 @@ class TerminalValueCalculator {
     growthRateManager,
     waccManager,
     computeTerminalValue,
+    calculatePresentTerminalValue,
   ) {
     this.fcfManager = fcfManager;
     this.growthRateManager = growthRateManager;
     this.waccManager = waccManager;
     this.computeTerminalValue = computeTerminalValue;
+    this.presentTerminalValue = calculatePresentTerminalValue;
   }
 
   calculateTerminalValue() {
@@ -29,6 +32,15 @@ class TerminalValueCalculator {
       growthRate,
     );
   }
+
+  discountTerminalValue() {
+    const wacc = this.waccManager.sendData('wacc').wacc;
+
+    this.projections.presentTerminalValue = this.presentTerminalValue(
+      this.projections.terminalValue,
+      wacc,
+    );
+  }
 }
 
 const terminalValueCalculator = new TerminalValueCalculator(
@@ -36,6 +48,7 @@ const terminalValueCalculator = new TerminalValueCalculator(
   growthRateManager,
   waccManager,
   computeTerminalValue,
+  calculatePresentTerminalValue,
 );
 
 // Exports to terminal-value-manager.js
