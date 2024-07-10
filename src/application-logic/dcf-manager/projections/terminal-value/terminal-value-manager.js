@@ -2,6 +2,7 @@ import { ebitdaCalculator } from './ebitda-manager';
 import { fcfManager } from './fcf-manager';
 import { discountRatesManager } from './discount-rate-manager';
 import { terminalValueCalculator } from './terminal-value-calculator';
+import { valuationManager } from './valuation-manager';
 
 class TerminalValueManager {
   projections = {};
@@ -11,11 +12,13 @@ class TerminalValueManager {
     fcfManager,
     discountRatesManager,
     terminalValueCalculator,
+    valuationManager,
   ) {
     this.ebitdaCalculator = ebitdaCalculator;
     this.fcfManager = fcfManager;
     this.discountRatesManager = discountRatesManager;
     this.terminalValueCalculator = terminalValueCalculator;
+    this.valuationManager = valuationManager;
   }
 
   calcuateSharePrice() {
@@ -25,6 +28,7 @@ class TerminalValueManager {
     this.fcfManager.discountFreeCashFlows();
     this.terminalValueCalculator.calculateTerminalValue();
     this.terminalValueCalculator.discountTerminalValue();
+    this.valuationManager.calculateEnterpriseValue();
   }
 }
 
@@ -33,6 +37,7 @@ const terminalValueManager = new TerminalValueManager(
   fcfManager,
   discountRatesManager,
   terminalValueCalculator,
+  valuationManager,
 );
 
 // Exports to dcf-manager.js
