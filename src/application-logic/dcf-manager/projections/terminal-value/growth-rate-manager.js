@@ -1,6 +1,7 @@
 import { cashFlowStatementDataManager } from '../../../data-centre/refined-data/cash-flow-statement';
 import { overviewDataManager } from '../../../data-centre/refined-data/overview';
 import calculateExpectedGrowthRate from '../../utils/calculate-growth-rate';
+import getFinancialLineItems from '../../../data-centre/utils/financial-data-utils';
 
 class GrowthRateManager {
   growthRates = {};
@@ -9,10 +10,16 @@ class GrowthRateManager {
     cashFlowStatementDataManager,
     overviewDataManager,
     calculateExpectedGrowthRate,
+    getFinancialLineItems,
   ) {
     this.cashFlowStatementDataManager = cashFlowStatementDataManager;
     this.overviewDataManager = overviewDataManager;
     this.calculateExpectedGrowthRate = calculateExpectedGrowthRate;
+    this.getGrowthRate = getFinancialLineItems.bind(this);
+  }
+
+  sendData(...args) {
+    return this.getGrowthRate(args, this.growthRates);
   }
 
   calculateGrowthRate() {
@@ -40,6 +47,7 @@ const growthRateManager = new GrowthRateManager(
   cashFlowStatementDataManager,
   overviewDataManager,
   calculateExpectedGrowthRate,
+  getFinancialLineItems,
 );
 
 // Exports to discount-rate-manager.js

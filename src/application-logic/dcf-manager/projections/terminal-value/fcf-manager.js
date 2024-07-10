@@ -5,6 +5,7 @@ import { workingCapProjectionsManager } from '../working-capital/working-capital
 import { waccManager } from './wacc-manager';
 import sumValues from '../../utils/sum-values';
 import discountCashFlows from '../../utils/discount-cash-flows';
+import getFinancialLineItems from '../../../data-centre/utils/financial-data-utils';
 
 class FreeCashFlowManager {
   projections = {};
@@ -17,6 +18,7 @@ class FreeCashFlowManager {
     waccManager,
     sumValues,
     discountCashFlows,
+    getFinancialLineItems,
   ) {
     this.ebitdaCalculator = ebitdaCalculator;
     this.revenueAndExpenses = revenueAndExpenses;
@@ -25,6 +27,11 @@ class FreeCashFlowManager {
     this.waccManager = waccManager;
     this.sumValues = sumValues;
     this.discountCashFlows = discountCashFlows;
+    this.getFreeCashFlows = getFinancialLineItems.bind(this);
+  }
+
+  sendData(...args) {
+    return this.getFreeCashFlows(args, this.projections);
   }
 
   calculateFreeCashFlow() {
@@ -59,6 +66,7 @@ const fcfManager = new FreeCashFlowManager(
   waccManager,
   sumValues,
   discountCashFlows,
+  getFinancialLineItems,
 );
 
 // Export to terminal-value-manager.js
