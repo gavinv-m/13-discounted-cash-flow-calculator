@@ -1,4 +1,5 @@
 import { projectionYears } from '../projection-years-manager';
+import { waccManager } from '../projections/terminal-value/wacc-manager';
 
 // Exports to growth-rate-manager.js
 export default function calculateExpectedGrowthRate(
@@ -10,7 +11,13 @@ export default function calculateExpectedGrowthRate(
   const netIncomeAmt = netIncome[priorYear];
   const dividendsAmt = dividends[priorYear];
   const retentionRatio = 1 - dividendsAmt / netIncomeAmt;
-  const growthRate = retentionRatio * returnOnEquity;
+  const riskFreeRate = waccManager.marketRates.riskFreeRate;
+  let growthRate = retentionRatio * returnOnEquity;
+
+  // Limit growth rate to 10 year treasury bond yield
+  if (growthRate > riskFreeRate) {
+    return riskFreeRate;
+  }
 
   return growthRate;
 }
