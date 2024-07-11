@@ -27,7 +27,9 @@ class DepreciationAmortizationManager {
     const historicalCapex = this.cashFlowStatementDataManager.sendData(
       'capitalExpenditures',
     ).capitalExpenditures;
-    const projectedCapex = this.capexProjectionsManager.projectedCapex;
+    const projectedCapex = this.capexProjectionsManager.sendData(
+      'capitalExpenditures',
+    ).capitalExpenditures;
 
     this.projectedDepreciationAmortisation = projectDepreciationAmortisation(
       historicalCapex,
