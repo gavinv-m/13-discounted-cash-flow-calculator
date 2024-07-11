@@ -5,7 +5,7 @@ export default function computeTerminalValue(freeCashFlows, wacc, growthRate) {
   const endingProjectionYear = projectionYears.endingProjectionYear;
   const endingFreeCashFlow = freeCashFlows[endingProjectionYear];
   const terminalValue =
-    (endingFreeCashFlow * (1 + growthRate)) / growthRate - wacc;
+    (endingFreeCashFlow * (1 + growthRate)) / (growthRate - wacc);
 
   return terminalValue;
 }
