@@ -29,6 +29,8 @@ class TerminalValueManager {
     this.terminalValueCalculator.calculateTerminalValue();
     this.terminalValueCalculator.discountTerminalValue();
     this.valuationManager.calculateEnterpriseValue();
+    this.valuationManager.calculateEquityValue();
+    this.valuationManager.calculateFairPrice();
   }
 }
 
