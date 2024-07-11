@@ -47,7 +47,6 @@ class TerminalValueCalculator {
       this.projections.terminalValue,
       wacc,
     );
-    console.log(this.projections);
   }
 }
 
