@@ -1,4 +1,5 @@
 import { incomeStatementDataManager } from '../../data-centre/refined-data/income-statement';
+import { customInputManager } from '../../data-centre/custom-inputs/custom-input-manager';
 import projectRevenue from '../utils/project-revenue';
 import projectExpenses from '../utils/project-expenses';
 import calculateProfitBeforeTax from '../utils/profit-before-tax';
@@ -11,8 +12,9 @@ class RevenueAndExpensesProjections {
   revenueGrowthRates = null;
   expensePercentagesOfRevenue = null;
 
-  constructor(incomeStatementDataManager) {
+  constructor(incomeStatementDataManager, customInputManager) {
     this.incomeStatementDataManager = incomeStatementDataManager;
+    this.customInputManager = customInputManager;
     this.getRevenueAndExpensesProjections = getFinancialLineItems.bind(this);
   }
 
@@ -99,7 +101,10 @@ class RevenueAndExpensesProjections {
 
 const revenueAndExpenses = new RevenueAndExpensesProjections(
   incomeStatementDataManager,
+  customInputManager,
 );
+
+// window.revenueAndExpenses = revenueAndExpenses;
 
 // Exports to dcf-manager.js
 export { revenueAndExpenses };
