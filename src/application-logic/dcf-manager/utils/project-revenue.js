@@ -34,7 +34,7 @@ const calcRevGrowth = function calculateRevenueGrowthRates(revenueByYear) {
 };
 
 // Exports to revenue-and-expenses-projections
-export default function projectRevenue(revenueByYear) {
+export default function projectRevenue(revenueByYear, customRevenueGrowthRate) {
   const growthRates = calcRevGrowth(revenueByYear);
   const threeYearAverage = growthRates.threeYearAverage;
   const fiveYearAverage = growthRates.fiveYearAverage;
@@ -44,12 +44,17 @@ export default function projectRevenue(revenueByYear) {
   const projections = {};
   const revenueAmounts = Object.values(revenueByYear); // Sorted oldest to latest
 
-  const chosenGrowthRate =
+  const historicalGrowthRate =
     fiveYearAverage !== null && fiveYearAverage > 0
       ? fiveYearAverage
       : threeYearAverage !== null
         ? threeYearAverage
-        : 0.03;
+        : 0.03; // default rate
+
+  const chosenGrowthRate =
+    customRevenueGrowthRate !== null
+      ? customRevenueGrowthRate
+      : historicalGrowthRate;
 
   let currentYear = startingYear;
 

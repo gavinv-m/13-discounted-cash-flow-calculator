@@ -1,9 +1,16 @@
+import getFinancialLineItems from '../utils/financial-data-utils';
 class CustomInputManager {
   customInputs = {
     revenueGrowthRate: null,
   };
 
-  constructor() {}
+  constructor(getFinancialLineItems) {
+    this.sendCustomInput = getFinancialLineItems.bind(this);
+  }
+
+  sendData(...args) {
+    return this.sendCustomInput(args, this.customInputs);
+  }
 
   setCustomInput(propertyName, value) {
     if (isNaN(value) === true) {
@@ -16,7 +23,7 @@ class CustomInputManager {
   }
 }
 
-const customInputManager = new CustomInputManager();
+const customInputManager = new CustomInputManager(getFinancialLineItems);
 window.customInputManager = customInputManager;
 
 // Exports to revenue-and-expenses-projections

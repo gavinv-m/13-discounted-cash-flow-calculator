@@ -40,7 +40,11 @@ class RevenueAndExpensesProjections {
     );
     revenueByYear = revenueByYear[revenueLineItemDescription];
 
-    const data = projectRevenue(revenueByYear);
+    // Search for user's revenue growth rate
+    const customRevenueGrowthRate =
+      this.customInputManager.sendData('revenueGrowthRate').revenueGrowthRate;
+
+    const data = projectRevenue(revenueByYear, customRevenueGrowthRate);
     this.projections.revenueProjections = data.projections;
     this.revenueGrowthRates = data.growthRates;
   }
