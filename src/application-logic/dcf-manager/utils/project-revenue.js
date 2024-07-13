@@ -1,7 +1,6 @@
 import { projectionYears } from '../projection-years-manager';
 
-// Exports to revenue-and-expenses-projections
-export default function projectRevenue(revenueByYear) {
+const calcRevGrowth = function calculateRevenueGrowthRates(revenueByYear) {
   /**
    * revenueByYear object is ordered from oldest to latest
    * Must calculate in reverse, latest to oldest for the averages
@@ -10,10 +9,6 @@ export default function projectRevenue(revenueByYear) {
   const reversedRevenueAmounts = [...revenueAmounts].reverse(); // Latest to oldest
   const yearSpan = revenueAmounts.length;
   const growthRates = {};
-
-  let threeYearAverage = null;
-  let fiveYearAverage = null;
-  let tenYearAverage = null;
 
   // Calculate average growth rates from latest to oldest
   reversedRevenueAmounts.reduce((sumGrowthRates, currentAmt, index, array) => {
@@ -24,34 +19,37 @@ export default function projectRevenue(revenueByYear) {
       sumGrowthRates += growthRate;
 
       if (index === 3) {
-        threeYearAverage = sumGrowthRates / 3;
-        growthRates.threeYearAverage = Number(
-          (threeYearAverage * 100).toFixed(2),
-        );
+        growthRates.threeYearAverage = sumGrowthRates / 3;
       } else if (index === 5) {
-        fiveYearAverage = sumGrowthRates / 5;
-        growthRates.fiveYearAverage = Number(
-          (fiveYearAverage * 100).toFixed(2),
-        );
+        growthRates.fiveYearAverage = sumGrowthRates / 5;
       } else if (index === 10) {
-        tenYearAverage = sumGrowthRates / 10;
-        growthRates.tenYearAverage = Number((tenYearAverage * 100).toFixed(2));
+        growthRates.tenYearAverage = sumGrowthRates / 10;
       }
     }
     return sumGrowthRates;
   }, 0);
 
-  // Calculate projections
+  // console.log({ growthRates });
+  return growthRates;
+};
+
+// Exports to revenue-and-expenses-projections
+export default function projectRevenue(revenueByYear) {
+  const growthRates = calcRevGrowth(revenueByYear);
+  const threeYearAverage = growthRates.threeYearAverage;
+  const fiveYearAverage = growthRates.fiveYearAverage;
+  const tenYearAverage = growthRates.tenYearAverage;
+  const startingYear = projectionYears.startingProjectionYear;
+  const endingYear = projectionYears.endingProjectionYear;
+  const projections = {};
+  const revenueAmounts = Object.values(revenueByYear); // Sorted oldest to latest
+
   const chosenGrowthRate =
     fiveYearAverage !== null && fiveYearAverage > 0
       ? fiveYearAverage
       : threeYearAverage !== null
         ? threeYearAverage
         : 0.03;
-
-  const startingYear = projectionYears.startingProjectionYear;
-  const endingYear = projectionYears.endingProjectionYear;
-  const projections = {};
 
   let currentYear = startingYear;
 
