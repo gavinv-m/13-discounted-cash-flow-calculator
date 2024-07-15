@@ -90,7 +90,12 @@ class RevenueAndExpensesProjections {
   }
 
   calculateTax() {
-    const taxExpense = calculateTaxExpense(this.projections.profitBeforeTax);
+    const customTaxRate = this.customInputManager.sendData('taxRate').taxRate;
+
+    const taxExpense = calculateTaxExpense(
+      this.projections.profitBeforeTax,
+      customTaxRate,
+    );
     this.projections.taxExpense = taxExpense;
   }
 
