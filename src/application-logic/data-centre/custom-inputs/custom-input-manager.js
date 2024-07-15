@@ -20,6 +20,8 @@ class CustomInputManager {
   }
 
   setCustomInput(propertyName, value) {
+    value = Number(value);
+
     if (isNaN(value) === true) {
       console.error('Value must be a number');
     } else if (this.customInputs.hasOwnProperty(propertyName) === false) {
