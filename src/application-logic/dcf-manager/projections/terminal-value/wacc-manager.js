@@ -1,6 +1,7 @@
 import { overviewDataManager } from '../../../data-centre/refined-data/overview';
 import { balanceSheetDataManager } from '../../../data-centre/refined-data/balance-sheet';
 import { incomeStatementDataManager } from '../../../data-centre/refined-data/income-statement';
+import { customInputManager } from '../../../data-centre/custom-inputs/custom-input-manager';
 import calculateEquityCost from '../../utils/calculate-equity-cost';
 import calculateDebtCost from '../../utils/calculate-debt-cost';
 import calculateWeightedCapital from '../../utils/calculate-cost-of-capital';
@@ -16,6 +17,7 @@ class WaccManager {
     overviewDataManager,
     balanceSheetDataManager,
     incomeStatementDataManager,
+    customInputManager,
     calculateEquityCost,
     calculateDebtCost,
     calculateWeightedCapital,
@@ -24,6 +26,7 @@ class WaccManager {
     this.overviewDataManager = overviewDataManager;
     this.balanceSheetDataManager = balanceSheetDataManager;
     this.incomeStatementDataManager = incomeStatementDataManager;
+    this.customInputManager = customInputManager;
     this.calculateEquityCost = calculateEquityCost;
     this.calculateDebtCost = calculateDebtCost;
     this.calculateCapitalCost = calculateWeightedCapital;
@@ -75,7 +78,7 @@ class WaccManager {
         .MarketCapitalization,
     );
 
-    const taxRate = 0.21;
+    const taxRate = this.customInputManager.sendData('taxRate').taxRate / 100;
     this.marketRates.wacc = this.calculateCapitalCost(
       totalDebt,
       marketCap,
@@ -90,6 +93,7 @@ const waccManager = new WaccManager(
   overviewDataManager,
   balanceSheetDataManager,
   incomeStatementDataManager,
+  customInputManager,
   calculateEquityCost,
   calculateDebtCost,
   calculateWeightedCapital,

@@ -3,7 +3,7 @@ import getFinancialLineItems from '../utils/financial-data-utils';
 class CustomInputManager {
   customInputs = {
     revenueGrowthRate: null,
-    taxRate: null,
+    taxRate: 21,
   };
 
   constructor(getFinancialLineItems) {
