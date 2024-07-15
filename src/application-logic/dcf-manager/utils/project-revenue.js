@@ -53,7 +53,7 @@ export default function projectRevenue(revenueByYear, customRevenueGrowthRate) {
 
   const chosenGrowthRate =
     customRevenueGrowthRate !== null
-      ? customRevenueGrowthRate
+      ? customRevenueGrowthRate / 100
       : historicalGrowthRate;
 
   let currentYear = startingYear;
