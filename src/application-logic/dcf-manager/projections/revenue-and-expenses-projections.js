@@ -85,26 +85,25 @@ class RevenueAndExpensesProjections {
   }
 
   calculateProfitBeforeTax() {
-    const profitBeforeTax = calculateProfitBeforeTax(this.projections);
-    this.projections.profitBeforeTax = profitBeforeTax;
+    this.projections.profitBeforeTax = calculateProfitBeforeTax(
+      this.projections,
+    );
   }
 
   calculateTax() {
     const customTaxRate = this.customInputManager.sendData('taxRate').taxRate;
 
-    const taxExpense = calculateTaxExpense(
+    this.projections.taxExpense = calculateTaxExpense(
       this.projections.profitBeforeTax,
       customTaxRate,
     );
-    this.projections.taxExpense = taxExpense;
   }
 
   calculateNetProfit() {
-    const netProfit = calculateNetProfit(
+    this.projections.netProfit = calculateNetProfit(
       this.projections.profitBeforeTax,
       this.projections.taxExpense,
     );
-    this.projections.netProfit = netProfit;
   }
 }
 
