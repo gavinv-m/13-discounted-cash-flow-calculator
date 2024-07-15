@@ -7,7 +7,17 @@ export default function calculateProfitBeforeTax(projections) {
     'interestIncome',
   ];
 
+  /**
+   * Issue on reset after user enters custom rates
+   * Projections includes the excluded line items listed below
+   */
+  const excludedLineItems = ['profitBeforeTax', 'taxExpense', 'netProfit'];
+
   for (let financialLineItem in projections) {
+    if (excludedLineItems.includes(financialLineItem)) {
+      continue;
+    }
+
     const projectedFinancials = projections[financialLineItem];
     for (let year in projectedFinancials) {
       profitBeforeTax[year] = profitBeforeTax[year] || 0;
