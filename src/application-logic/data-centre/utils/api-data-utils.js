@@ -24,6 +24,10 @@ export default async function queryApiData(tickerSymbol) {
         `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${tickerSymbol}&apikey=${apiKey}`,
         { mode: 'cors' },
       ),
+      fetch(
+        `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${tickerSymbol}&apikey=${apiKey}`,
+        { mode: 'cors' },
+      ),
     ]);
 
     const data = await Promise.all(
