@@ -70,6 +70,11 @@ class WaccManager {
   }
 
   calculateWACC() {
+    const customWaccRate = this.customInputManager.sendData('wacc').wacc;
+    if (customWaccRate !== null) {
+      this.marketRates.wacc = customWaccRate / 100;
+      return;
+    }
     const totalDebt =
       this.balanceSheetDataManager.sendData('longTermDebt').longTermDebt;
 

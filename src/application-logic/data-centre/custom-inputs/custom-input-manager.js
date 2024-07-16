@@ -4,6 +4,7 @@ class CustomInputManager {
   customInputs = {
     revenueGrowthRate: null,
     taxRate: 21,
+    wacc: null,
   };
 
   constructor(getFinancialLineItems) {
