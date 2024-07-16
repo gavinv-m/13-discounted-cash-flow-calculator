@@ -10,15 +10,19 @@ export default async function queryApiData(tickerSymbol) {
     const responses = await Promise.all([
       fetch(
         `https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=${tickerSymbol}&apikey=${apiKey}`,
+        { mode: 'cors' },
       ),
       fetch(
         `https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=${tickerSymbol}&apikey=${apiKey}`,
+        { mode: 'cors' },
       ),
       fetch(
         `https://www.alphavantage.co/query?function=CASH_FLOW&symbol=${tickerSymbol}&apikey=${apiKey}`,
+        { mode: 'cors' },
       ),
       fetch(
         `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${tickerSymbol}&apikey=${apiKey}`,
+        { mode: 'cors' },
       ),
     ]);
 

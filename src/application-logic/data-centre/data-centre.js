@@ -28,6 +28,7 @@ class DataCentre {
 
   async requestAndHandleData(tickerSymbol) {
     const data = await queryApiData(tickerSymbol);
+    console.log(data);
     if (data.length === 4) {
       // Store in local storage
       if (!(tickerSymbol in localStorage)) {
