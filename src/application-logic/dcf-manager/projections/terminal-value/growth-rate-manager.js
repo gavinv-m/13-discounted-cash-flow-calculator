@@ -1,5 +1,6 @@
 import { cashFlowStatementDataManager } from '../../../data-centre/refined-data/cash-flow-statement';
 import { overviewDataManager } from '../../../data-centre/refined-data/overview';
+import { customInputManager } from '../../../data-centre/custom-inputs/custom-input-manager';
 import calculateExpectedGrowthRate from '../../utils/calculate-growth-rate';
 import getFinancialLineItems from '../../../data-centre/utils/financial-data-utils';
 
@@ -9,11 +10,13 @@ class GrowthRateManager {
   constructor(
     cashFlowStatementDataManager,
     overviewDataManager,
+    customInputManager,
     calculateExpectedGrowthRate,
     getFinancialLineItems,
   ) {
     this.cashFlowStatementDataManager = cashFlowStatementDataManager;
     this.overviewDataManager = overviewDataManager;
+    this.customInputManager = customInputManager;
     this.calculateExpectedGrowthRate = calculateExpectedGrowthRate;
     this.getGrowthRate = getFinancialLineItems.bind(this);
   }
@@ -23,6 +26,14 @@ class GrowthRateManager {
   }
 
   calculateGrowthRate() {
+    const customGrowthRate =
+      this.customInputManager.sendData('longTermGrowthRate').longTermGrowthRate;
+
+    if (customGrowthRate !== null) {
+      this.growthRates.growthRate = customGrowthRate / 100;
+      return;
+    }
+
     const netIncome =
       this.cashFlowStatementDataManager.sendData('netIncome').netIncome;
 
@@ -46,6 +57,7 @@ class GrowthRateManager {
 const growthRateManager = new GrowthRateManager(
   cashFlowStatementDataManager,
   overviewDataManager,
+  customInputManager,
   calculateExpectedGrowthRate,
   getFinancialLineItems,
 );

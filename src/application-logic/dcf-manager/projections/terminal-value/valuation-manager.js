@@ -62,7 +62,6 @@ class ValuationManager {
 
     this.projections.fairPrice =
       this.projections.equityValue / sharesOutstanding;
-    console.log(this.projections.fairPrice);
   }
 }
 

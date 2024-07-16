@@ -5,6 +5,7 @@ class CustomInputManager {
     revenueGrowthRate: null,
     taxRate: 21,
     wacc: null,
+    longTermGrowthRate: null,
   };
 
   constructor(getFinancialLineItems) {
