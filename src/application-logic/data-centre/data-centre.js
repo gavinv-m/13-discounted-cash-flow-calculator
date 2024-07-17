@@ -26,8 +26,9 @@ class DataCentre {
     this.timeSeriesDataManager = timeSeriesDataManager;
   }
 
-  manageDataBase(tickerSymbol) {
-    this.requestAndHandleData(tickerSymbol);
+  async manageDataBase(tickerSymbol) {
+    const success = await this.requestAndHandleData(tickerSymbol);
+    return success;
   }
 
   async requestAndHandleData(tickerSymbol) {
@@ -55,7 +56,11 @@ class DataCentre {
       this.overviewDataManager.handleOverViewData(this.overview);
 
       this.timeSeriesDataManager.handleTimeSeriesData(this.timeSeriesData);
+
+      return true;
     }
+
+    return false;
   }
 
   storeFinancialStatements(apiData) {
