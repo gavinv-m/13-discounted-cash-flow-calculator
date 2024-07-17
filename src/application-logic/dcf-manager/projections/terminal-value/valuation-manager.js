@@ -2,6 +2,7 @@ import { fcfManager } from './fcf-manager';
 import { terminalValueCalculator } from './terminal-value-calculator';
 import { projectionYears } from '../../projection-years-manager';
 import { balanceSheetDataManager } from '../../../data-centre/refined-data/balance-sheet';
+import getFinancialLineItems from '../../../data-centre/utils/financial-data-utils';
 
 class ValuationManager {
   projections = {};
@@ -11,11 +12,17 @@ class ValuationManager {
     terminalValueCalculator,
     projectionYears,
     balanceSheetDataManager,
+    getFinancialLineItems,
   ) {
     this.fcfManager = fcfManager;
     this.terminalValueCalculator = terminalValueCalculator;
     this.projectionYears = projectionYears;
     this.balanceSheetDataManager = balanceSheetDataManager;
+    this.sendValuations = getFinancialLineItems.bind(this);
+  }
+
+  sendData(...args) {
+    return this.sendValuations(args, this.projections);
   }
 
   calculateEnterpriseValue() {
@@ -70,6 +77,7 @@ const valuationManager = new ValuationManager(
   terminalValueCalculator,
   projectionYears,
   balanceSheetDataManager,
+  getFinancialLineItems,
 );
 
 // Exports to terminal-value-manager.js

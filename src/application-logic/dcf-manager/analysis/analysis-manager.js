@@ -1,10 +1,12 @@
 import { timeSeriesDataManager } from '../../data-centre/refined-data/time-series';
+import { valuationManager } from '../projections/terminal-value/valuation-manager';
 
 class AnalysisManager {
   valuationAnalysis = {};
 
-  constructor(timeSeriesDataManager) {
+  constructor(timeSeriesDataManager, valuationManager) {
     this.timeSeriesDataManager = timeSeriesDataManager;
+    this.valuationManager = valuationManager;
   }
 
   startAnalysis() {
@@ -12,14 +14,19 @@ class AnalysisManager {
   }
 
   determineValuation() {
-    const recentClosingDate =
-      this.timeSeriesDataManager.sendData('Meta Data')['Meta Data'][
-        '3. Last Refreshed'
-      ];
+    const recentSharePrice =
+      this.timeSeriesDataManager.sendData(
+        'recentClosingPrice',
+      ).recentClosingPrice;
+
+    const fairPrice = this.valuationManager.sendData('fairPrice').fairPrice;
   }
 }
 
-const analysisManager = new AnalysisManager(timeSeriesDataManager);
+const analysisManager = new AnalysisManager(
+  timeSeriesDataManager,
+  valuationManager,
+);
 
 // Exports to dcf-manager.js
 export { analysisManager };
