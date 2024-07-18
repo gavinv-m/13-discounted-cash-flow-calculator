@@ -7,4 +7,36 @@
 body {
   height: 100vh;
   width: 100vw;
+
+  /* Descendants: */
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 7.5fr 88.5fr 4fr;
+}
+
+#content-container {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+
+  /* Descendants: */
+  display: grid;
+  grid-template-columns: 20fr 80fr;
+  grid-template-rows: 1fr;
+}
+
+footer {
+  grid-column: 1 / 2;
+  grid-row: 3 / 4;
+}
+
+header {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+#sidebar {
+  /* Descendants: */
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, 1fr);
 }
