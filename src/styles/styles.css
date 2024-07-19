@@ -1,3 +1,9 @@
+:root {
+  font-size: 16px;
+  --font-family: 'Helvetica Neue Light', 'Nimbus Sans Regular', sans-serif,
+    system-ui;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -24,14 +30,34 @@ body {
   grid-template-rows: 1fr;
 }
 
+@font-face {
+  font-family: 'Helvetica Neue Light';
+  src: url(../interface-logic/assets/fonts/helveticaneuelight-webfont.woff2),
+    url(../interface-logic/assets/fonts/helveticaneuelight-webfont.woff);
+}
+
+@font-face {
+  font-family: 'Nimbus Sans Regular';
+  src: url(../interface-logic/assets/fonts/nimbussanl-reg-webfont.woff2),
+    url(../interface-logic/assets/fonts/nimbussanl-reg-webfont.woff);
+}
+
 footer {
   grid-column: 1 / 2;
   grid-row: 3 / 4;
 }
 
 header {
+  background-color: #4648aa;
+  color: #fff;
+  font-size: 2rem;
   grid-column: 1 / 2;
   grid-row: 1 / 2;
+
+  /* Text: */
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
 }
 
 #sidebar {
