@@ -20,5 +20,5 @@ class ApplicationManager {
 
 const appManager = new ApplicationManager(dataCentre, dcfManager);
 
-// Exports to index.js
+// Exports to main-controller.js
 export { appManager };

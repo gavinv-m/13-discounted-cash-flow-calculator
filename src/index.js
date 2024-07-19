@@ -1,6 +1,6 @@
 import './styles/styles.css';
-import { appManager } from './application-logic/app-manager';
+import { mainController } from './main-controller';
 
 document.addEventListener('DOMContentLoaded', () => {
-  appManager.startApplication('IBM');
+  mainController.initializeApp('IBM');
 });
