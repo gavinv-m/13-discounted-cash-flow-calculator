@@ -1,5 +1,6 @@
 import { incomeStatementDataManager } from '../../data-centre/refined-data/income-statement';
 import { customInputManager } from '../../data-centre/custom-inputs/custom-input-manager';
+import { activeMetrics } from '../../data-centre/active-metrics/active-metrics';
 import projectRevenue from '../utils/project-revenue';
 import projectExpenses from '../utils/project-expenses';
 import calculateProfitBeforeTax from '../utils/profit-before-tax';
@@ -12,9 +13,10 @@ class RevenueAndExpensesProjections {
   revenueGrowthRates = null;
   expensePercentagesOfRevenue = null;
 
-  constructor(incomeStatementDataManager, customInputManager) {
+  constructor(incomeStatementDataManager, customInputManager, activeMetrics) {
     this.incomeStatementDataManager = incomeStatementDataManager;
     this.customInputManager = customInputManager;
+    this.activeMetrics = activeMetrics;
     this.getRevenueAndExpensesProjections = getFinancialLineItems.bind(this);
   }
 
@@ -47,6 +49,7 @@ class RevenueAndExpensesProjections {
     const data = projectRevenue(revenueByYear, customRevenueGrowthRate);
     this.projections.revenueProjections = data.projections;
     this.revenueGrowthRates = data.growthRates;
+    this.activeMetrics.setMetric('revenueGrowthRate', data.chosenGrowthRate);
   }
 
   projectExpensesAndOtherIncome() {
@@ -110,6 +113,7 @@ class RevenueAndExpensesProjections {
 const revenueAndExpenses = new RevenueAndExpensesProjections(
   incomeStatementDataManager,
   customInputManager,
+  activeMetrics,
 );
 
 // window.revenueAndExpenses = revenueAndExpenses;

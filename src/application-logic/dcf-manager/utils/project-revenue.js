@@ -67,5 +67,5 @@ export default function projectRevenue(revenueByYear, customRevenueGrowthRate) {
     currentYear += 1;
   }
 
-  return { projections, growthRates };
+  return { projections, growthRates, chosenGrowthRate };
 }
