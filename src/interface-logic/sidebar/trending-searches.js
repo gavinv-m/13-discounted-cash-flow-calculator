@@ -1,10 +1,16 @@
-class TrendingSearchesManager {
-  constructor() {}
+import createTrendingSearches from './utils/create-trending-searches';
 
-  populateTrendingSearches() {}
+class TrendingSearchesUI {
+  constructor(createTrendingSearches) {
+    this.createTrendingSearches = createTrendingSearches;
+  }
+
+  populateTrendingSearches() {
+    this.createTrendingSearches();
+  }
 }
 
-const trendingSearchesManager = new TrendingSearchesManager();
+const trendingSearchesUI = new TrendingSearchesUI(createTrendingSearches);
 
 // Exports to sidebar-manager.js
-export { trendingSearchesManager };
+export { trendingSearchesUI };

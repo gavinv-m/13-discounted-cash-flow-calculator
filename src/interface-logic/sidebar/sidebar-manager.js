@@ -1,14 +1,16 @@
-import { trendingSearchesManager } from './trending-searches';
+import { trendingSearchesUI } from './trending-searches';
 
 class SidebarManager {
-  constructor(trendingSearchesManager) {
-    this.trendingSearchesManager = trendingSearchesManager;
+  constructor(trendingSearchesUI) {
+    this.trendingSearchesUI = trendingSearchesUI;
   }
 
-  populateSidebar() {}
+  populateSidebar() {
+    this.trendingSearchesUI.populateTrendingSearches();
+  }
 }
 
-const sidebarManager = new SidebarManager(trendingSearchesManager);
+const sidebarManager = new SidebarManager(trendingSearchesUI);
 
 // Exports to interface-manager.js
 export { sidebarManager };
