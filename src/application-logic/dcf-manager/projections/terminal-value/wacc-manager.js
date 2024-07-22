@@ -76,6 +76,7 @@ class WaccManager {
     const customWaccRate = this.customInputManager.sendData('wacc').wacc;
     if (customWaccRate !== null) {
       this.marketRates.wacc = customWaccRate / 100;
+      this.activeMetrics.setMetric('wacc', this.marketRates.wacc * 100);
       return;
     }
     const totalDebt =
