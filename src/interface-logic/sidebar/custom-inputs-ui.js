@@ -9,6 +9,7 @@ class CustomInputsUI {
 
   populateCustomInputs() {
     const currentMetrics = this.activeMetrics.getMetrics();
+    this.createCustomInputs(currentMetrics);
   }
 }
 

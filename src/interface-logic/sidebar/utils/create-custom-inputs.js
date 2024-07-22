@@ -5,9 +5,8 @@ import {
 } from '../../utils/element-utils';
 import getQuestionMarkSvg from '../../assets/svgs/question-mark';
 
-const addInputBoxes = function renderCustomInputBoxes(activeMetrics) {
+const addInputBoxes = function renderCustomInputBoxes(metrics) {
   const customInputs = createElement('div');
-  const currentMetrics = activeMetrics.getMetrics();
   const metricLabels = {
     Revenue: 'revenueGrowthRate',
     Tax: 'taxRate',
@@ -20,7 +19,6 @@ const addInputBoxes = function renderCustomInputBoxes(activeMetrics) {
       classList: ['metric'],
       id: metricLabels[label],
     });
-    const value = currentMetrics[metricLabels[label]];
 
     const metricName = createElement('div', { text: label });
 
@@ -31,7 +29,11 @@ const addInputBoxes = function renderCustomInputBoxes(activeMetrics) {
 
     const editContainer = createElement('div');
     const minusSign = createElement('div', { innerHTML: '&#8722;' });
-    const inputBox = createInput({ type: 'text' });
+    const value = metrics[metricLabels[label]].toFixed(2);
+    const inputBox = createInput({
+      type: 'text',
+      value: value,
+    });
     const plusSign = createElement('div', { innerHTML: '&#43;' });
     appendChildren(editContainer, minusSign, inputBox, plusSign);
 
@@ -46,8 +48,10 @@ const addInputBoxes = function renderCustomInputBoxes(activeMetrics) {
 };
 
 // Exports to custom-inputs-ui.js
-export default function createCustomInputs() {
+export default function createCustomInputs(currentMetrics) {
   const customsSection = document.getElementById('custom-inputs');
   const customsHeading = createElement('h1', { text: 'Customise Inputs' });
   customsSection.appendChild(customsHeading);
+
+  customsSection.appendChild(addInputBoxes(currentMetrics));
 }
