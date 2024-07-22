@@ -49,7 +49,10 @@ class RevenueAndExpensesProjections {
     const data = projectRevenue(revenueByYear, customRevenueGrowthRate);
     this.projections.revenueProjections = data.projections;
     this.revenueGrowthRates = data.growthRates;
-    this.activeMetrics.setMetric('revenueGrowthRate', data.chosenGrowthRate);
+    this.activeMetrics.setMetric(
+      'revenueGrowthRate',
+      data.chosenGrowthRate * 100,
+    );
   }
 
   projectExpensesAndOtherIncome() {
@@ -95,6 +98,7 @@ class RevenueAndExpensesProjections {
 
   calculateTax() {
     const customTaxRate = this.customInputManager.sendData('taxRate').taxRate;
+    this.activeMetrics.setMetric('taxRate', customTaxRate);
 
     this.projections.taxExpense = calculateTaxExpense(
       this.projections.profitBeforeTax,
