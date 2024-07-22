@@ -1,10 +1,16 @@
-class CustomInputsUI {
-  constructor() {}
+import createCustomInputs from './utils/create-custom-inputs';
 
-  populateCustomInputs() {}
+class CustomInputsUI {
+  constructor(createCustomInputs) {
+    this.createCustomInputs = createCustomInputs;
+  }
+
+  populateCustomInputs() {
+    this.createCustomInputs();
+  }
 }
 
-const customInputsUI = new CustomInputsUI();
+const customInputsUI = new CustomInputsUI(createCustomInputs);
 
 // Exports to sidebar-manager.js
 export { customInputsUI };

@@ -19,5 +19,5 @@ class ActiveMetricsManager {
 
 const activeMetrics = new ActiveMetricsManager();
 
-// Exports to revenue-and-expenses
+// Exports to revenue-and-expenses, wacc-manager, growth-rate-manager, create-custom-inputs
 export { activeMetrics };
