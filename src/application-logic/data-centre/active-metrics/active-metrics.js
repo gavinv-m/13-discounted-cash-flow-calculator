@@ -12,7 +12,9 @@ class ActiveMetricsManager {
     this.currentMetrics[metricName] = value;
   }
 
-  getMetrics() {}
+  getMetrics() {
+    return this.currentMetrics;
+  }
 }
 
 const activeMetrics = new ActiveMetricsManager();
