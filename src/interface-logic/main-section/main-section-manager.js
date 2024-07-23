@@ -10,7 +10,7 @@ class MainSectionManager {
 
   populateMainSection() {
     this.dcfInfoManager.populateDCFInfoSection(this.mainContent);
-    this.companyInfoManager.populateCompanyInfoSection();
+    this.companyInfoManager.populateCompanyInfoSection(this.mainContent);
   }
 }
 
