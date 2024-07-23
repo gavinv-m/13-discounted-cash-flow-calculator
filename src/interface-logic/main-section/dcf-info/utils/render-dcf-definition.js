@@ -1,5 +1,6 @@
 import { appendChildren, createElement } from '../../../utils/element-utils';
 
+// Exports to dcf-info.js
 export default function renderDcfDefinition(dcfInfoSection) {
   const dcfDefinitionSection = createElement('div', {
     id: 'dcf-definition-section',
