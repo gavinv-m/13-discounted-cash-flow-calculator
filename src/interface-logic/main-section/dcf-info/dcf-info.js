@@ -4,14 +4,13 @@ import renderDcfExplanation from './utils/render-dcf-explanation';
 
 class DcfInfoManager {
   constructor(renderDCFInfoSection, renderDcfDefinition, renderDcfExplanation) {
-    this.mainContent = document.getElementById('main-content');
     this.renderDCFInfoSection = renderDCFInfoSection;
     this.renderDcfDefinition = renderDcfDefinition;
     this.renderDcfExplanation = renderDcfExplanation;
   }
 
-  populateDCFInfoSection() {
-    const dcfInfoSection = this.renderDCFInfoSection(this.mainContent);
+  populateDCFInfoSection(mainContent) {
+    const dcfInfoSection = this.renderDCFInfoSection(mainContent);
     this.renderDcfDefinition(dcfInfoSection);
     this.renderDcfExplanation(dcfInfoSection);
   }
