@@ -1,10 +1,16 @@
-class MainSectionManager {
-  constructor() {}
+import { dcfInfoManager } from './dcf-info/dcf-info';
 
-  populateMainSection() {}
+class MainSectionManager {
+  constructor(dcfInfoManager) {
+    this.dcfInfoManager = dcfInfoManager;
+  }
+
+  populateMainSection() {
+    this.dcfInfoManager.populateDCFInfoSection();
+  }
 }
 
-const mainSectionManager = new MainSectionManager();
+const mainSectionManager = new MainSectionManager(dcfInfoManager);
 
 // Exports to interface-manager.js
 export { mainSectionManager };
