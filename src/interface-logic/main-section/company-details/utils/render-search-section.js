@@ -4,19 +4,20 @@ import {
   createInput,
 } from '../../../utils/element-utils';
 
-// Exports to company-info.js
-export default function renderSearchSection(companyInfoSection) {
-  const mainContainer = createElement('div', { id: 'search-section' });
-
+const createSearch = function createSearchBoxErrorContainer() {
   const searchBoxAndError = createElement('div', { id: 'search-box-error' });
   const searchBox = createInput({
     type: 'text',
     id: 'search-box',
     placeholder: 'Search Stock/Company',
   });
-  const errorText = createElement('div', { id: 'error-box' });
+  const errorText = createElement('p', { id: 'error-box' });
   appendChildren(searchBoxAndError, searchBox, errorText);
 
+  return searchBoxAndError;
+};
+
+const createDetails = function createCompanyNameSectorContainer() {
   const companyNameSectorContainer = createElement('div', {
     id: 'company-details',
   });
@@ -32,6 +33,16 @@ export default function renderSearchSection(companyInfoSection) {
   const industry = createElement('h1', { id: 'company-industry' });
   appendChildren(sectorIndustryContainer, sector, industry);
   companyNameSectorContainer.appendChild(sectorIndustryContainer);
+
+  return companyNameSectorContainer;
+};
+
+// Exports to company-info.js
+export default function renderSearchSection(companyInfoSection) {
+  const mainContainer = createElement('div', { id: 'search-section' });
+
+  const searchBoxAndError = createSearch();
+  const companyNameSectorContainer = createDetails();
 
   // Append to main container
   appendChildren(mainContainer, searchBoxAndError, companyNameSectorContainer);
