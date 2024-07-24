@@ -52,7 +52,10 @@ export default function renderOverviewSection(companyInfoSection) {
   const mainContainer = createElement('div', { id: 'overview-section' });
 
   const overviewText = overviewDataManager.sendData('Description').Description;
-  const overviewTextParagraph = createElement('p', { text: overviewText });
+  const overviewTextParagraph = createElement('p', {
+    text: overviewText,
+    id: 'overview-description',
+  });
 
   const financials = overviewFinancials();
   appendChildren(mainContainer, overviewTextParagraph, financials);

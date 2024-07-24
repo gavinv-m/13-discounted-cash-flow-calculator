@@ -6,7 +6,7 @@ import {
 
 // Exports to company-info.js
 export default function renderSearchSection(companyInfoSection) {
-  const mainContainer = createElement('div');
+  const mainContainer = createElement('div', { id: 'search-section' });
 
   const searchBoxAndError = createElement('div', { id: 'search-box-error' });
   const searchBox = createInput({
