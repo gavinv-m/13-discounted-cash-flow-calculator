@@ -1,6 +1,6 @@
 import { dcfInfoManager } from './dcf-info/dcf-info';
 import { companyInfoManager } from './company-details/company-info';
-import { valuationFinancialsManager } from './valuation-financials/valuation-financials';
+import { valuationFinancialsManager } from './valuation-financials/valuation-financials-manager';
 
 class MainSectionManager {
   constructor(dcfInfoManager, companyInfoManager, valuationFinancialsManager) {
