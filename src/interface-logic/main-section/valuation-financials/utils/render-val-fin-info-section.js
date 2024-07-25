@@ -4,5 +4,5 @@ import { createElement } from '../../../utils/element-utils';
 export default function renderValuationFinancialsInfoSection(valFinSection) {
   const infoContainer = createElement('section', { id: 'val-fin-info' });
   valFinSection.appendChild(infoContainer);
-  return;
+  return infoContainer;
 }

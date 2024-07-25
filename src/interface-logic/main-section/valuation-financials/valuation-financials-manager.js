@@ -16,7 +16,7 @@ class ValuationFinancialsManager {
   populateValuationFinancialsSection(mainContent) {
     const valFinSection = this.rendervalFinSection(mainContent);
     this.renderValFinHeadings(valFinSection);
-    this.renderValFinInfoSection(valFinSection);
+    const infoContentContainer = this.renderValFinInfoSection(valFinSection);
   }
 }
 
