@@ -1,5 +1,6 @@
 import { projectionVisibilityChecker } from './check-active-projection';
 import { loadRequestedContentManager } from '../load-requested-content';
+import clearValuationContent from './clear-valuation-content';
 
 // Exports to valuation-content-manager.js
 export default function addHeadingsEventListeners(
@@ -16,6 +17,9 @@ export default function addHeadingsEventListeners(
       if (currentlyActive === true) {
         return;
       }
+
+      // Clear valuation content information
+      clearValuationContent(valuationContentBox);
 
       loadRequestedContentManager.loadContent(
         projectionHeadingText,
