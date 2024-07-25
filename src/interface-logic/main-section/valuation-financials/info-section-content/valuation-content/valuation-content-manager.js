@@ -1,10 +1,16 @@
 import createProjectionsHeadings from './utils/projections-headings';
 import renderValuationContentBox from './utils/render-val-content-box';
+import { revenueAndExpensesUIManager } from './rev-and-exp-projections/rev-and-exp-manager';
 
 class ValuationContentManager {
-  constructor(createProjectionsHeadings, renderValuationContentBox) {
+  constructor(
+    createProjectionsHeadings,
+    renderValuationContentBox,
+    revenueAndExpensesUIManager,
+  ) {
     this.createProjectionsHeadings = createProjectionsHeadings;
     this.renderValuationContentBox = renderValuationContentBox;
+    this.revenueAndExpensesUIManager = revenueAndExpensesUIManager;
   }
 
   addValuationContent(valFinInfoSection) {
@@ -15,13 +21,17 @@ class ValuationContentManager {
       this.renderValuationContentBox(),
     );
 
-    //
+    // Load page with revenue and expenses projections
+    this.revenueAndExpensesUIManager.addRevenueAndExpensesProjections(
+      valuationContentBox,
+    );
   }
 }
 
 const valuationContentManager = new ValuationContentManager(
   createProjectionsHeadings,
   renderValuationContentBox,
+  revenueAndExpensesUIManager,
 );
 
 // Exports to valuation-financials-manager.js and valuation-heading-listener
