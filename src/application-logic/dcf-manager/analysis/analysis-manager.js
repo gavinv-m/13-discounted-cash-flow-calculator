@@ -1,6 +1,7 @@
 import { timeSeriesDataManager } from '../../data-centre/refined-data/time-series';
 import { valuationManager } from '../projections/terminal-value/valuation-manager';
 import calculateValuationStatus from '../utils/calculate-valuation-status';
+import getFinancialLineItems from '../../data-centre/utils/financial-data-utils';
 
 class AnalysisManager {
   valuationAnalysis = {};
@@ -9,10 +10,16 @@ class AnalysisManager {
     timeSeriesDataManager,
     valuationManager,
     calculateValuationStatus,
+    getFinancialLineItems,
   ) {
     this.timeSeriesDataManager = timeSeriesDataManager;
     this.valuationManager = valuationManager;
     this.calculateValuationStatus = calculateValuationStatus;
+    this.sendValuationAnalysis = getFinancialLineItems.bind(this);
+  }
+
+  sendData(...args) {
+    return this.sendValuationAnalysis(args, this.valuationAnalysis);
   }
 
   startAnalysis() {
@@ -38,6 +45,7 @@ const analysisManager = new AnalysisManager(
   timeSeriesDataManager,
   valuationManager,
   calculateValuationStatus,
+  getFinancialLineItems,
 );
 
 // Exports to dcf-manager.js

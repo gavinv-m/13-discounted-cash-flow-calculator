@@ -1,14 +1,18 @@
+import createValuationStatement from './utils/valuation-statement';
+
 class RevenueAndExpensesUIManager {
-  constructor() {}
+  constructor(createValuationStatement) {
+    this.createValuationStatement = createValuationStatement;
+  }
 
   addRevenueAndExpensesProjections(valuationContentBox) {
-    const mockRE = document.createElement('h1');
-    mockRE.textContent = 'Revenue & Expenses Projections';
-    valuationContentBox.appendChild(mockRE);
+    valuationContentBox.appendChild(this.createValuationStatement());
   }
 }
 
-const revenueAndExpensesUIManager = new RevenueAndExpensesUIManager();
+const revenueAndExpensesUIManager = new RevenueAndExpensesUIManager(
+  createValuationStatement,
+);
 
 // Exports to valuation-content-manager, and load-requested-content.js
 export { revenueAndExpensesUIManager };
