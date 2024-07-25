@@ -2,6 +2,7 @@ import { revenueAndExpensesUIManager } from './rev-and-exp-projections/rev-and-e
 import { capexUIManager } from './capex-projections/capex-ui-manager';
 import { depAmortUIManager } from './depreciation-amortisation/dep-amort-ui-manager';
 import { workingCapUIManager } from './working-capital/working-cap-ui-manager';
+import { terminalValueUIManager } from './terminal-value/terminal-value-ui-manager';
 
 class LoadRequestedContent {
   constructor(
@@ -9,11 +10,13 @@ class LoadRequestedContent {
     capexUIManager,
     depAmortUIManager,
     workingCapUIManager,
+    terminalValueUIManager,
   ) {
     this.revenueAndExpensesUIManager = revenueAndExpensesUIManager;
     this.capexUIManager = capexUIManager;
     this.depAmortUIManager = depAmortUIManager;
     this.workingCapUIManager = workingCapUIManager;
+    this.terminalValueUIManager = terminalValueUIManager;
   }
 
   loadContent(projectionHeadingText, valuationContentBox) {
@@ -27,6 +30,10 @@ class LoadRequestedContent {
       this.depAmortUIManager.addDepAmortProjections(valuationContentBox);
     } else if (projectionHeadingText === 'Working Capital') {
       this.workingCapUIManager.addWorkingCapProjections(valuationContentBox);
+    } else if (projectionHeadingText === 'Terminal Value') {
+      this.terminalValueUIManager.addTerminalValueProjections(
+        valuationContentBox,
+      );
     }
   }
 }
@@ -36,6 +43,7 @@ const loadRequestedContentManager = new LoadRequestedContent(
   capexUIManager,
   depAmortUIManager,
   workingCapUIManager,
+  terminalValueUIManager,
 );
 
 // Exports to heading-event-listeners.js
