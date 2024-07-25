@@ -1,4 +1,5 @@
 import { projectionVisibilityChecker } from './check-active-projection';
+import { loadRequestedContentManager } from '../load-requested-content';
 
 // Exports to valuation-content-manager.js
 export default function addHeadingsEventListeners(
@@ -17,6 +18,7 @@ export default function addHeadingsEventListeners(
       }
 
       // TODO: Load appropriate valuation content
+      loadRequestedContentManager.loadContent(projectionHeadingText);
     });
   });
 }
