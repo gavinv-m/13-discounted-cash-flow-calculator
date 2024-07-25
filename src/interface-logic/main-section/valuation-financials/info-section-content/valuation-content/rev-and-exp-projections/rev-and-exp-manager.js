@@ -10,5 +10,5 @@ class RevenueAndExpensesUIManager {
 
 const revenueAndExpensesUIManager = new RevenueAndExpensesUIManager();
 
-// Exports to valuation-content-manager, and revenue-and-expenses-heading-listener.js
+// Exports to valuation-content-manager, and load-requested-content.js
 export { revenueAndExpensesUIManager };

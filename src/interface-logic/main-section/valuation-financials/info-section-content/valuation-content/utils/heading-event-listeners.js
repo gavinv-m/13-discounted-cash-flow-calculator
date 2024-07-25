@@ -17,8 +17,10 @@ export default function addHeadingsEventListeners(
         return;
       }
 
-      // TODO: Load appropriate valuation content
-      loadRequestedContentManager.loadContent(projectionHeadingText);
+      loadRequestedContentManager.loadContent(
+        projectionHeadingText,
+        valuationContentBox,
+      );
     });
   });
 }
