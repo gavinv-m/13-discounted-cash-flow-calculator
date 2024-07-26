@@ -1,14 +1,16 @@
+import displayProjections from './utils/display-capex-projections';
+
 class CAPEXUIManager {
-  constructor() {}
+  constructor(displayProjections) {
+    this.displayProjections = displayProjections;
+  }
 
   addCapexProjections(valuationContentBox) {
-    const mockCAPEX = document.createElement('h1');
-    mockCAPEX.textContent = 'CAPEX Projections';
-    valuationContentBox.appendChild(mockCAPEX);
+    valuationContentBox.appendChild(this.displayProjections());
   }
 }
 
-const capexUIManager = new CAPEXUIManager();
+const capexUIManager = new CAPEXUIManager(displayProjections);
 
 // Exports to load-requested-content.js
 export { capexUIManager };

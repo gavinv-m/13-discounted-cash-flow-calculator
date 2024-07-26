@@ -179,7 +179,7 @@ export function createTableHead() {
 
   const tableRow = createElement('tr');
   const roundedToHeading = createElement('td', {
-    innerHTML: '<span><em>(USD in millions</em></span>',
+    innerHTML: '<span><em>(USD in millions)</em></span>',
   });
   const blank = createElement('td');
   const projectionsHeading = createElement('td', { text: 'Projections' });
