@@ -11,7 +11,7 @@ import { activeMetrics } from '../../../../../../../application-logic/data-centr
 
 /**
  * All Exports to display-rev-and-exp projections
- * Sorted alphabetically
+ * Main exports sorted alphabetically
  */
 export function createBlankRow() {
   return createElement('tr', { classList: ['blank-row'] });
@@ -20,6 +20,20 @@ export function createBlankRow() {
 export function createBlankData() {
   return createElement('td', { classList: ['blank-data'] });
 }
+
+const createExpensePercentageRow = (tableBody, itemKey) => {
+  const percentage = revenueAndExpenses.expensePercentagesOfRevenue[itemKey];
+  if (percentage !== undefined) {
+    const tableRow = createElement('tr');
+    const text = `% of Revenue: ${percentage.toFixed(2)}`;
+    const cell = createElement('td', { innerHTML: text });
+
+    tableRow.appendChild(cell);
+
+    // Append the percentage row to the table body
+    tableBody.appendChild(tableRow);
+  }
+};
 
 const createPriorYearCell = (item) => {
   const priorFinancialYear = projectionYears.startingProjectionYear - 1;
@@ -103,6 +117,11 @@ export function createExpenseRows(tableBody) {
     });
 
     tableBody.appendChild(tableRow);
+
+    // Call the function to create expense percentage row for each item
+    if (itemKey !== 'taxExpense' && itemKey !== 'netProfit') {
+      createExpensePercentageRow(tableBody, itemKey);
+    }
   });
 }
 
