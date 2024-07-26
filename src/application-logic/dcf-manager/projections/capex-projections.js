@@ -48,7 +48,8 @@ class CapexManager {
       projectedRevenues,
     );
 
-    this.projectedCapex = projectedCapitalExpenditure.projectedExpenses;
+    this.projectedCapex.capitalExpenditures =
+      projectedCapitalExpenditure.projectedExpenses.capitalExpenditures;
     this.projectedCapex.capexPercentageOfRevenue =
       projectedCapitalExpenditure.expensePercentages.capitalExpenditures;
   }
