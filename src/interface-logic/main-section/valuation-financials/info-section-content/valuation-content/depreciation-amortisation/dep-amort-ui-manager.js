@@ -1,14 +1,16 @@
+import displayProjections from './utils/display-dep-amort';
+
 class DepAmortUIManager {
-  constructor() {}
+  constructor(displayProjections) {
+    this.displayProjections = displayProjections;
+  }
 
   addDepAmortProjections(valuationContentBox) {
-    const mockDepAmort = document.createElement('h1');
-    mockDepAmort.textContent = 'Depreciation and Amortisation Projections';
-    valuationContentBox.appendChild(mockDepAmort);
+    valuationContentBox.appendChild(this.displayProjections());
   }
 }
 
-const depAmortUIManager = new DepAmortUIManager();
+const depAmortUIManager = new DepAmortUIManager(displayProjections);
 
 // Exports to load-requested-content.js
 export { depAmortUIManager };
