@@ -4,7 +4,7 @@ import projectDepreciationAmortisation from '../utils/project-depreciation';
 import getFinancialLineItems from '../../data-centre/utils/financial-data-utils';
 
 class DepreciationAmortizationManager {
-  projectedDepreciationAmortisation = null;
+  projectedDepreciationAmortisation = {};
 
   constructor(
     capexProjectionsManager,
@@ -31,10 +31,13 @@ class DepreciationAmortizationManager {
       'capitalExpenditures',
     ).capitalExpenditures;
 
-    this.projectedDepreciationAmortisation = projectDepreciationAmortisation(
+    const data = projectDepreciationAmortisation(
       historicalCapex,
       projectedCapex,
     );
+
+    this.projectedDepreciationAmortisation.projections = data.projections;
+    this.projectedDepreciationAmortisation.totals = data.totals;
   }
 }
 
