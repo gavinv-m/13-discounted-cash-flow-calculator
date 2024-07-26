@@ -4,7 +4,8 @@ import { overviewDataManager } from '../../../../../../../application-logic/data
 import { timeSeriesDataManager } from '../../../../../../../application-logic/data-centre/refined-data/time-series';
 import { valuationManager } from '../../../../../../../application-logic/dcf-manager/projections/terminal-value/valuation-manager';
 
-// Exports to rev-and-exp-manager.js
+// FIXME: In wrong direcory
+// Exports to valuation-content-manager
 export default function createValuationStatement() {
   const tickerSymbol = overviewDataManager.sendData('Symbol').Symbol;
   const recentClosingPrice =
