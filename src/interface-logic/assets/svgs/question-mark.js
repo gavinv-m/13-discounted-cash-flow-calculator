@@ -1,5 +1,5 @@
 export default function getQuestionMarkSvg() {
-  return `<svg height="14" width="14" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+  return `<svg class="question-mark-icon" height="14" width="14" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
        viewBox="0 0 512 512"  xml:space="preserve">
   <style type="text/css">
       .background{fill:hsla(0,0%,80%,.8);}
