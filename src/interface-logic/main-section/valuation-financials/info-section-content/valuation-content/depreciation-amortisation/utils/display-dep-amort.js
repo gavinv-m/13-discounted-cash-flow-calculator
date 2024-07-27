@@ -5,6 +5,7 @@ import {
   createDepreciationAmortRows,
   createTableBody,
   createTableHead,
+  createTotals,
   createYearsRow,
 } from './create-table-rows';
 
@@ -20,7 +21,8 @@ export default function displayDepAmortProjections() {
   tableBody.appendChild(createYearsRow());
   tableBody.appendChild(createBlankRow());
   tableBody.appendChild(createCapexHeading());
-  createDepreciationAmortRows();
+  createDepreciationAmortRows(tableBody);
+  tableBody.appendChild(createTotals());
 
   table.appendChild(tableBody);
 
