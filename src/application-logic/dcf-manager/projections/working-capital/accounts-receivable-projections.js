@@ -2,18 +2,27 @@ import { balanceSheetDataManager } from '../../../data-centre/refined-data/balan
 import { incomeStatementDataManager } from '../../../data-centre/refined-data/income-statement';
 import { revenueAndExpenses } from '../revenue-and-expenses-projections';
 import projectReceivables from '../../utils/project-receivables';
+import getFinancialLineItems from '../../../data-centre/utils/financial-data-utils';
 
 class AccountsReceivableManager {
+  projections = {};
+
   constructor(
     balanceSheetDataManager,
     incomeStatementDataManager,
     revenueAndExpenses,
     projectReceivables,
+    getFinancialLineItems,
   ) {
     this.balanceSheetDataManager = balanceSheetDataManager;
     this.incomeStatementDataManager = incomeStatementDataManager;
     this.revenueAndExpensesProjections = revenueAndExpenses;
     this.projectReceivables = projectReceivables;
+    this.getDaysOutstanding = getFinancialLineItems.bind(this);
+  }
+
+  sendData(...args) {
+    return this.getDaysOutstanding(args, this.projections);
   }
 
   projectAccountsReceivable() {
@@ -29,11 +38,15 @@ class AccountsReceivableManager {
         'revenueProjections',
       ).revenueProjections;
 
-    return this.projectReceivables(
+    const data = this.projectReceivables(
       accountsReceivable,
       revenue,
       projectedRevenue,
     );
+
+    this.projections.daysSalesOutstanding = data.daysSalesOutstanding;
+
+    return data.projectedReceivables;
   }
 }
 
@@ -42,6 +55,7 @@ const accountsReceivableManager = new AccountsReceivableManager(
   incomeStatementDataManager,
   revenueAndExpenses,
   projectReceivables,
+  getFinancialLineItems,
 );
 
 // Exports to working-capital-manager.js

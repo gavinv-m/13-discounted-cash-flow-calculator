@@ -9,5 +9,12 @@ export default function projectReceivables(
 ) {
   const daysSalesOutstanding =
     calculateDaysOutstanding(receivables, revenue) / 2;
-  return projectWorkingCapItem(projectedRevenue, daysSalesOutstanding);
+
+  return {
+    projectedReceivables: projectWorkingCapItem(
+      projectedRevenue,
+      daysSalesOutstanding,
+    ),
+    daysSalesOutstanding: daysSalesOutstanding,
+  };
 }
