@@ -1,14 +1,16 @@
+import displayProjections from './utils/display-working-cap';
+
 class WorkingCapitalUIManager {
-  constructor() {}
+  constructor(displayProjections) {
+    this.displayProjections = displayProjections;
+  }
 
   addWorkingCapProjections(valuationContentBox) {
-    const mockWorkingCap = document.createElement('h1');
-    mockWorkingCap.textContent = 'Working Capital Projections';
-    valuationContentBox.appendChild(mockWorkingCap);
+    valuationContentBox.appendChild(this.displayProjections());
   }
 }
 
-const workingCapUIManager = new WorkingCapitalUIManager();
+const workingCapUIManager = new WorkingCapitalUIManager(displayProjections);
 
 // Exports to load-requested-content.js
 export { workingCapUIManager };
