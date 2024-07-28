@@ -8,5 +8,12 @@ export default function projectPayables(
   projectedCostOfRevenue,
 ) {
   const daysPayablesOutstanding = calculateDaysOutstanding(payables, cogs);
-  return projectWorkingCapItem(projectedCostOfRevenue, daysPayablesOutstanding);
+
+  return {
+    projectedPayables: projectWorkingCapItem(
+      projectedCostOfRevenue,
+      daysPayablesOutstanding,
+    ),
+    daysPayablesOutstanding: daysPayablesOutstanding,
+  };
 }

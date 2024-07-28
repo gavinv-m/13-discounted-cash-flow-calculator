@@ -2,18 +2,27 @@ import { balanceSheetDataManager } from '../../../data-centre/refined-data/balan
 import { incomeStatementDataManager } from '../../../data-centre/refined-data/income-statement';
 import { revenueAndExpenses } from '../revenue-and-expenses-projections';
 import projectPayables from '../../utils/project-payables';
+import getFinancialLineItems from '../../../data-centre/utils/financial-data-utils';
 
 class AccountsPayableManager {
+  projections = {};
+
   constructor(
     balanceSheetDataManager,
     incomeStatementDataManager,
     revenueAndExpenses,
     projectPayables,
+    getFinancialLineItems,
   ) {
     this.balanceSheetDataManager = balanceSheetDataManager;
     this.incomeStatementDataManager = incomeStatementDataManager;
     this.revenueAndExpenses = revenueAndExpenses;
     this.projectPayables = projectPayables;
+    this.getDaysOutstanding = getFinancialLineItems.bind(this);
+  }
+
+  sendData(...args) {
+    return this.getDaysOutstanding(args, this.projections);
   }
 
   projectAccountsPayable() {
@@ -27,7 +36,15 @@ class AccountsPayableManager {
     const projectedCostOfRevenue =
       this.revenueAndExpenses.sendData('costOfRevenue').costOfRevenue;
 
-    return this.projectPayables(accountsPayable, cogs, projectedCostOfRevenue);
+    const data = this.projectPayables(
+      accountsPayable,
+      cogs,
+      projectedCostOfRevenue,
+    );
+
+    this.projections.daysPayablesOutstanding = data.daysPayablesOutstanding;
+
+    return data.projectedPayables;
   }
 }
 
@@ -36,6 +53,7 @@ const accountsPayableManager = new AccountsPayableManager(
   incomeStatementDataManager,
   revenueAndExpenses,
   projectPayables,
+  getFinancialLineItems,
 );
 
 // Exports to working-capital-manager.js
