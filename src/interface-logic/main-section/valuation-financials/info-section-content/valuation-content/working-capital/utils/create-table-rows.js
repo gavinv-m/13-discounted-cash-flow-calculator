@@ -25,48 +25,49 @@ export function createTableBody() {
   return createElement('tbody');
 }
 
-export function createDaysReceivable() {
-  let daysSalesOutstanding = accountsReceivableManager.sendData(
-    'daysSalesOutstanding',
-  ).daysSalesOutstanding;
-  daysSalesOutstanding = Math.round(daysSalesOutstanding);
+const createDaysRow = function createDaysOutstandingRow(rowName) {
+  const row = {
+    receivable: {
+      name: 'Days receivables',
+      dataKey: 'daysSalesOutstanding',
+      manager: accountsReceivableManager,
+    },
+    payable: {
+      name: 'Days payables',
+      dataKey: 'daysPayablesOutstanding',
+      manager: accountsPayableManager,
+    },
+  };
+
+  const rowDetails = row[rowName];
+
+  let daysOutstanding = rowDetails.manager.sendData(rowDetails.dataKey)[
+    rowDetails.dataKey
+  ];
+  daysOutstanding = Math.round(daysOutstanding);
 
   const tableRow = createElement('tr');
 
   const nameCell = createElement('td', {
-    innerHTML: `<span><em>Days receivables</em></span>`,
+    innerHTML: `<span><em>${rowDetails.name}</em></span>`,
     classList: ['days-outstanding'],
   });
   const amountCell = createElement('td', {
-    text: daysSalesOutstanding,
+    text: daysOutstanding,
     classList: ['days-outstanding'],
   });
 
   appendChildren(tableRow, nameCell, amountCell);
 
   return tableRow;
+};
+
+export function createDaysReceivable() {
+  return createDaysRow('receivable');
 }
 
 export function createDaysPayables() {
-  let daysPayablesOutstanding = accountsPayableManager.sendData(
-    'daysPayablesOutstanding',
-  ).daysPayablesOutstanding;
-  daysPayablesOutstanding = Math.round(daysPayablesOutstanding);
-
-  const tableRow = createElement('tr');
-
-  const nameCell = createElement('td', {
-    innerHTML: `<span><em>Days payables</em></span>`,
-    classList: ['days-outstanding'],
-  });
-  const amountCell = createElement('td', {
-    text: daysPayablesOutstanding,
-    classList: ['days-outstanding'],
-  });
-
-  appendChildren(tableRow, nameCell, amountCell);
-
-  return tableRow;
+  return createDaysRow('payable');
 }
 
 export function createTableHead() {
@@ -89,7 +90,7 @@ export function createTableHead() {
   return tableHead;
 }
 
-function createTradeRow(rowName) {
+const createTradeRow = function createWorkingCapItemRow(rowName) {
   const row = {
     receivables: {
       name: 'Trade Receivables',
@@ -134,7 +135,7 @@ function createTradeRow(rowName) {
   }
 
   return tableRow;
-}
+};
 
 export function createTradeReceivables() {
   return createTradeRow('receivables');
