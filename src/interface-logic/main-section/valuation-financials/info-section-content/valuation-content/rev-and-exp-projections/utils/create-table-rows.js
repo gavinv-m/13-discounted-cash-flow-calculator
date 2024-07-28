@@ -21,6 +21,10 @@ export function createBlankData() {
   return createElement('td', { classList: ['blank-data'] });
 }
 
+export function createTableFooter() {
+  return createElement('tfoot');
+}
+
 const createExpensePercentageRow = (tableBody, itemKey) => {
   const percentage = revenueAndExpenses.expensePercentagesOfRevenue[itemKey];
   if (percentage !== undefined) {
@@ -82,7 +86,6 @@ export function createExpenseRows(tableBody) {
     { name: 'Interest Income', key: 'interestIncome' },
     { name: 'Interest Expense', key: 'interestExpense' },
     { name: 'Tax Expense', key: 'taxExpense' },
-    { name: 'Net Profit', key: 'netProfit' },
   ];
 
   expenses.forEach((item) => {
@@ -190,6 +193,36 @@ export function createTableHead() {
   tableHead.appendChild(createBlankRow());
 
   return tableHead;
+}
+
+export function createNetProfitRow() {
+  const tableRow = createElement('tr');
+
+  const nameCell = createElement('td', { text: 'Net Profit' });
+
+  // Make use of existing prior year function
+  const netProfitDetails = { name: 'Net Profit', key: 'netProfit' };
+  const priorFinYearCell = createPriorYearCell(netProfitDetails);
+
+  appendChildren(tableRow, nameCell, priorFinYearCell);
+
+  // Projected net profit
+  const yearsAndAmounts = revenueAndExpenses.sendData('netProfit').netProfit;
+  const projectionPeriod = projectionYears.projectionYears;
+
+  projectionPeriod.forEach((year) => {
+    let amount = roundToMillions(yearsAndAmounts[year]);
+
+    // Format negative amounts with brackets
+    if (amount < 0) {
+      amount = `(${Math.abs(amount)})`;
+    }
+
+    const cell = createElement('td', { text: amount });
+    tableRow.appendChild(cell);
+  });
+
+  return tableRow;
 }
 
 export function createYearsRow() {

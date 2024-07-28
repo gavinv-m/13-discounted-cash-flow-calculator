@@ -5,10 +5,12 @@ import {
 import {
   createBlankRow,
   createExpenseRows,
+  createNetProfitRow,
   createRevenueRow,
   createRevenuePercentRow,
   createTableBody,
   createTableHead,
+  createTableFooter,
   createYearsRow,
 } from './create-table-rows';
 
@@ -26,7 +28,12 @@ export default function displayRevenueAndExpensesProjections() {
   tableBody.appendChild(createRevenueRow());
   tableBody.appendChild(createRevenuePercentRow());
   createExpenseRows(tableBody); // Send table body for quicker appending
+
+  const tableFooter = createTableFooter();
+  tableFooter.appendChild(createNetProfitRow());
+
   table.appendChild(tableBody);
+  table.appendChild(tableFooter);
 
   return table;
 }

@@ -18,6 +18,10 @@ export function createBlankData() {
   return createElement('td', { classList: ['blank-data'] });
 }
 
+export function createTableFooter() {
+  return createElement('tfoot');
+}
+
 export function createCapexHeading() {
   const tableRow = createElement('tr');
   const cell = createElement('td', { text: 'CAPEX for the year: ' });
