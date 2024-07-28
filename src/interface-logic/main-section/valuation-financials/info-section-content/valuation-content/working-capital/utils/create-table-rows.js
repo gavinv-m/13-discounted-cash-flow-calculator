@@ -8,6 +8,7 @@ import { balanceSheetDataManager } from '../../../../../../../application-logic/
 import { workingCapProjectionsManager } from '../../../../../../../application-logic/dcf-manager/projections/working-capital/working-capital-manager';
 import roundToMillions from '../../../utils/round-to-millions';
 import { accountsPayableManager } from '../../../../../../../application-logic/dcf-manager/projections/working-capital/accounts-payable-projections';
+import { inventoryManager } from '../../../../../../../application-logic/dcf-manager/projections/working-capital/inventory-projections';
 
 /**
  * All Exports to display-working-cap.js
@@ -25,6 +26,34 @@ export function createTableBody() {
   return createElement('tbody');
 }
 
+export function createTableFooter() {
+  return createElement('tfoot');
+}
+
+export function createChangeInNWC() {
+  const tableRow = createElement('tr');
+
+  const nameCell = createElement('td', { text: 'Change in NWC' });
+  const emptyCellOne = createBlankData();
+  const emptyCellTwo = createBlankData();
+
+  appendChildren(tableRow, nameCell, emptyCellOne, emptyCellTwo);
+
+  const changesInNWC = workingCapProjectionsManager.sendData(
+    'changesInNetWorkingCapital',
+  ).changesInNetWorkingCapital;
+
+  for (let year in changesInNWC) {
+    let amount = roundToMillions(changesInNWC[year]);
+    let formattedAmount =
+      amount < 0 ? `(${Math.abs(amount)})` : amount.toString();
+    const cell = createElement('td', { text: formattedAmount });
+    tableRow.appendChild(cell);
+  }
+
+  return tableRow;
+}
+
 const createDaysRow = function createDaysOutstandingRow(rowName) {
   const row = {
     receivable: {
@@ -36,6 +65,11 @@ const createDaysRow = function createDaysOutstandingRow(rowName) {
       name: 'Days payables',
       dataKey: 'daysPayablesOutstanding',
       manager: accountsPayableManager,
+    },
+    inventory: {
+      name: 'Days inventory',
+      dataKey: 'daysInventoryOutstanding',
+      manager: inventoryManager,
     },
   };
 
@@ -62,12 +96,48 @@ const createDaysRow = function createDaysOutstandingRow(rowName) {
   return tableRow;
 };
 
+export function createDaysInventories() {
+  return createDaysRow('inventory');
+}
+
 export function createDaysReceivable() {
   return createDaysRow('receivable');
 }
 
 export function createDaysPayables() {
   return createDaysRow('payable');
+}
+
+export function createNetWorkingCapital() {
+  const tableRow = createElement('tr');
+
+  const nameCell = createElement('td', { text: 'Net working capital' });
+  const emptyCell = createBlankData();
+
+  // Prior financial year amount
+  const priorFinYear = projectionYears.startingProjectionYear - 1;
+  let priorFinYearAmt = workingCapProjectionsManager.sendData(
+    'historicalNetWorkingCapital',
+  ).historicalNetWorkingCapital;
+  priorFinYearAmt = roundToMillions(priorFinYearAmt[priorFinYear]);
+  const priorFinYearAmtCell = createElement('td', {
+    text: priorFinYearAmt,
+  });
+
+  appendChildren(tableRow, nameCell, emptyCell, priorFinYearAmtCell);
+
+  // Projected net working capital
+  const projectedAmounts = workingCapProjectionsManager.sendData(
+    'projectedNetWorkingCapital',
+  ).projectedNetWorkingCapital;
+
+  for (let year in projectedAmounts) {
+    let amount = roundToMillions(projectedAmounts[year]);
+    const cell = createElement('td', { text: amount });
+    tableRow.appendChild(cell);
+  }
+
+  return tableRow;
 }
 
 export function createTableHead() {
@@ -99,6 +169,10 @@ const createTradeRow = function createWorkingCapItemRow(rowName) {
     payables: {
       name: 'Trade Payables',
       dataKey: 'currentAccountsPayable',
+    },
+    inventory: {
+      name: 'Inventory',
+      dataKey: 'inventory',
     },
   };
 
@@ -136,6 +210,10 @@ const createTradeRow = function createWorkingCapItemRow(rowName) {
 
   return tableRow;
 };
+
+export function createInventory() {
+  return createTradeRow('inventory');
+}
 
 export function createTradeReceivables() {
   return createTradeRow('receivables');

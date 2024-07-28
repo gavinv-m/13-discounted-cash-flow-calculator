@@ -1,10 +1,15 @@
 import { createElement } from '../../../../../../utils/element-utils';
 import {
   createBlankRow,
+  createChangeInNWC,
+  createDaysInventories,
   createDaysReceivable,
   createDaysPayables,
+  createInventory,
+  createNetWorkingCapital,
   createTableBody,
   createTableHead,
+  createTableFooter,
   createTradeReceivables,
   createTradePayables,
   createYearsRow,
@@ -25,7 +30,16 @@ export default function displayWorkingCap() {
   tableBody.appendChild(createBlankRow());
   tableBody.appendChild(createDaysPayables());
   tableBody.appendChild(createTradePayables());
+  tableBody.appendChild(createBlankRow());
+  tableBody.appendChild(createDaysInventories());
+  tableBody.appendChild(createInventory());
+  tableBody.appendChild(createBlankRow());
+
+  const tableFooter = createTableFooter();
+  tableFooter.appendChild(createNetWorkingCapital());
+  tableFooter.appendChild(createChangeInNWC());
 
   table.appendChild(tableBody);
+  table.appendChild(tableFooter);
   return table;
 }

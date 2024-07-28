@@ -11,8 +11,11 @@ export default function projectInventories(
     inventory,
     costOfRevenue,
   );
-  return projectWorkingCapItem(
-    projectedCostOfRevenue,
-    daysInventoryOutstanding,
-  );
+  return {
+    projectedInventory: projectWorkingCapItem(
+      projectedCostOfRevenue,
+      daysInventoryOutstanding,
+    ),
+    daysInventoryOutstanding: daysInventoryOutstanding,
+  };
 }
