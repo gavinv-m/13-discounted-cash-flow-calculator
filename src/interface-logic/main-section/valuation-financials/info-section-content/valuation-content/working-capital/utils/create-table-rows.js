@@ -89,70 +89,59 @@ export function createTableHead() {
   return tableHead;
 }
 
-export function createTradeReceivables() {
+function createTradeRow(rowName) {
+  const row = {
+    receivables: {
+      name: 'Trade Receivables',
+      dataKey: 'currentNetReceivables',
+    },
+    payables: {
+      name: 'Trade Payables',
+      dataKey: 'currentAccountsPayable',
+    },
+  };
+
+  const rowDetails = row[rowName];
   const tableRow = createElement('tr');
 
-  const nameCell = createElement('td', { text: 'Trade Receivables' });
+  const nameCell = createElement('td', { text: rowDetails.name });
   const emptyCell = createElement('td');
 
-  // Prior year receivable
+  // Prior year amount
   const priorFinYear = projectionYears.startingProjectionYear - 1;
-  let priorFinYearAmt = balanceSheetDataManager.sendData(
-    'currentNetReceivables',
-  ).currentNetReceivables;
+  let priorFinYearAmt = balanceSheetDataManager.sendData(rowDetails.dataKey)[
+    rowDetails.dataKey
+  ];
   priorFinYearAmt = roundToMillions(priorFinYearAmt[priorFinYear]);
-  const priorFinYearAmtCell = createElement('td', { text: priorFinYearAmt });
+  const formattedPriorYearAmt =
+    rowName === 'payables' ? `(${priorFinYearAmt})` : priorFinYearAmt;
+  const priorFinYearAmtCell = createElement('td', {
+    text: formattedPriorYearAmt,
+  });
 
   appendChildren(tableRow, nameCell, emptyCell, priorFinYearAmtCell);
 
-  // Projected receivables
-  const projectedReceivables = workingCapProjectionsManager.sendData(
-    'currentNetReceivables',
-  ).currentNetReceivables;
+  // Projected amounts
+  const projectedAmounts = workingCapProjectionsManager.sendData(
+    rowDetails.dataKey,
+  )[rowDetails.dataKey];
 
-  for (let year in projectedReceivables) {
-    let amount = projectedReceivables[year];
-    amount = roundToMillions(amount);
-
-    const cell = createElement('td', { text: amount });
+  for (let year in projectedAmounts) {
+    let amount = roundToMillions(projectedAmounts[year]);
+    const formattedAmount = rowName === 'payables' ? `(${amount})` : amount;
+    const cell = createElement('td', { text: formattedAmount });
     tableRow.appendChild(cell);
   }
 
   return tableRow;
 }
 
+export function createTradeReceivables() {
+  return createTradeRow('receivables');
+}
+
 export function createTradePayables() {
-  const tableRow = createElement('tr');
-
-  const nameCell = createElement('td', { text: 'Trade Payables' });
-  const emptyCell = createElement('td');
-
-  // Prior year payable
-  const priorFinYear = projectionYears.startingProjectionYear - 1;
-  let priorFinYearAmt = balanceSheetDataManager.sendData(
-    'currentAccountsPayable',
-  ).currentAccountsPayable;
-  priorFinYearAmt = roundToMillions(priorFinYearAmt[priorFinYear]);
-  const priorFinYearAmtCell = createElement('td', {
-    text: `(${priorFinYearAmt})`,
-  });
-
-  appendChildren(tableRow, nameCell, emptyCell, priorFinYearAmtCell);
-
-  // Projected receivables
-  const projectedPayables = workingCapProjectionsManager.sendData(
-    'currentAccountsPayable',
-  ).currentAccountsPayable;
-
-  for (let year in projectedPayables) {
-    let amount = projectedPayables[year];
-    amount = roundToMillions(amount);
-
-    const cell = createElement('td', { text: `(${amount})` });
-    tableRow.appendChild(cell);
-  }
-
-  return tableRow;
+  return createTradeRow('payables');
 }
 
 export function createYearsRow() {
