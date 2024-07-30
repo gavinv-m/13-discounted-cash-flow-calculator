@@ -14,6 +14,10 @@ class FinancialContentManager {
     const financialContentBox = infoContentContainer.appendChild(
       this.renderFinancialContentBox(),
     );
+
+    // Load page with balance sheet table
+
+    // TODO: Add event listeners to buttons to switch between statements
   }
 }
 
