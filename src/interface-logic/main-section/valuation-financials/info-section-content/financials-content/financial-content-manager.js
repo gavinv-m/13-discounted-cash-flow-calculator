@@ -1,14 +1,26 @@
+import createStatementButtons from './utils/create-statement-buttons';
+import renderFinancialContentBox from './utils/render-fin-content-box';
+
 class FinancialContentManager {
-  constructor() {}
+  constructor(createStatementButtons, renderFinancialContentBox) {
+    this.createStatementButtons = createStatementButtons;
+    this.renderFinancialContentBox = renderFinancialContentBox;
+  }
 
   addFinancialContent(infoContentContainer) {
-    const mockHeading = document.createElement('h1');
-    mockHeading.textContent = 'Financial Content';
-    infoContentContainer.appendChild(mockHeading);
+    infoContentContainer.appendChild(this.createStatementButtons());
+
+    // Create, store and append the content box headings will manipulate
+    const financialContentBox = infoContentContainer.appendChild(
+      this.renderFinancialContentBox(),
+    );
   }
 }
 
-const financialContentManager = new FinancialContentManager();
+const financialContentManager = new FinancialContentManager(
+  createStatementButtons,
+  renderFinancialContentBox,
+);
 
 // Exports to load-requested info in valuation-financials directory
 export { financialContentManager };
