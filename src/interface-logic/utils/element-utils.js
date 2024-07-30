@@ -2,12 +2,17 @@ function appendChildren(parent, ...children) {
   parent.append(...children);
 }
 
-function createElement(elementName, { text, innerHTML, classList, id } = {}) {
+function createElement(
+  elementName,
+  { text, innerHTML, classList, id, type, value } = {},
+) {
   const element = document.createElement(elementName);
   if (text) element.textContent = text;
   if (innerHTML) element.innerHTML = innerHTML;
   if (classList) element.classList.add(...classList);
   if (id) element.id = id;
+  if (type) element.type = type;
+  if (value !== undefined) element.value = value;
   return element;
 }
 
