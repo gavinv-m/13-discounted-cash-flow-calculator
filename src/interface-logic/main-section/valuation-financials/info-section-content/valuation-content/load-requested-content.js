@@ -46,5 +46,5 @@ const loadRequestedContentManager = new LoadRequestedContent(
   terminalValueUIManager,
 );
 
-// Exports to heading-event-listeners.js
+// Exports to heading-event-listeners.js for valuation projection headings
 export { loadRequestedContentManager };

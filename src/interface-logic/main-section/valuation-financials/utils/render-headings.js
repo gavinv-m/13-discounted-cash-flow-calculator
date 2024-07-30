@@ -7,10 +7,12 @@ export default function renderValuationFinancialsHeadings(valFinSection) {
   const valuationHeading = createElement('h1', {
     text: 'Valuation',
     id: 'valuation-heading',
+    classList: ['val-fin-heading'],
   });
   const financialsHeading = createElement('h1', {
     text: 'Financials',
     id: 'financials-heading',
+    classList: ['val-fin-heading'],
   });
 
   appendChildren(headingsContainer, valuationHeading, financialsHeading);

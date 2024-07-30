@@ -1,0 +1,26 @@
+import { infoVisibilityChecker } from './check-active-heading';
+import clearInfoContent from './clear-info-content';
+import { loadRequestedInfo } from '../load-requested-info';
+
+// Exports to valuation-financials-manager.js
+export default function addHeadingsEventListeners(
+  headings,
+  infoContentContainer,
+) {
+  headings.forEach((headingElement) => {
+    headingElement.addEventListener('click', () => {
+      const headingText = headingElement.textContent;
+      const currentlyActive =
+        infoVisibilityChecker.checkActiveHeading(headingText);
+
+      if (currentlyActive === true) {
+        return true;
+      }
+
+      // Clear info content information
+      clearInfoContent(infoContentContainer);
+
+      loadRequestedInfo.loadInfo(headingText, infoContentContainer);
+    });
+  });
+}
