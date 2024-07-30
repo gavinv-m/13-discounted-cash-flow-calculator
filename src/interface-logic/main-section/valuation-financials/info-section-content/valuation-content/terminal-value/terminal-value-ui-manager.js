@@ -1,14 +1,16 @@
+import displayProjections from './utils/display-terminal-value';
+
 class TerminalValueUIManager {
-  constructor() {}
+  constructor(displayProjections) {
+    this.displayProjections = displayProjections;
+  }
 
   addTerminalValueProjections(valuationContentBox) {
-    const mockTerminalValue = document.createElement('h1');
-    mockTerminalValue.textContent = 'Terminal Value Projections';
-    valuationContentBox.appendChild(mockTerminalValue);
+    valuationContentBox.appendChild(this.displayProjections());
   }
 }
 
-const terminalValueUIManager = new TerminalValueUIManager();
+const terminalValueUIManager = new TerminalValueUIManager(displayProjections);
 
 // Exports to load-requested-content.js
 export { terminalValueUIManager };
