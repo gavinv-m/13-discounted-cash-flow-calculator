@@ -23,6 +23,10 @@ class BalanceSheetDataManager {
   sendData(...args) {
     return this.getFinancialLineItems(args, this.balanceSheetData);
   }
+
+  getYears(sortType) {
+    return this[sortType];
+  }
 }
 
 const balanceSheetDataManager = new BalanceSheetDataManager(getYearsAvailable);

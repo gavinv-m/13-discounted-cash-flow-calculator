@@ -23,6 +23,10 @@ class CashFlowStatementDataManager {
   sendData(...args) {
     return this.getFinancialLineItems(args, this.cashFlowStatementData);
   }
+
+  getYears(sortType) {
+    return this[sortType];
+  }
 }
 
 const cashFlowStatementDataManager = new CashFlowStatementDataManager(

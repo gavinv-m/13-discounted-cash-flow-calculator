@@ -23,6 +23,10 @@ class IncomeStatementDataManager {
   sendData(...args) {
     return this.getFinancialLineItems(args, this.incomeStatementData);
   }
+
+  getYears(sortType) {
+    return this[sortType];
+  }
 }
 
 const incomeStatementDataManager = new IncomeStatementDataManager(
