@@ -15,19 +15,24 @@ export default function getYearsAvailable(statementData) {
     12: 'Dec',
   };
   const years = [];
+  const yearsOnly = [];
 
   annualReports.forEach((year) => {
     const fiscalYear = year.fiscalDateEnding.split('-');
     const text = `${monthMap[fiscalYear[1]]}-${fiscalYear[0]}`;
     years.push(text);
+    yearsOnly.push(fiscalYear[0]);
   });
 
-  const latestToOldest = years;
-  const oldestToLatest = [...years].reverse();
-  console.log(latestToOldest, oldestToLatest);
+  const latestToOldestYearsAndMonth = [...years];
+  const oldestToLatestYearsAndMonth = [...years].reverse();
+  const latestToOldestYearsOnly = [...yearsOnly].sort((a, b) => b - a);
+  const oldestToLatestYearsOnly = [...yearsOnly].sort((a, b) => a - b);
 
   return {
-    latestToOldest,
-    oldestToLatest,
+    latestToOldestYearsAndMonth,
+    oldestToLatestYearsAndMonth,
+    latestToOldestYearsOnly,
+    oldestToLatestYearsOnly,
   };
 }
