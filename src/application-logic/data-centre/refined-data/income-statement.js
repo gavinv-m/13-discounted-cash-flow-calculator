@@ -4,8 +4,11 @@ import getYearsAvailable from '../utils/years-available';
 
 class IncomeStatementDataManager {
   incomeStatementData = null;
-  yearsLatestToOldest = null;
-  yearsOldestToLatest = null;
+
+  latestToOldestYearsAndMonth = null;
+  oldestToLatestYearsAndMonth = null;
+  latestToOldestYearsOnly = null;
+  oldestToLatestYearsOnly = null;
 
   constructor(getYearsAvailable) {
     this.getFinancialLineItems = getFinancialLineItems.bind(this);
@@ -16,8 +19,10 @@ class IncomeStatementDataManager {
     this.incomeStatementData = aggregateFinancialData(incomeStatementData);
 
     const years = this.getYearsAvailable(incomeStatementData);
-    this.yearsLatestToOldest = years.latestToOldest;
-    this.yearsOldestToLatest = years.oldestToLatest;
+    this.latestToOldestYearsAndMonth = years.latestToOldestYearsAndMonth;
+    this.oldestToLatestYearsAndMonth = years.oldestToLatestYearsAndMonth;
+    this.latestToOldestYearsOnly = years.latestToOldestYearsOnly;
+    this.oldestToLatestYearsOnly = years.oldestToLatestYearsOnly;
   }
 
   sendData(...args) {
