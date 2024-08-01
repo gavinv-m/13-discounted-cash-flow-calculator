@@ -1,8 +1,10 @@
 import { balanceSheetUIManager } from './balance-sheet-statement/bal-sheet-manager';
+import { incomeStatementUIManager } from './income-statement/inc-statement-ui-manager';
 
 class LoadRequestedStatement {
-  constructor(balanceSheetUIManager) {
+  constructor(balanceSheetUIManager, incomeStatementUIManager) {
     this.balanceSheetUIManager = balanceSheetUIManager;
+    this.incomeStatementUIManager = incomeStatementUIManager;
   }
 
   loadStatement(
@@ -19,12 +21,20 @@ class LoadRequestedStatement {
         sortedYearsAndMonths,
         numberOfYears,
       );
+    } else if (statementText === 'Income Statement') {
+      this.incomeStatementUIManager.addIncStatementUI(
+        financialContentBox,
+        sortedYearsOnly,
+        sortedYearsAndMonths,
+        numberOfYears,
+      );
     }
   }
 }
 
 const loadRequestedStatement = new LoadRequestedStatement(
   balanceSheetUIManager,
+  incomeStatementUIManager,
 );
 
 // Exports to buttons-event-listeners.js, periods-buttons
