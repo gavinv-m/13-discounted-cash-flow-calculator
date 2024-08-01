@@ -1,16 +1,19 @@
 import createStatementButtons from './utils/create-statement-buttons';
 import renderFinancialContentBox from './utils/render-fin-content-box';
 import { balanceSheetUIManager } from './balance-sheet-statement/bal-sheet-manager';
+import addButtonsEventListeners from './utils/buttons-event-listeners';
 
 class FinancialContentManager {
   constructor(
     createStatementButtons,
     renderFinancialContentBox,
     balanceSheetUIManager,
+    addButtonsEventListeners,
   ) {
     this.createStatementButtons = createStatementButtons;
     this.renderFinancialContentBox = renderFinancialContentBox;
     this.balanceSheetUIManager = balanceSheetUIManager;
+    this.addButtonsEventListeners = addButtonsEventListeners;
   }
 
   addFinancialContent(infoContentContainer) {
@@ -30,6 +33,8 @@ class FinancialContentManager {
     );
 
     // TODO: Add event listeners to buttons to switch between statements
+    const statementsButton = document.querySelectorAll('.statement-btn');
+    this.addButtonsEventListeners(statementsButton, financialContentBox);
   }
 }
 
@@ -37,6 +42,7 @@ const financialContentManager = new FinancialContentManager(
   createStatementButtons,
   renderFinancialContentBox,
   balanceSheetUIManager,
+  addButtonsEventListeners,
 );
 
 // Exports to load-requested info in valuation-financials directory
