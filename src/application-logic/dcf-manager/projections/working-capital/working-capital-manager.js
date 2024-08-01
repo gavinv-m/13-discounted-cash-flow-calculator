@@ -5,6 +5,7 @@ import { balanceSheetDataManager } from '../../../data-centre/refined-data/balan
 import calculateNetWorkingCapital from '../../utils/calc-net-working-cap';
 import calculateChangeInNWC from '../../utils/change-in-nwc';
 import getFinancialLineItems from '../../../data-centre/utils/financial-data-utils';
+import calculateHistoricalChangeInNWC from './utils/historical-change-nwc';
 
 class WorkingCapitalManager {
   projections = {};
@@ -17,6 +18,7 @@ class WorkingCapitalManager {
     calculateNetWorkingCapital,
     calculateChangeInNWC,
     getFinancialLineItems,
+    calculateHistoricalChangeInNWC,
   ) {
     this.accountsReceivableManager = accountsReceivableManager;
     this.accountsPayableManager = accountsPayableManager;
@@ -25,6 +27,7 @@ class WorkingCapitalManager {
     this.calculateNetWorkingCapital = calculateNetWorkingCapital;
     this.calculateChangeInNWC = calculateChangeInNWC;
     this.getWorkingCapitalItem = getFinancialLineItems.bind(this);
+    this.calculateHistoricalChangeInNWC = calculateHistoricalChangeInNWC;
   }
 
   sendData(...args) {
@@ -40,12 +43,21 @@ class WorkingCapitalManager {
 
     this.projections.inventory = this.inventoryManager.projectInventory();
 
-    // Calculate net working capital, and changes in net working capital
+    // Calculate net working capital, and changes in projected net working capital
     this.calculateNetWorkingCap();
     this.projections.changesInNetWorkingCapital = this.calculateChangeInNWC(
       this.projections.historicalNetWorkingCapital,
       this.projections.projectedNetWorkingCapital,
     );
+
+    /**
+     * Calculate historical CHANGES in net working capital
+     * Useful for when displaying cash flow statement table
+     */
+    this.projections.historicalChangesInNWC =
+      this.calculateHistoricalChangeInNWC(
+        this.projections.historicalNetWorkingCapital,
+      );
   }
 
   calculateNetWorkingCap() {
@@ -77,6 +89,7 @@ const workingCapProjectionsManager = new WorkingCapitalManager(
   calculateNetWorkingCapital,
   calculateChangeInNWC,
   getFinancialLineItems,
+  calculateHistoricalChangeInNWC,
 );
 
 export { workingCapProjectionsManager };
