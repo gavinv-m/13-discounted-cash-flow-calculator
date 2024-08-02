@@ -2,20 +2,24 @@ import aggregateFinancialData from '../utils/data-aggregator';
 import getFinancialLineItems from '../utils/financial-data-utils';
 import getYearsAvailable from '../utils/years-available';
 import aggregateSignedFinData from '../utils/aggregate-non-absolute';
+import calculateChangeYOY from '../utils/calculate-change';
 
 class CashFlowStatementDataManager {
   cashFlowStatementData = null;
   signedCashFlowStatementData = null;
+  changesInCash = null;
 
   latestToOldestYearsAndMonth = null;
   oldestToLatestYearsAndMonth = null;
   latestToOldestYearsOnly = null;
   oldestToLatestYearsOnly = null;
 
-  constructor(getYearsAvailable, aggregateSignedFinData) {
+  constructor(getYearsAvailable, aggregateSignedFinData, calculateChangeYOY) {
     this.getFinancialLineItems = getFinancialLineItems.bind(this);
     this.getYearsAvailable = getYearsAvailable;
     this.aggregateSignedFinData = aggregateSignedFinData;
+    this.getSignedData = getFinancialLineItems.bind(this);
+    this.calculateChange = calculateChangeYOY;
   }
 
   handleCashFlowStatementData(cashFlowStatementData) {
@@ -38,6 +42,10 @@ class CashFlowStatementDataManager {
     return this.getFinancialLineItems(args, this.cashFlowStatementData);
   }
 
+  sendSignedData(...args) {
+    return this.getSignedData(args, this.signedCashFlowStatementData);
+  }
+
   getYears(sortType) {
     return this[sortType];
   }
@@ -46,6 +54,7 @@ class CashFlowStatementDataManager {
 const cashFlowStatementDataManager = new CashFlowStatementDataManager(
   getYearsAvailable,
   aggregateSignedFinData,
+  calculateChangeYOY,
 );
 
 // Exports to data-centre.js
