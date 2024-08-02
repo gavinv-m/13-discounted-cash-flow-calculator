@@ -13,15 +13,16 @@ const createRows = function nonTotalsRows(
   tableBody,
   yearsOnly,
 ) {
+  const negativeItems = [
+    'Cost of goods sold',
+    'Depreciation and amortisation',
+    'Selling, G&A expenses',
+    'Research and development',
+    'Tax expense',
+  ];
+
   for (let line in financialLineItems) {
     const details = financialLineItems[line];
-    const negativeItems = [
-      'Cost of goods sold',
-      'Depreciation and amortisation',
-      'Selling, G&A expenses',
-      'Research and development',
-      'Tax expense',
-    ];
 
     const tableRow = createElement('tr');
     if (details.classList !== undefined) {
