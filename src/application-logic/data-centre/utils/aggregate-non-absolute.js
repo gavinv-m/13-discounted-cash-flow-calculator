@@ -1,5 +1,5 @@
-// Exports to income-statement.js, balance-sheet.js, cash-flow-statement.js
-export default function aggregateFinancialData(financialStatementData) {
+// Exports to cash-flow-statement.js
+export default function aggregateSignedFinData(financialStatementData) {
   const annualReports = financialStatementData.annualReports;
   const statementData = {};
 
@@ -10,7 +10,7 @@ export default function aggregateFinancialData(financialStatementData) {
       // Check if financial line item exists in statementData
       statementData[financialLineItem] = statementData[financialLineItem] || {};
 
-      let amount = Math.abs(year[financialLineItem]);
+      let amount = Number(year[financialLineItem]);
       if (isNaN(amount) === true) {
         amount = 0;
       }
