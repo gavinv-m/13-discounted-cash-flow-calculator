@@ -1,10 +1,16 @@
 import { balanceSheetUIManager } from './balance-sheet-statement/bal-sheet-manager';
 import { incomeStatementUIManager } from './income-statement/inc-statement-ui-manager';
+import { cashFlowUIManager } from './cash-flow/cash-flow-ui-manager';
 
 class LoadRequestedStatement {
-  constructor(balanceSheetUIManager, incomeStatementUIManager) {
+  constructor(
+    balanceSheetUIManager,
+    incomeStatementUIManager,
+    cashFlowUIManager,
+  ) {
     this.balanceSheetUIManager = balanceSheetUIManager;
     this.incomeStatementUIManager = incomeStatementUIManager;
+    this.cashFlowUIManager = cashFlowUIManager;
   }
 
   loadStatement(
@@ -28,6 +34,13 @@ class LoadRequestedStatement {
         sortedYearsAndMonths,
         numberOfYears,
       );
+    } else if (statementText === 'Cash Flow Statement') {
+      this.cashFlowUIManager.addCashFlowUI(
+        financialContentBox,
+        sortedYearsOnly,
+        sortedYearsAndMonths,
+        numberOfYears,
+      );
     }
   }
 }
@@ -35,6 +48,7 @@ class LoadRequestedStatement {
 const loadRequestedStatement = new LoadRequestedStatement(
   balanceSheetUIManager,
   incomeStatementUIManager,
+  cashFlowUIManager,
 );
 
 // Exports to buttons-event-listeners.js, periods-buttons

@@ -3,6 +3,7 @@ import getFinancialLineItems from '../utils/financial-data-utils';
 import getYearsAvailable from '../utils/years-available';
 import aggregateSignedFinData from '../utils/aggregate-non-absolute';
 import calculateChangeYOY from '../utils/calculate-change';
+import { balanceSheetDataManager } from './balance-sheet';
 
 class CashFlowStatementDataManager {
   cashFlowStatementData = null;
@@ -14,12 +15,18 @@ class CashFlowStatementDataManager {
   latestToOldestYearsOnly = null;
   oldestToLatestYearsOnly = null;
 
-  constructor(getYearsAvailable, aggregateSignedFinData, calculateChangeYOY) {
+  constructor(
+    getYearsAvailable,
+    aggregateSignedFinData,
+    calculateChangeYOY,
+    balanceSheetDataManager,
+  ) {
     this.getFinancialLineItems = getFinancialLineItems.bind(this);
     this.getYearsAvailable = getYearsAvailable;
     this.aggregateSignedFinData = aggregateSignedFinData;
     this.getSignedData = getFinancialLineItems.bind(this);
     this.calculateChange = calculateChangeYOY;
+    this.balanceSheetDataManager = balanceSheetDataManager;
   }
 
   handleCashFlowStatementData(cashFlowStatementData) {
@@ -29,6 +36,12 @@ class CashFlowStatementDataManager {
     this.signedCashFlowStatementData = this.aggregateSignedFinData(
       cashFlowStatementData,
     );
+
+    // Calculate change in cash and cash
+    const cashAndCashEquivalents = balanceSheetDataManager.sendData(
+      'cashAndCashEquivalentsAtCarryingValue',
+    ).cashAndCashEquivalentsAtCarryingValue;
+    this.changesInCash = this.calculateChange(cashAndCashEquivalents);
 
     const years = this.getYearsAvailable(cashFlowStatementData);
     this.latestToOldestYearsAndMonth = years.latestToOldestYearsAndMonth;
@@ -49,12 +62,17 @@ class CashFlowStatementDataManager {
   getYears(sortType) {
     return this[sortType];
   }
+
+  getChangeInCash() {
+    return this.changesInCash;
+  }
 }
 
 const cashFlowStatementDataManager = new CashFlowStatementDataManager(
   getYearsAvailable,
   aggregateSignedFinData,
   calculateChangeYOY,
+  balanceSheetDataManager,
 );
 
 // Exports to data-centre.js
