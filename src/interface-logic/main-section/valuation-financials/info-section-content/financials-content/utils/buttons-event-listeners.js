@@ -1,5 +1,4 @@
 import { statementVisibilityChecker } from './check-active-statement';
-import clearFinancialContent from './clear-financial-content';
 import { loadRequestedStatement } from '../load-requested-statement';
 
 // Exports to financial-content-manager
@@ -13,9 +12,6 @@ export default function addButtonsEventListeners(buttons, financialContentBox) {
       if (currentlyActive === true) {
         return;
       }
-
-      // Clear financial content box/information
-      clearFinancialContent(financialContentBox);
 
       const sortedYears =
         statementVisibilityChecker.getVisibilityOption('sortedYears');
