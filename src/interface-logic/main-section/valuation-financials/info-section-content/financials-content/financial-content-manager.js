@@ -2,6 +2,7 @@ import createStatementButtons from './utils/create-statement-buttons';
 import renderFinancialContentBox from './utils/render-fin-content-box';
 import { balanceSheetUIManager } from './balance-sheet-statement/bal-sheet-manager';
 import addButtonsEventListeners from './utils/buttons-event-listeners';
+import createPeriodButtons from './utils/periods-dropdown';
 
 class FinancialContentManager {
   constructor(
@@ -14,10 +15,12 @@ class FinancialContentManager {
     this.renderFinancialContentBox = renderFinancialContentBox;
     this.balanceSheetUIManager = balanceSheetUIManager;
     this.addButtonsEventListeners = addButtonsEventListeners;
+    this.createPeriodButtons = createPeriodButtons;
   }
 
   addFinancialContent(infoContentContainer) {
     infoContentContainer.appendChild(this.createStatementButtons());
+    infoContentContainer.appendChild(this.createPeriodButtons());
 
     // Create, store and append the content box headings will manipulate
     const financialContentBox = infoContentContainer.appendChild(
@@ -32,7 +35,6 @@ class FinancialContentManager {
       5,
     );
 
-    // TODO: Add event listeners to buttons to switch between statements
     const statementsButton = document.querySelectorAll('.statement-btn');
     this.addButtonsEventListeners(statementsButton, financialContentBox);
   }
@@ -43,6 +45,7 @@ const financialContentManager = new FinancialContentManager(
   renderFinancialContentBox,
   balanceSheetUIManager,
   addButtonsEventListeners,
+  createPeriodButtons,
 );
 
 // Exports to load-requested info in valuation-financials directory

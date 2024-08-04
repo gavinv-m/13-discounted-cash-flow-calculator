@@ -19,6 +19,9 @@ class StatementVisibilityChecker {
   }
 
   // TODO: Check number of years to show
+  updateYearsToShow(years) {
+    this.yearsToShow = years;
+  }
 }
 
 const statementVisibilityChecker = new StatementVisibilityChecker();
