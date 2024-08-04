@@ -4,9 +4,7 @@ import {
 } from '../../../../../utils/element-utils';
 
 // Exports to financial-content-manager.js
-export default function createStatementButtons() {
-  const container = createElement('div', { id: 'financial-btns-container' });
-
+export default function createStatementButtons(buttonsContainer) {
   const balSheetBtn = createElement('button', {
     type: 'button',
     text: 'Balance Sheet',
@@ -28,7 +26,7 @@ export default function createStatementButtons() {
     id: 'cash-flow-btn',
   });
 
-  appendChildren(container, balSheetBtn, incStatementBtn, cashFlowBtn);
+  appendChildren(buttonsContainer, balSheetBtn, incStatementBtn, cashFlowBtn);
 
-  return container;
+  return;
 }

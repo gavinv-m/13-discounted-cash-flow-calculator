@@ -3,6 +3,7 @@ import renderFinancialContentBox from './utils/render-fin-content-box';
 import { balanceSheetUIManager } from './balance-sheet-statement/bal-sheet-manager';
 import addButtonsEventListeners from './utils/buttons-event-listeners';
 import createPeriodButtons from './utils/periods-dropdown';
+import { createElement } from '../../../../utils/element-utils';
 
 class FinancialContentManager {
   constructor(
@@ -19,13 +20,19 @@ class FinancialContentManager {
   }
 
   addFinancialContent(infoContentContainer) {
-    infoContentContainer.appendChild(this.createStatementButtons());
-    infoContentContainer.appendChild(this.createPeriodButtons());
+    const buttonsContainer = createElement('div', {
+      id: 'financial-btns-container',
+    });
 
-    // Create, store and append the content box headings will manipulate
+    this.createStatementButtons(buttonsContainer);
+    infoContentContainer.appendChild(buttonsContainer);
+
+    // Create, store and append the content box statement, and period buttons will manipulate
     const financialContentBox = infoContentContainer.appendChild(
       this.renderFinancialContentBox(),
     );
+
+    buttonsContainer.appendChild(this.createPeriodButtons(financialContentBox));
 
     // Load page with balance sheet table, sorted latest to oldest, limited to 5 years
     this.balanceSheetUIManager.addBalanceSheetUI(

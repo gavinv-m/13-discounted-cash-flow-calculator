@@ -22,7 +22,8 @@ const selectPeriod = function handlePeriodButtonClick(
   // Update number in years to show
   statementVisibilityChecker.updateYearsToShow(years);
 
-  const statementText = getVisibilityOption('activeStatement');
+  const statementText =
+    statementVisibilityChecker.getVisibilityOption('activeStatement');
   const sortedYears =
     statementVisibilityChecker.getVisibilityOption('sortedYears');
   const sortedYearsAndMonths = statementVisibilityChecker.getVisibilityOption(
@@ -108,6 +109,5 @@ export default function createPeriodButtons(financialContentBox) {
     showAvailablePeriods(contentContainer),
   );
   appendChildren(dropDown, mainButton, contentContainer);
-  console.log(dropDown);
   return dropDown;
 }
