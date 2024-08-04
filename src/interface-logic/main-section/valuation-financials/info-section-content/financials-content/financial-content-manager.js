@@ -27,11 +27,21 @@ class FinancialContentManager {
     this.createStatementButtons(buttonsContainer);
     infoContentContainer.appendChild(buttonsContainer);
 
+    const warningContainer = createElement('div', { id: 'warning-container' });
+    const message = createElement('p', {
+      text: `Please note that the component line items may not sum up to the reported totals 
+      due to incomplete data from the API. However, the total figures are accurate and have been 
+      verified against the actual financial statements.`,
+    });
+    warningContainer.appendChild(message);
+    infoContentContainer.appendChild(warningContainer);
+
     // Create, store and append the content box statement, and period buttons will manipulate
     const financialContentBox = infoContentContainer.appendChild(
       this.renderFinancialContentBox(),
     );
 
+    // Create buttons that will toggle periods to show
     buttonsContainer.appendChild(this.createPeriodButtons(financialContentBox));
 
     // Load page with balance sheet table, sorted latest to oldest, limited to 5 years
