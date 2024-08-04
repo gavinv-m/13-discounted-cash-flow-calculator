@@ -9,6 +9,7 @@ import { workingCapProjectionsManager } from '../../../../../../../application-l
 import roundToMillions from '../../../utils/round-to-millions';
 import { accountsPayableManager } from '../../../../../../../application-logic/dcf-manager/projections/working-capital/accounts-payable-projections';
 import { inventoryManager } from '../../../../../../../application-logic/dcf-manager/projections/working-capital/inventory-projections';
+import getQuestionMarkSvg from '../../../../../../assets/svgs/question-mark';
 
 /**
  * All Exports to display-working-cap.js
@@ -179,7 +180,13 @@ const createTradeRow = function createWorkingCapItemRow(rowName) {
   const rowDetails = row[rowName];
   const tableRow = createElement('tr');
 
-  const nameCell = createElement('td', { text: rowDetails.name });
+  const questionMarkSpan = getQuestionMarkSvg();
+  const nameCell =
+    rowDetails.name === 'Trade Receivables'
+      ? createElement('td', {
+          innerHTML: `${rowDetails.name} ${questionMarkSpan}`,
+        })
+      : createElement('td', { text: rowDetails.name });
   const emptyCell = createElement('td');
 
   // Prior year amount
