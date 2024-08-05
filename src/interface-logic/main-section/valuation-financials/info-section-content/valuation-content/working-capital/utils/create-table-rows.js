@@ -10,6 +10,10 @@ import roundToMillions from '../../../utils/round-to-millions';
 import { accountsPayableManager } from '../../../../../../../application-logic/dcf-manager/projections/working-capital/accounts-payable-projections';
 import { inventoryManager } from '../../../../../../../application-logic/dcf-manager/projections/working-capital/inventory-projections';
 import getQuestionMarkSvg from '../../../../../../assets/svgs/question-mark';
+import {
+  createExplainerContainer,
+  removeExplainerContent,
+} from '../../../../../../utils/explainer-box';
 
 /**
  * All Exports to display-working-cap.js
@@ -166,27 +170,56 @@ const createTradeRow = function createWorkingCapItemRow(rowName) {
     receivables: {
       name: 'Trade Receivables',
       dataKey: 'currentNetReceivables',
+      explainerText: `Since no credit sales data were found in the API, 
+      our current assumption is 50% of total sales as credit sales for calculating Days Sales Outstanding.`,
+      explainerID: 'receivables-explainer',
+      questionMarkID: 'receivables-question',
     },
     payables: {
       name: 'Trade Payables',
       dataKey: 'currentAccountsPayable',
+      questionMarkID: 'payables-question',
     },
     inventory: {
       name: 'Inventory',
       dataKey: 'inventory',
+      questionMarkID: 'inventory-question',
     },
   };
 
   const rowDetails = row[rowName];
   const tableRow = createElement('tr');
 
-  const questionMarkSpan = getQuestionMarkSvg();
-  const nameCell =
-    rowDetails.name === 'Trade Receivables'
-      ? createElement('td', {
-          innerHTML: `${rowDetails.name} ${questionMarkSpan}`,
-        })
-      : createElement('td', { text: rowDetails.name });
+  const nameAndQuestionCell = createElement('td');
+  const nameContainer = createElement('div', { text: rowDetails.name });
+  const questionContainer = createElement('div', {
+    id: rowDetails.questionMarkID,
+  });
+
+  if (rowDetails.name === 'Trade Receivables') {
+    questionContainer.innerHTML = getQuestionMarkSvg();
+    let explainerVisible = false;
+
+    questionContainer.addEventListener('click', (event) => {
+      event.stopPropagation(); // Prevent the click from affecting parent elements
+
+      if (!explainerVisible) {
+        createExplainerContainer(
+          rowDetails.explainerText,
+          rowDetails.explainerID,
+          rowDetails.questionMarkID,
+        );
+        explainerVisible = true;
+      } else {
+        removeExplainerContent(
+          rowDetails.explainerID,
+          rowDetails.questionMarkID,
+        );
+        explainerVisible = false;
+      }
+    });
+  }
+  appendChildren(nameAndQuestionCell, nameContainer, questionContainer);
   const emptyCell = createElement('td');
 
   // Prior year amount
@@ -201,7 +234,7 @@ const createTradeRow = function createWorkingCapItemRow(rowName) {
     text: formattedPriorYearAmt,
   });
 
-  appendChildren(tableRow, nameCell, emptyCell, priorFinYearAmtCell);
+  appendChildren(tableRow, nameAndQuestionCell, emptyCell, priorFinYearAmtCell);
 
   // Projected amounts
   const projectedAmounts = workingCapProjectionsManager.sendData(
