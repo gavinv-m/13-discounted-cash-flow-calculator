@@ -3,7 +3,6 @@ import {
   createElement,
 } from '../../../../../../utils/element-utils';
 import { projectionYears } from '../../../../../../../application-logic/dcf-manager/projection-years-manager';
-import getQuestionMarkSvg from '../../../../../../assets/svgs/question-mark';
 import { incomeStatementDataManager } from '../../../../../../../application-logic/data-centre/refined-data/income-statement';
 import roundToMillions from '../../../utils/round-to-millions';
 import { revenueAndExpenses } from '../../../../../../../application-logic/dcf-manager/projections/revenue-and-expenses-projections';
@@ -131,11 +130,8 @@ export function createExpenseRows(tableBody) {
 export function createRevenueRow() {
   const tableRow = createElement('tr');
 
-  const questionMarkSpan = getQuestionMarkSvg();
-  // TODO: Event Listener for icon
-
   const nameCell = createElement('td', {
-    innerHTML: `Revenue ${questionMarkSpan}`,
+    innerHTML: `Revenue`,
   });
 
   // Prior FinancialYear
