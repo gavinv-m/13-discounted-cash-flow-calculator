@@ -11,16 +11,12 @@ import {
   removeExplainerContent,
 } from '../../utils/explainer-box';
 
-const addInputBoxes = function renderCustomInputBoxes(metrics) {
-  const tickerSymbol = overviewDataManager.sendData('Symbol').Symbol;
-  const threeYearGrowthRate = (
-    revenueAndExpenses.revenueGrowthRates.threeYearAverage * 100
-  ).toFixed(2);
-  const fiveYearGrowthRate = (
-    revenueAndExpenses.revenueGrowthRates.fiveYearAverage * 100
-  ).toFixed(2);
-
-  const metricLabels = {
+const labels = function getMetricLabels(
+  tickerSymbol,
+  threeYearGrowthRate,
+  fiveYearGrowthRate,
+) {
+  return {
     revenue: {
       name: 'Revenue',
       datakey: 'revenueGrowthRate',
@@ -51,62 +47,75 @@ const addInputBoxes = function renderCustomInputBoxes(metrics) {
       questionMarkID: 'custom-growth-rate-question',
     },
   };
+};
 
-  // Main container that holds all metrics
+const explainerContent = function createExplainer(metric) {
+  const explainer = createElement('div', {
+    classList: ['custom-explainers'],
+    id: metric.questionMarkID,
+  });
+
+  if (metric.name !== 'WACC') {
+    explainer.innerHTML = getQuestionMarkSvg();
+    explainer.addEventListener('mouseover', () => {
+      createExplainerContainer(
+        metric.explainerText,
+        metric.explainerID,
+        metric.questionMarkID,
+      );
+    });
+    explainer.addEventListener('mouseout', () => {
+      removeExplainerContent(metric.explainerID, metric.questionMarkID);
+    });
+  }
+
+  return explainer;
+};
+
+const container = function createMetricContainer(metric, value) {
+  const metricContainer = createElement('div', {
+    classList: ['metric'],
+    id: metric.datakey,
+  });
+
+  const metricName = createElement('div', { text: metric.name });
+  const explainer = explainerContent(metric);
+
+  const editContainer = createElement('div');
+  const minusSign = createElement('div', { innerHTML: '&#8722;' });
+  const inputBox = createInput({ type: 'text', value });
+  const plusSign = createElement('div', { innerHTML: '&#43;' });
+
+  appendChildren(editContainer, minusSign, inputBox, plusSign);
+  appendChildren(metricContainer, metricName, explainer, editContainer);
+
+  return metricContainer;
+};
+
+const addInputBoxes = function renderCustomInputBoxes(currentMetrics) {
+  const tickerSymbol = overviewDataManager.sendData('Symbol').Symbol;
+  const threeYearGrowthRate = (
+    revenueAndExpenses.revenueGrowthRates.threeYearAverage * 100
+  ).toFixed(2);
+  const fiveYearGrowthRate = (
+    revenueAndExpenses.revenueGrowthRates.fiveYearAverage * 100
+  ).toFixed(2);
+
+  // Get metrics
+  const metricLabels = labels(
+    tickerSymbol,
+    threeYearGrowthRate,
+    fiveYearGrowthRate,
+  );
+
+  // Main container for all customs
   const customInputs = createElement('div');
 
-  for (let label in metricLabels) {
-    const metricContainer = createElement('div', {
-      classList: ['metric'],
-      id: metricLabels[label].datakey,
-    });
-
-    const metricName = createElement('div', { text: metricLabels[label].name });
-
-    // Container that holds the question mark
-    const explainer = createElement('div', {
-      classList: ['custom-explainers'],
-      id: metricLabels[label].questionMarkID,
-    });
-
-    if (metricLabels[label].name !== 'WACC') {
-      explainer.innerHTML = getQuestionMarkSvg();
-
-      explainer.addEventListener('mouseover', () => {
-        // Create container with text, ID of the explainer box, ID of the question mark div
-        createExplainerContainer(
-          metricLabels[label].explainerText,
-          metricLabels[label].explainerID,
-          metricLabels[label].questionMarkID,
-        );
-      });
-
-      // Remove container
-      explainer.addEventListener('mouseout', () => {
-        // Remove explainer box from parent element explainer
-        removeExplainerContent(
-          metricLabels[label].explainerID,
-          metricLabels[label].questionMarkID,
-        );
-      });
-    }
-
-    const editContainer = createElement('div');
-    const minusSign = createElement('div', { innerHTML: '&#8722;' });
-    const value = metrics[metricLabels[label].datakey].toFixed(2);
-    const inputBox = createInput({
-      type: 'text',
-      value: value,
-    });
-    const plusSign = createElement('div', { innerHTML: '&#43;' });
-    appendChildren(editContainer, minusSign, inputBox, plusSign);
-
-    // Append to metric container
-    appendChildren(metricContainer, metricName, explainer, editContainer);
-
-    // Append metric container to custom inputs container
+  Object.values(metricLabels).forEach((metric) => {
+    const currentValue = currentMetrics[metric.datakey].toFixed(2);
+    const metricContainer = container(metric, currentValue);
     customInputs.appendChild(metricContainer);
-  }
+  });
 
   return customInputs;
 };
