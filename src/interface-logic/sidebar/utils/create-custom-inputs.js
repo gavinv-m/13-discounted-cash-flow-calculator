@@ -6,10 +6,50 @@ import {
 import getQuestionMarkSvg from '../../assets/svgs/question-mark';
 import { overviewDataManager } from '../../../application-logic/data-centre/refined-data/overview';
 import { revenueAndExpenses } from '../../../application-logic/dcf-manager/projections/revenue-and-expenses-projections';
+import { customInputManager } from '../../../application-logic/data-centre/custom-inputs/custom-input-manager';
+import { activeMetrics } from '../../../application-logic/data-centre/active-metrics/active-metrics';
 import {
   createExplainerContainer,
   removeExplainerContent,
 } from '../../utils/explainer-box';
+// import {valuationFinancialsManager} from
+
+const addValue = function createPlusListener(plusSymbol, inputBox, datakey) {
+  plusSymbol.addEventListener('click', () => {
+    let currentValue = Number(inputBox.value) + 1;
+    inputBox.value = currentValue.toFixed(2);
+    customInputManager.setCustomInput(datakey, currentValue);
+  });
+};
+
+const subtractValue = function createMinusListener(
+  minusSymbol,
+  inputBox,
+  datakey,
+) {
+  minusSymbol.addEventListener('click', () => {
+    let currentValue = Number(inputBox.value) - 1;
+    inputBox.value = currentValue.toFixed(2);
+    customInputManager.setCustomInput(datakey, currentValue);
+  });
+};
+
+const editInput = function createInputListener(inputBox, datakey) {
+  let currentValidValue = activeMetrics.getMetrics()[datakey];
+
+  inputBox.addEventListener('input', () => {
+    let value = inputBox.value;
+
+    // Check if the input value is valid
+    if (/^-?\d*(\.\d{0,2})?$/.test(value)) {
+      currentValidValue = value === '' ? 0 : parseFloat(value);
+      customInputManager.setCustomInput(datakey, currentValidValue);
+    } else {
+      // If invalid input, revert to the last valid value
+      inputBox.value = currentValidValue.toFixed(2);
+    }
+  });
+};
 
 const labels = function getMetricLabels(
   tickerSymbol,
@@ -83,8 +123,13 @@ const container = function createMetricContainer(metric, value) {
 
   const editContainer = createElement('div');
   const minusSign = createElement('div', { innerHTML: '&#8722;' });
-  const inputBox = createInput({ type: 'text', value });
+  const inputBox = createInput({ type: 'text', value: value });
   const plusSign = createElement('div', { innerHTML: '&#43;' });
+
+  // Event listeners:
+  addValue(plusSign, inputBox, metric.datakey);
+  subtractValue(minusSign, inputBox, metric.datakey);
+  editInput(inputBox, metric.datakey);
 
   appendChildren(editContainer, minusSign, inputBox, plusSign);
   appendChildren(metricContainer, metricName, explainer, editContainer);
