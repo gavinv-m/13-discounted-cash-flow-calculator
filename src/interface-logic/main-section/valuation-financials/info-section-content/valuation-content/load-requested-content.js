@@ -53,5 +53,5 @@ const loadRequestedContentManager = new LoadRequestedContent(
   clearValuationContent,
 );
 
-// Exports to heading-event-listeners.js for valuation projection headings
+// Exports to heading-event-listeners.js for valuation projection headings & update-interface.js
 export { loadRequestedContentManager };

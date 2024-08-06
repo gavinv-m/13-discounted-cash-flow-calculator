@@ -30,5 +30,5 @@ export default function createValuationStatement() {
     Compared to the current price of ${recentClosingPrice}  <span class="currency">USD</span>, the stock is ${valuationStatus}.
   `;
 
-  return createElement('p', { innerHTML: text });
+  return createElement('p', { innerHTML: text, id: 'valuation-status' });
 }

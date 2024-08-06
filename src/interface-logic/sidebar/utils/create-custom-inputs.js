@@ -8,17 +8,18 @@ import { overviewDataManager } from '../../../application-logic/data-centre/refi
 import { revenueAndExpenses } from '../../../application-logic/dcf-manager/projections/revenue-and-expenses-projections';
 import { customInputManager } from '../../../application-logic/data-centre/custom-inputs/custom-input-manager';
 import { activeMetrics } from '../../../application-logic/data-centre/active-metrics/active-metrics';
+import updateInterface from '../../main-section/valuation-financials/utils/update-interface';
 import {
   createExplainerContainer,
   removeExplainerContent,
 } from '../../utils/explainer-box';
-// import {valuationFinancialsManager} from
 
 const addValue = function createPlusListener(plusSymbol, inputBox, datakey) {
   plusSymbol.addEventListener('click', () => {
     let currentValue = Number(inputBox.value) + 1;
     inputBox.value = currentValue.toFixed(2);
     customInputManager.setCustomInput(datakey, currentValue);
+    updateInterface();
   });
 };
 
@@ -31,6 +32,7 @@ const subtractValue = function createMinusListener(
     let currentValue = Number(inputBox.value) - 1;
     inputBox.value = currentValue.toFixed(2);
     customInputManager.setCustomInput(datakey, currentValue);
+    updateInterface();
   });
 };
 
@@ -44,6 +46,7 @@ const editInput = function createInputListener(inputBox, datakey) {
     if (/^-?\d*(\.\d{0,2})?$/.test(value)) {
       currentValidValue = value === '' ? 0 : parseFloat(value);
       customInputManager.setCustomInput(datakey, currentValidValue);
+      updateInterface();
     } else {
       // If invalid input, revert to the last valid value
       inputBox.value = currentValidValue.toFixed(2);

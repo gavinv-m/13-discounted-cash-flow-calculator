@@ -12,6 +12,10 @@ class ProjectionVisibilityChecker {
 
     this.activeProjection = projectionHeadingText;
   }
+
+  getActiveProjection() {
+    return this.activeProjection;
+  }
 }
 
 const projectionVisibilityChecker = new ProjectionVisibilityChecker();

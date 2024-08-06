@@ -10,6 +10,12 @@ class ProjectionYearsManager {
   }
 
   calculateProjectionYears() {
+    /**
+     * When recalculating projection years with custom inputs,
+     * The projection years were adding to the ones already calculated on first load
+     */
+    this.projectionYears = [];
+
     const recentYear = this.getRecentYear();
     this.startingProjectionYear = recentYear + 1;
     this.endingProjectionYear = recentYear + 5;
