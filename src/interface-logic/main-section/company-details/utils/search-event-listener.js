@@ -1,4 +1,5 @@
 import { displayBestMatches } from './best-matches';
+import { mainController } from '../../../../main-controller';
 
 const ticker = async function searchTicker(keyword) {
   const apiKey = 'demo';
@@ -34,6 +35,7 @@ export default function addSearchBoxEventListener(searchBox) {
     displayBestMatches(bestMatches);
   }, 600);
 
+  // Display best matches
   searchBox.addEventListener('input', (event) => {
     // If input clear, remove prev loaded matches
     if (searchBox.value === '') {
@@ -44,5 +46,22 @@ export default function addSearchBoxEventListener(searchBox) {
       if (prevLoaded === true) parentContainer.removeChild(bestMatches);
     }
     debouncedSearch(event.target.value);
+  });
+
+  // Where no best matches, if user ENTERS ticker manually
+  searchBox.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter' && searchBox.value !== '') {
+      const symbol = event.target.value;
+
+      // Clear any matches
+      const parentContainer = document.getElementById('search-box-error');
+      const bestMatches = document.getElementById('best-matches');
+      const prevLoaded = parentContainer.contains(bestMatches);
+
+      if (prevLoaded === true) parentContainer.removeChild(bestMatches);
+
+      // Call for requested ticker
+      mainController.initializeApp(symbol, 'HWDS4EPSIAUWSY7X');
+    }
   });
 }
