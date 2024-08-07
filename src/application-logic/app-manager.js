@@ -7,8 +7,8 @@ class ApplicationManager {
     this.dcfManager = dcfManager;
   }
 
-  async startApplication(tickerSymbol) {
-    const success = await this.dataCentre.manageDataBase(tickerSymbol);
+  async startApplication(tickerSymbol, key) {
+    const success = await this.dataCentre.manageDataBase(tickerSymbol, key);
 
     if (success === true) {
       this.dcfManager.startProjections();

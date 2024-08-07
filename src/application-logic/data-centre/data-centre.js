@@ -26,13 +26,13 @@ class DataCentre {
     this.timeSeriesDataManager = timeSeriesDataManager;
   }
 
-  async manageDataBase(tickerSymbol) {
-    const success = await this.requestAndHandleData(tickerSymbol);
+  async manageDataBase(tickerSymbol, key) {
+    const success = await this.requestAndHandleData(tickerSymbol, key);
     return success;
   }
 
-  async requestAndHandleData(tickerSymbol) {
-    const data = await queryApiData(tickerSymbol);
+  async requestAndHandleData(tickerSymbol, key) {
+    const data = await queryApiData(tickerSymbol, key);
 
     if (data.length === 5) {
       // Store in local storage

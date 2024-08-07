@@ -7,8 +7,8 @@ class MainController {
     this.interfaceManager = interfaceManager;
   }
 
-  async initializeApp(tickerSymbol) {
-    await this.appManager.startApplication(tickerSymbol);
+  async initializeApp(tickerSymbol, key) {
+    await this.appManager.startApplication(tickerSymbol, key);
     this.interfaceManager.populateInterface();
   }
 }

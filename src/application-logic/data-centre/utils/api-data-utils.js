@@ -1,5 +1,5 @@
-export default async function queryApiData(tickerSymbol) {
-  const apiKey = 'demo';
+export default async function queryApiData(tickerSymbol, key) {
+  const apiKey = key;
 
   // Check if it exists in local storage
   if (tickerSymbol in localStorage) {
