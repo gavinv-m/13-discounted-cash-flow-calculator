@@ -4,6 +4,7 @@ import {
   createInput,
 } from '../../../utils/element-utils';
 import { overviewDataManager } from '../../../../application-logic/data-centre/refined-data/overview';
+import addSearchBoxEventListener from './search-event-listener';
 
 const createSearch = function createSearchBoxErrorContainer() {
   const searchBoxAndError = createElement('div', { id: 'search-box-error' });
@@ -12,6 +13,7 @@ const createSearch = function createSearchBoxErrorContainer() {
     id: 'search-box',
     placeholder: 'Search Stock/Company',
   });
+  addSearchBoxEventListener(searchBox);
   const errorText = createElement('p', { id: 'error-box' });
   appendChildren(searchBoxAndError, searchBox, errorText);
 
