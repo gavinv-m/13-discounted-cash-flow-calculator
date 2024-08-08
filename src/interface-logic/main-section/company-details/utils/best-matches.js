@@ -12,10 +12,11 @@ export function displayBestMatches(bestMatches) {
 
   if (bestMatchesArray === undefined) return;
 
+  const cappedBestMatches = bestMatchesArray.slice(0, 5);
   const parentContainer = document.getElementById('search-box-error');
   const bestMatchesContainer = createElement('div', { id: 'best-matches' });
 
-  bestMatchesArray.forEach((match) => {
+  cappedBestMatches.forEach((match) => {
     const companyName = match['2. name'];
     const tickerSymbol =
       match['4. region'] !== 'United States'

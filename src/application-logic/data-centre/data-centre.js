@@ -4,6 +4,7 @@ import { balanceSheetDataManager } from './refined-data/balance-sheet';
 import { cashFlowStatementDataManager } from './refined-data/cash-flow-statement';
 import { overviewDataManager } from './refined-data/overview';
 import { timeSeriesDataManager } from './refined-data/time-series';
+import checkDataValid from './api-data-validation';
 
 class DataCentre {
   incomeStatement = null;
@@ -18,49 +19,49 @@ class DataCentre {
     cashFlowStatementDataManager,
     overviewDataManager,
     timeSeriesDataManager,
+    checkDataValid,
   ) {
     this.incomeStatementManager = incomeStatementDataManager;
     this.balanceSheetDataManager = balanceSheetDataManager;
     this.cashFlowStatementDataManager = cashFlowStatementDataManager;
     this.overviewDataManager = overviewDataManager;
     this.timeSeriesDataManager = timeSeriesDataManager;
+    this.checkDataValid = checkDataValid;
   }
 
   async manageDataBase(tickerSymbol, key) {
-    const success = await this.requestAndHandleData(tickerSymbol, key);
-    return success;
+    const dataArray = await queryApiData(tickerSymbol, key);
+    const dataValidityResult = this.checkDataValid(dataArray);
+
+    if (dataValidityResult === true) {
+      return this.handleData(tickerSymbol, dataArray);
+    } else {
+      return dataValidityResult; // Error message
+    }
   }
 
-  async requestAndHandleData(tickerSymbol, key) {
-    const data = await queryApiData(tickerSymbol, key);
-
-    if (data.length === 5) {
-      // Store in local storage
-      if (!(tickerSymbol in localStorage)) {
-        localStorage.setItem(tickerSymbol, JSON.stringify(data));
-      }
-
-      this.storeFinancialStatements(data);
-
-      // Aggregate data by line items
-      this.incomeStatementManager.handleIncomeStatementData(
-        this.incomeStatement,
-      );
-
-      this.balanceSheetDataManager.handleBalanceSheetData(this.balanceSheet);
-
-      this.cashFlowStatementDataManager.handleCashFlowStatementData(
-        this.cashFlowStatement,
-      );
-
-      this.overviewDataManager.handleOverViewData(this.overview);
-
-      this.timeSeriesDataManager.handleTimeSeriesData(this.timeSeriesData);
-
-      return true;
+  handleData(tickerSymbol, dataArray) {
+    // Store in local storage
+    if (!(tickerSymbol in localStorage)) {
+      localStorage.setItem(tickerSymbol, JSON.stringify(dataArray));
     }
 
-    return false;
+    this.storeFinancialStatements(dataArray);
+
+    // Aggregate data by line items
+    this.incomeStatementManager.handleIncomeStatementData(this.incomeStatement);
+
+    this.balanceSheetDataManager.handleBalanceSheetData(this.balanceSheet);
+
+    this.cashFlowStatementDataManager.handleCashFlowStatementData(
+      this.cashFlowStatement,
+    );
+
+    this.overviewDataManager.handleOverViewData(this.overview);
+
+    this.timeSeriesDataManager.handleTimeSeriesData(this.timeSeriesData);
+
+    return true;
   }
 
   storeFinancialStatements(apiData) {
@@ -86,6 +87,7 @@ const dataCentre = new DataCentre(
   cashFlowStatementDataManager,
   overviewDataManager,
   timeSeriesDataManager,
+  checkDataValid,
 );
 
 // Exports to app-manager.js

@@ -2,7 +2,7 @@ import { displayBestMatches } from './best-matches';
 import { mainController } from '../../../../main-controller';
 
 const ticker = async function searchTicker(keyword) {
-  const apiKey = 'demo';
+  const apiKey = 'HWDS4EPSIAUWSY7X';
   const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${keyword}&apikey=${apiKey}`;
 
   try {
@@ -28,23 +28,35 @@ const debounce = function debounceSearchTicker(func, delay) {
   };
 };
 
+const debouncedSearch = debounce(async (keyword) => {
+  // Check if the input is empty and the best matches container exists
+  const bestMatchesContainer = document.getElementById('best-matches');
+  if (keyword === '' && bestMatchesContainer) {
+    bestMatchesContainer.parentNode.removeChild(bestMatchesContainer);
+    return;
+  }
+
+  const bestMatches = await ticker(keyword);
+
+  // If the best matches container already exists, remove it
+  if (bestMatchesContainer) {
+    bestMatchesContainer.parentNode.removeChild(bestMatchesContainer);
+    displayBestMatches(bestMatches);
+  } else {
+    // Otherwise, create a new best matches container
+    displayBestMatches(bestMatches);
+  }
+}, 600);
+
 // Exports to render-search-section.js
 export default function addSearchBoxEventListener(searchBox) {
-  const debouncedSearch = debounce(async (keyword) => {
-    const bestMatches = await ticker(keyword);
-    displayBestMatches(bestMatches);
-  }, 600);
-
   // Display best matches
   searchBox.addEventListener('input', (event) => {
-    // If input clear, remove prev loaded matches
-    if (searchBox.value === '') {
-      const parentContainer = document.getElementById('search-box-error');
-      const bestMatches = document.getElementById('best-matches');
-      const prevLoaded = parentContainer.contains(bestMatches);
-
-      if (prevLoaded === true) parentContainer.removeChild(bestMatches);
+    const errorBox = document.getElementById('error-box'); // Error box doesnt exist when this function is called
+    if (errorBox.textContent !== '') {
+      errorBox.textContent = '';
     }
+
     debouncedSearch(event.target.value);
   });
 

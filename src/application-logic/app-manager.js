@@ -8,12 +8,16 @@ class ApplicationManager {
   }
 
   async startApplication(tickerSymbol, key) {
-    const success = await this.dataCentre.manageDataBase(tickerSymbol, key);
+    const requestResult = await this.dataCentre.manageDataBase(
+      tickerSymbol,
+      key,
+    );
 
-    if (success === true) {
+    if (requestResult === true) {
       this.dcfManager.startProjections();
+      return true;
     } else {
-      console.error('Data request failed');
+      return requestResult;
     }
   }
 }
