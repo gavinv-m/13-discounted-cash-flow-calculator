@@ -1,5 +1,6 @@
 import { appendChildren, createElement } from '../../utils/element-utils';
 import { trendingSearchesManager } from '../../../application-logic/data-centre/searches/trending-searches';
+import createTrendingSearchListener from './trending-search-listener';
 
 const addList = function addTrendingSearches() {
   const companiesContainer = createElement('div');
@@ -12,6 +13,8 @@ const addList = function addTrendingSearches() {
     const companyFullName = createElement('div', {
       text: trendingSearches[company],
     });
+
+    createTrendingSearchListener(companyContainer);
 
     // Append to single company container
     appendChildren(companyContainer, tickerSymbol, companyFullName);
