@@ -3,11 +3,16 @@ import { trendingSearchesManager } from '../../../application-logic/data-centre/
 import createTrendingSearchListener from './trending-search-listener';
 
 const addList = function addTrendingSearches() {
-  const companiesContainer = createElement('div');
+  const companiesContainer = createElement('div', {
+    id: 'all-trending-searches',
+  });
   const trendingSearches = trendingSearchesManager.sendData();
 
   for (let company in trendingSearches) {
-    const companyContainer = createElement('div', { id: company });
+    const companyContainer = createElement('div', {
+      id: company,
+      classList: ['search-term'],
+    });
 
     const tickerSymbol = createElement('div', { text: company });
     const companyFullName = createElement('div', {

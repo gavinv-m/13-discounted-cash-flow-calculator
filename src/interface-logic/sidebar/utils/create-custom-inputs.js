@@ -121,13 +121,27 @@ const container = function createMetricContainer(metric, value) {
     id: metric.datakey,
   });
 
+  const nameAndExplainerContainer = createElement('div');
   const metricName = createElement('div', { text: metric.name });
   const explainer = explainerContent(metric);
+  appendChildren(nameAndExplainerContainer, metricName, explainer);
 
-  const editContainer = createElement('div');
-  const minusSign = createElement('div', { innerHTML: '&#8722;' });
-  const inputBox = createInput({ type: 'text', value: value });
-  const plusSign = createElement('div', { innerHTML: '&#43;' });
+  const editContainer = createElement('div', {
+    classList: ['metric-adjuster'],
+  });
+  const minusSign = createElement('div', {
+    innerHTML: '&#8722;',
+    classList: ['minus-container'],
+  });
+  const inputBox = createInput({
+    type: 'text',
+    value: value,
+    classList: ['input-container'],
+  });
+  const plusSign = createElement('div', {
+    innerHTML: '&#43;',
+    classList: ['plus-container'],
+  });
 
   // Event listeners:
   addValue(plusSign, inputBox, metric.datakey);
@@ -135,7 +149,7 @@ const container = function createMetricContainer(metric, value) {
   editInput(inputBox, metric.datakey);
 
   appendChildren(editContainer, minusSign, inputBox, plusSign);
-  appendChildren(metricContainer, metricName, explainer, editContainer);
+  appendChildren(metricContainer, nameAndExplainerContainer, editContainer);
 
   return metricContainer;
 };
@@ -157,7 +171,7 @@ const addInputBoxes = function renderCustomInputBoxes(currentMetrics) {
   );
 
   // Main container for all customs
-  const customInputs = createElement('div');
+  const customInputs = createElement('div', { id: 'all-metrics' });
 
   Object.values(metricLabels).forEach((metric) => {
     const currentValue = currentMetrics[metric.datakey].toFixed(2);

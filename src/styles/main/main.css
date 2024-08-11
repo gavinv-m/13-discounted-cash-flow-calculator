@@ -1,0 +1,13 @@
+#main-content {
+    height: 100%;
+
+    /* Descendants: */
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+#main-content > section {
+    flex: 1;
+}
+
