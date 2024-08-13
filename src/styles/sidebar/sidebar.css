@@ -140,3 +140,32 @@
     text-align: center;
     outline: none;
 }
+
+#custom-revenue-question, 
+#custom-tax-question, 
+#custom-growth-rate-question {
+    cursor: pointer;
+    position: relative;
+}
+
+#custom-tax-rate-explainer, 
+#custom-growth-rate-explainer, 
+#custom-revenue-explainer {
+    background-color: #f3f3fd;
+    border-color: #4648aa;
+    border-radius: 6px;
+    border-style: solid;
+    padding: 10px;
+    position: absolute;
+}
+
+#custom-tax-rate-explainer, 
+#custom-growth-rate-explainer {
+    top: -75px;
+    width: 150px;
+}
+
+#custom-revenue-explainer {
+    top: -250px;
+    width: 300px;
+}

@@ -224,6 +224,7 @@
 
 #financial-btns-container {
     margin-left: 10px;
+    margin-bottom: 20px;
     /* Buttons */
     display: flex;
     gap: 5px;
@@ -265,4 +266,44 @@
     margin-left: 10px;
     padding-left: 10px;
     width: 850px;
+}
+
+.dropdown-section {
+    position: relative;
+}
+
+#periods-dropdown {
+    background-color: #f3f3fd;
+    border-color: #4648aa;
+    border-radius: 6px;
+    border-style: solid;
+    padding: 10px;
+    position: absolute;
+    text-align: center;
+    top: 33px;
+    width: 150px;
+}
+
+.period:hover {
+    border-radius: 6px;
+    color: #FFFFFF;
+    cursor: pointer;
+    background-color: #4648aa;
+    width: 100%;
+}
+
+#receivables-question {
+    cursor: pointer;
+    position: relative;
+}
+
+#receivables-explainer {
+    background-color: #f3f3fd;
+    border-color: #4648aa;
+    border-radius: 6px;
+    border-style: solid;
+    padding: 10px;
+    position: absolute;
+    top: -150px;
+    width: 250px;
 }

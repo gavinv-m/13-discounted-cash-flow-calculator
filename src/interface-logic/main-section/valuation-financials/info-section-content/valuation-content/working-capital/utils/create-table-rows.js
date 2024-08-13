@@ -198,25 +198,17 @@ const createTradeRow = function createWorkingCapItemRow(rowName) {
 
   if (rowDetails.name === 'Trade Receivables') {
     questionContainer.innerHTML = getQuestionMarkSvg();
-    let explainerVisible = false;
 
-    questionContainer.addEventListener('click', (event) => {
-      event.stopPropagation(); // Prevent the click from affecting parent elements
+    questionContainer.addEventListener('mouseover', () => {
+      createExplainerContainer(
+        rowDetails.explainerText,
+        rowDetails.explainerID,
+        rowDetails.questionMarkID,
+      );
+    });
 
-      if (!explainerVisible) {
-        createExplainerContainer(
-          rowDetails.explainerText,
-          rowDetails.explainerID,
-          rowDetails.questionMarkID,
-        );
-        explainerVisible = true;
-      } else {
-        removeExplainerContent(
-          rowDetails.explainerID,
-          rowDetails.questionMarkID,
-        );
-        explainerVisible = false;
-      }
+    questionContainer.addEventListener('mouseout', () => {
+      removeExplainerContent(rowDetails.explainerID, rowDetails.questionMarkID);
     });
   }
   appendChildren(nameAndQuestionCell, nameContainer, questionContainer);
