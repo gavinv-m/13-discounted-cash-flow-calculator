@@ -8,6 +8,10 @@
     overflow-y: scroll;
 }
 
+#main-content:focus {
+    outline: none;
+}
+
 #main-content > section {
     background-color: #FFFFFF;
     flex: 1;
@@ -156,7 +160,109 @@
 }
 
 #val-fin-headings {
+    border-color:  #e5e7eb;
+    border-style: solid none solid none;
+    border-width: 1px;
+    height: 40px;
+    margin-bottom: 15px;
+    padding: 4px 0px;
     /* Headings */
     display: flex;
     gap: 10px;
+    justify-content: center;
+}
+
+.val-fin-heading {
+    cursor: pointer;
+
+    /* Text Inside Headings */
+    display: flex;
+    align-items: center;
+    padding: 0px 3px;
+}
+
+.active-heading {
+    background-color: #4648aa;
+    border-radius: 3px;
+    color: #FFFFFF;
+}
+
+#projections-headings {
+    background-color: #e5e7eb;
+    margin: 0px 0px 10px 10px;
+
+
+    /* Headings */
+    display: flex;
+    gap: 10px;
+}
+
+.projection-heading {
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: normal;
+}
+
+.active-projection {
+    border-bottom-style: solid;
+    border-color: #4648aa;
+    border-width: 2px;
+}
+
+#valuation-status {
+    margin-left: 10px;
+}
+
+#under,
+.currency {
+    color: #18a22d;
+}
+
+#over {
+    color: red;
+}
+
+#financial-btns-container {
+    margin-left: 10px;
+    /* Buttons */
+    display: flex;
+    gap: 5px;
+}
+
+#financial-btns-container button {
+    background-color: #f3f3fd;
+    border-color:  #e5e7eb;
+    border-radius: 3px;
+    border-style: none;
+    border-width: 1px;
+    cursor: pointer;
+    height: 30px;
+    width: 150px;
+
+    /* Text Inside Btns */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#financial-btns-container button:hover {
+    background-color: #4648aa;
+    color: #FFFFFF;
+}
+
+.down-arrowhead {
+    margin-left: 4px;
+    position: relative;
+    top: -4px;
+}
+
+#totals-message {
+    background-color: #f6c5c1;
+    border-color:  #EF0107;
+    border-radius: 3px;
+    border-left-style: solid;
+    border-width: 4px;
+    margin-left: 10px;
+    padding-left: 10px;
+    width: 850px;
 }

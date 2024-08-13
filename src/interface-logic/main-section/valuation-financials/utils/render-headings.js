@@ -7,7 +7,7 @@ export default function renderValuationFinancialsHeadings(valFinSection) {
   const valuationHeading = createElement('h1', {
     text: 'Valuation',
     id: 'valuation-heading',
-    classList: ['val-fin-heading'],
+    classList: ['val-fin-heading', 'active-heading'],
   });
   const financialsHeading = createElement('h1', {
     text: 'Financials',

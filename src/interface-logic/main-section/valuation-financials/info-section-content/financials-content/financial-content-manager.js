@@ -29,8 +29,9 @@ class FinancialContentManager {
 
     const warningContainer = createElement('div', { id: 'warning-container' });
     const message = createElement('p', {
-      text: `Please note that the component line items may not sum up to the reported totals 
-      due to incomplete data from the API. However, the total figures are accurate and have been 
+      id: 'totals-message',
+      innerHTML: `Please note that the component line items may not sum up to the reported totals 
+      due to incomplete data from the API.<br> However, the total figures are accurate and have been 
       verified against the actual financial statements.`,
     });
     warningContainer.appendChild(message);

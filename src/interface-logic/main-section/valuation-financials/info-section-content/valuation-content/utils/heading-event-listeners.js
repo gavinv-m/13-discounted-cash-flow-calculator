@@ -17,6 +17,12 @@ export default function addHeadingsEventListeners(
         return;
       }
 
+      // Reassign active-projection class
+      document
+        .querySelector('.active-projection')
+        .classList.remove('active-projection');
+      headingElement.classList.add('active-projection');
+
       loadRequestedContentManager.loadContent(
         projectionHeadingText,
         valuationContentBox,

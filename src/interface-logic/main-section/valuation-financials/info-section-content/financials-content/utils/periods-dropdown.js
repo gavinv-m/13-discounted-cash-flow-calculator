@@ -75,7 +75,7 @@ export default function createPeriodButtons(financialContentBox) {
 
   const dropDown = createElement('div', { classList: ['dropdown-section'] });
   const mainButton = createElement('button', {
-    text: '5 periods',
+    innerHTML: `5 periods  <span class='down-arrowhead'>&#8964;</span>`,
     classList: ['dropdown-btn'],
   });
   const contentContainer = createElement('div', {
@@ -95,10 +95,11 @@ export default function createPeriodButtons(financialContentBox) {
       const text = periodContainer.textContent;
 
       if (text !== mainButton.textContent) {
-        mainButton.textContent = text;
+        mainButton.innerHTML = `${text} <span class='down-arrowhead'>&#8964;</span>`;
         const years = Number(text.split(' ')[0]);
         selectPeriod(years, financialContentBox);
       }
+      contentContainer.style.visibility = 'hidden';
     });
 
     contentContainer.appendChild(periodContainer);

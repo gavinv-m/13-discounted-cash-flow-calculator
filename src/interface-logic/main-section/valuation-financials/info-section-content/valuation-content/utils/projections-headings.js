@@ -9,7 +9,7 @@ export default function createProjectionsHeadings() {
 
   const revAndExpensesHeading = createElement('h2', {
     text: 'Revenue & Expenses',
-    classList: ['projection-heading'],
+    classList: ['projection-heading', 'active-projection'],
   });
 
   const capexHeading = createElement('h2', {

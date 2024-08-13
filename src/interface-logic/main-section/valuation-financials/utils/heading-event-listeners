@@ -17,6 +17,11 @@ export default function addHeadingsEventListeners(
         return true;
       }
 
+      // Reassign active heading
+      const activeHeadingElement = document.querySelector('.active-heading');
+      activeHeadingElement.classList.remove('active-heading');
+      headingElement.classList.add('active-heading');
+
       // Clear info content information
       clearInfoContent(infoContentContainer);
 
