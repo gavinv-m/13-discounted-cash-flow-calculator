@@ -12,8 +12,12 @@ const overviewFinancials = function createOverviewFinancials() {
   const overviewFinancials = createElement('div', {
     id: 'overview-finacials',
   });
-  const overviewFinancialsTopRow = createElement('div');
-  const overviewFinancialsBottomRow = createElement('div');
+  const overviewFinancialsTopRow = createElement('div', {
+    id: 'overview-top-row',
+  });
+  const overviewFinancialsBottomRow = createElement('div', {
+    id: 'overview-bot-row',
+  });
 
   const marketCapContainer = createMarketCapContainer();
   const priceContainer = createPriceContainer();

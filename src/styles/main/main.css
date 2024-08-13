@@ -18,7 +18,7 @@
     border-radius: 10px;
     margin-top: 15px;
     padding-left: 10px;
-
+    padding-right: 10px;
 
     /* Descendants: */
     display: flex;
@@ -54,4 +54,109 @@
 
 #company-info-section {
     margin-top: 15px;
+}
+
+
+#search-section,
+#company-details > div,
+#company-details h1 {
+    /* Descendants: */
+    display: flex;
+}
+
+#search-section {
+    background-color: #4648aa;
+    border-radius: 10px 0px 0px 10px;
+    height: 55px;
+    gap: 25px;
+}
+
+#search-box {
+    background-color: #e5e7eb;
+    border-color: #4648aa;
+    border-radius: 10px;
+    border-width: 1px;
+    height: 100%;
+    width: 220px;
+
+    /* Text Content */
+    padding-left: 7px;
+    font-size: 1.1rem;
+}
+
+#search-box:focus {
+    outline: none;
+}
+
+/* Containers with ticker, co. name, sector and industry */
+#company-details > div {
+    gap: 15px; 
+}
+
+#company-details h1 {
+    color: #e5e7eb;
+}
+
+#overview-section {
+    padding: 10px;
+}
+
+#overview-description {
+    margin: 15px 0px;
+}
+
+#overview-finacials {
+    /* Descendants */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#overview-top-row,
+#overview-bot-row {
+    /* Descendants */
+    display: flex;
+    gap: 10px;
+}
+
+#overview-top-row > div,
+#overview-bot-row > div {
+    border: 1px solid #e5e7eb;
+    border-radius: 5px;
+    height: 35px;
+    padding: 5px;
+
+    /* Descendants */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#overview-top-row > div > h3:first-of-type,
+#overview-bot-row > div > h3:first-of-type {
+    align-self: center;
+    color: #617d98;
+    font-size: 0.8rem;
+}
+
+#overview-top-row > div > h3:nth-child(2),
+#overview-bot-row > div > h3:nth-child(2)  {
+    align-self: center;
+    font-size: 0.9rem;
+}
+
+#overview-top-row > div > h4:first-of-type {
+    color: 	#18a22d; 
+    margin-left: -5px;
+}
+
+#overview-bot-row > div > h4:first-of-type {
+    color: #4648aa;
+    margin-left: -5px;
+}
+
+#val-fin-headings {
+    /* Headings */
+    display: flex;
+    gap: 10px;
 }

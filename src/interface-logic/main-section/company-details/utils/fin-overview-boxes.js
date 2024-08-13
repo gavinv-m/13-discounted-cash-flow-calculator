@@ -30,7 +30,7 @@ export function createPeRatioContainer() {
   const peRatioContainer = createElement('div');
   peRatioContainer.appendChild(createElement('h3', { text: 'PE Ratio' }));
   const peRatioAmt = overviewDataManager.sendData('PERatio').PERatio;
-  peRatioContainer.appendChild(createElement('h4', { text: peRatioAmt }));
+  peRatioContainer.appendChild(createElement('h3', { text: peRatioAmt }));
 
   return peRatioContainer;
 }
@@ -38,9 +38,11 @@ export function createPeRatioContainer() {
 export function createRoeContainer() {
   const roeContainer = createElement('div');
   roeContainer.appendChild(createElement('h3', { text: 'ROE' }));
-  const roeAmt =
+  let roeAmt =
     overviewDataManager.sendData('ReturnOnEquityTTM').ReturnOnEquityTTM;
-  roeContainer.appendChild(createElement('h4', { text: roeAmt }));
+  roeAmt = (roeAmt * 100).toFixed(2);
+  roeContainer.appendChild(createElement('h3', { text: roeAmt }));
+  roeContainer.appendChild(createElement('h4', { innerHTML: '&#65130;' }));
 
   return roeContainer;
 }

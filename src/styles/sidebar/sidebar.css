@@ -138,4 +138,5 @@
 .input-container {
     border: 1px solid #e5e7eb;
     text-align: center;
+    outline: none;
 }

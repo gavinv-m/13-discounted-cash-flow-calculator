@@ -22,6 +22,8 @@ export default function formatAndDisplayMarketCap(
     scaleLetter = 'K';
   }
 
+  marketCap = Math.round(marketCap);
+
   marketCapContainer.appendChild(createElement('h3', { text: marketCap }));
   marketCapContainer.appendChild(createElement('h4', { text: scaleLetter }));
 }
