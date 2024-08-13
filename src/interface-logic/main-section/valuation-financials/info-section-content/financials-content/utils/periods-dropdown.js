@@ -106,9 +106,11 @@ export default function createPeriodButtons(financialContentBox) {
   });
 
   // Show periods when main button clicked
-  mainButton.addEventListener('click', () =>
-    showAvailablePeriods(contentContainer),
-  );
+  mainButton.addEventListener('click', (event) => {
+    event.stopPropagation(); // Prevent the click event from reaching the document listener that closes active dropdowns
+    contentContainer.classList.add('active-dropdown');
+    showAvailablePeriods(contentContainer);
+  });
   appendChildren(dropDown, mainButton, contentContainer);
   return dropDown;
 }
