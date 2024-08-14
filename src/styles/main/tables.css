@@ -1,0 +1,23 @@
+table {
+    border-spacing: 0px;
+}
+
+.rounded-heading,
+.projections-heading,
+.rev-percent {
+    color: #4648aa;
+}
+
+.years th {
+    background-color: #4648aa;
+    color: #FFFFFF;
+}
+
+#revenue-and-expenses-projections tbody tr:nth-child(even) {
+    background-color: #e5e7eb;
+}
+
+#revenue-and-expenses-projections tfoot tr {
+    background-color: #4648aa;
+    color: #FFFFFF;
+}

@@ -11,7 +11,6 @@ import {
   createTableBody,
   createTableHead,
   createTableFooter,
-  createYearsRow,
 } from './create-table-rows';
 
 // Exports to rev-and-exp-manager.js
@@ -23,7 +22,6 @@ export default function displayRevenueAndExpensesProjections() {
   table.appendChild(createTableHead());
 
   const tableBody = createTableBody();
-  tableBody.appendChild(createYearsRow());
   tableBody.appendChild(createBlankRow());
   tableBody.appendChild(createRevenueRow());
   tableBody.appendChild(createRevenuePercentRow());
@@ -31,6 +29,7 @@ export default function displayRevenueAndExpensesProjections() {
 
   const tableFooter = createTableFooter();
   tableFooter.appendChild(createNetProfitRow());
+  tableBody.appendChild(createBlankRow());
 
   table.appendChild(tableBody);
   table.appendChild(tableFooter);

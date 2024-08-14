@@ -28,7 +28,7 @@ const createExpensePercentageRow = (tableBody, itemKey) => {
   const percentage = revenueAndExpenses.expensePercentagesOfRevenue[itemKey];
   if (percentage !== undefined) {
     const tableRow = createElement('tr');
-    const text = `% of Revenue: ${percentage.toFixed(2)}`;
+    const text = `<span class='rev-percent'>% of Revenue:</span> ${percentage.toFixed(2)}`;
     const cell = createElement('td', { innerHTML: text });
 
     tableRow.appendChild(cell);
@@ -74,6 +74,27 @@ const createPriorYearCell = (item) => {
   return createElement('td', {
     text: priorFinancialYearAmt,
   });
+};
+
+const yearsRow = function createYearsRow() {
+  const tableRow = createElement('tr', { classList: ['years'] });
+  const blankOne = createBlankData();
+
+  const priorFinancialYear = projectionYears.startingProjectionYear - 1;
+  const priorFinancialYearTD = createElement('th', {
+    text: priorFinancialYear,
+  });
+
+  // Append blank and prior year
+  appendChildren(tableRow, blankOne, priorFinancialYearTD);
+
+  const projectionPeriod = projectionYears.projectionYears;
+  projectionPeriod.forEach((year) => {
+    const createTD = createElement('th', { text: year });
+    tableRow.appendChild(createTD);
+  });
+
+  return tableRow;
 };
 
 export function createExpenseRows(tableBody) {
@@ -165,7 +186,9 @@ export function createRevenuePercentRow() {
   let percentGrowth = activeMetrics.getMetrics().revenueGrowthRate;
   percentGrowth = percentGrowth.toFixed(2);
 
-  const cell = createElement('td', { text: `% Growth: ${percentGrowth}` });
+  const cell = createElement('td', {
+    innerHTML: `<span class='rev-percent'>% Growth:</span> ${percentGrowth}`,
+  });
   return tableRow.appendChild(cell);
 }
 
@@ -177,16 +200,21 @@ export function createTableHead() {
   const tableHead = createElement('thead');
 
   const tableRow = createElement('tr');
-  const roundedToHeading = createElement('td', {
+  const roundedToHeading = createElement('th', {
     innerHTML: '<span><em>(USD in millions)</em></span>',
+    classList: ['rounded-heading'],
   });
   const blank = createElement('td');
-  const projectionsHeading = createElement('td', { text: 'Projections' });
+  const projectionsHeading = createElement('th', {
+    text: 'Projections',
+    classList: ['projections-heading'],
+  });
   projectionsHeading.setAttribute('colspan', '5');
 
   appendChildren(tableRow, roundedToHeading, blank, projectionsHeading);
   tableHead.appendChild(tableRow);
   tableHead.appendChild(createBlankRow());
+  tableHead.appendChild(yearsRow());
 
   return tableHead;
 }
@@ -216,27 +244,6 @@ export function createNetProfitRow() {
 
     const cell = createElement('td', { text: amount });
     tableRow.appendChild(cell);
-  });
-
-  return tableRow;
-}
-
-export function createYearsRow() {
-  const tableRow = createElement('tr', { classList: ['years'] });
-  const blankOne = createBlankData();
-
-  const priorFinancialYear = projectionYears.startingProjectionYear - 1;
-  const priorFinancialYearTD = createElement('td', {
-    text: priorFinancialYear,
-  });
-
-  // Append blank and prior year
-  appendChildren(tableRow, blankOne, priorFinancialYearTD);
-
-  const projectionPeriod = projectionYears.projectionYears;
-  projectionPeriod.forEach((year) => {
-    const createTD = createElement('td', { text: year });
-    tableRow.appendChild(createTD);
   });
 
   return tableRow;
