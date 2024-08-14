@@ -10,6 +10,21 @@ import roundToMillions from '../../../utils/round-to-millions';
  * All Exports to display-capex projections
  * Main exports sorted alphabetically
  */
+const yearsRow = function createYearsRow() {
+  const tableRow = createElement('tr', { classList: ['years'] });
+  const blankOne = createBlankData();
+
+  tableRow.appendChild(blankOne);
+
+  const projectionPeriod = projectionYears.projectionYears;
+  projectionPeriod.forEach((year) => {
+    const cell = createElement('th', { text: year });
+    tableRow.appendChild(cell);
+  });
+
+  return tableRow;
+};
+
 export function createBlankRow() {
   return createElement('tr', { classList: ['blank-row'] });
 }
@@ -43,7 +58,9 @@ export function createCapexPercentageOfRevenue() {
     'capexPercentageOfRevenue',
   ).capexPercentageOfRevenue;
   percentage = percentage.toFixed(2);
-  const nameCell = createElement('td', { text: `% of Revenue: ${percentage}` });
+  const nameCell = createElement('td', {
+    innerHTML: `<span class='rev-percent'>% of Revenue:</span> ${percentage}`,
+  });
   nameCell.setAttribute('colspan', '1');
 
   return tableRow.appendChild(nameCell);
@@ -57,30 +74,20 @@ export function createTableHead() {
   const tableHead = createElement('thead');
 
   const tableRow = createElement('tr');
-  const roundedToHeading = createElement('td', {
+  const roundedToHeading = createElement('th', {
     innerHTML: '<span><em>(USD in millions)</em></span>',
+    classList: ['rounded-heading'],
   });
-  const projectionsHeading = createElement('td', { text: 'Projections' });
+  const projectionsHeading = createElement('th', {
+    text: 'Projections',
+    classList: ['projections-heading'],
+  });
   projectionsHeading.setAttribute('colspan', '5');
 
   appendChildren(tableRow, roundedToHeading, projectionsHeading);
   tableHead.appendChild(tableRow);
   tableHead.appendChild(createBlankRow());
+  tableHead.appendChild(yearsRow());
 
   return tableHead;
-}
-
-export function createYearsRow() {
-  const tableRow = createElement('tr', { classList: ['years'] });
-  const blankOne = createBlankData();
-
-  tableRow.appendChild(blankOne);
-
-  const projectionPeriod = projectionYears.projectionYears;
-  projectionPeriod.forEach((year) => {
-    const cell = createElement('td', { text: year });
-    tableRow.appendChild(cell);
-  });
-
-  return tableRow;
 }

@@ -5,7 +5,6 @@ import {
   createCapexPercentageOfRevenue,
   createTableBody,
   createTableHead,
-  createYearsRow,
 } from './create-table-rows';
 
 // Exports to capex-ui-manager.js
@@ -17,7 +16,6 @@ export default function displayCapexProjections() {
   table.appendChild(createTableHead());
 
   const tableBody = createTableBody();
-  tableBody.appendChild(createYearsRow());
   tableBody.appendChild(createBlankRow());
   tableBody.appendChild(createCapexRow());
   tableBody.appendChild(createCapexPercentageOfRevenue());

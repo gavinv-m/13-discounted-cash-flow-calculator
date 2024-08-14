@@ -10,6 +10,21 @@ import roundToMillions from '../../../utils/round-to-millions';
  * All Exports to display-dep-amort.js
  * Main exports sorted alphabetically
  */
+const yearsRow = function createYearsRow() {
+  const tableRow = createElement('tr', { classList: ['years'] });
+  const blankOne = createBlankData();
+
+  tableRow.appendChild(blankOne);
+
+  const projectionPeriod = projectionYears.projectionYears;
+  projectionPeriod.forEach((year) => {
+    const cell = createElement('th', { text: year });
+    tableRow.appendChild(cell);
+  });
+
+  return tableRow;
+};
+
 export function createBlankRow() {
   return createElement('tr', { classList: ['blank-row'] });
 }
@@ -106,12 +121,17 @@ export function createTableHead() {
   const projectionsHeadingRow = createElement('tr');
   const roundedToHeading = createElement('th', {
     innerHTML: '<span><em>(USD in millions)</em></span>',
+    classList: ['rounded-heading'],
   });
-  const projectionsHeading = createElement('td', { text: 'Projections' });
+  const projectionsHeading = createElement('th', {
+    text: 'Projections',
+    classList: ['projections-heading'],
+  });
   projectionsHeading.setAttribute('colspan', '5');
 
   appendChildren(projectionsHeadingRow, roundedToHeading, projectionsHeading);
   head.appendChild(projectionsHeadingRow, createBlankRow());
+  head.appendChild(yearsRow());
 
   return head;
 }
@@ -132,21 +152,6 @@ export function createTotals() {
     const cell = createElement('td', { text: amount });
     tableRow.appendChild(cell);
   }
-
-  return tableRow;
-}
-
-export function createYearsRow() {
-  const tableRow = createElement('tr', { classList: ['years'] });
-  const blankOne = createBlankData();
-
-  tableRow.appendChild(blankOne);
-
-  const projectionPeriod = projectionYears.projectionYears;
-  projectionPeriod.forEach((year) => {
-    const cell = createElement('td', { text: year });
-    tableRow.appendChild(cell);
-  });
 
   return tableRow;
 }

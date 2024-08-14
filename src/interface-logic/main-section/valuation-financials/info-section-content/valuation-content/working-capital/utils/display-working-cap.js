@@ -12,7 +12,6 @@ import {
   createTableFooter,
   createTradeReceivables,
   createTradePayables,
-  createYearsRow,
 } from './create-table-rows';
 
 // Exports to working-cap-ui-manager.js
@@ -24,7 +23,6 @@ export default function displayWorkingCap() {
   table.appendChild(createTableHead());
 
   const tableBody = createTableBody();
-  tableBody.appendChild(createYearsRow());
   tableBody.appendChild(createDaysReceivable());
   tableBody.appendChild(createTradeReceivables());
   tableBody.appendChild(createBlankRow());

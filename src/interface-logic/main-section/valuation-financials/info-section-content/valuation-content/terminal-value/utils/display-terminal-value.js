@@ -42,6 +42,7 @@ export default function displayTerminalValueProjections() {
   tableBody.appendChild(createGrowthRateRow());
   tableBody.appendChild(createBlankRow());
   tableBody.appendChild(createPresentValueFCFRow());
+  tableBody.appendChild(createBlankRow());
   tableBody.appendChild(createEnterpriseValueRow());
   tableBody.appendChild(createCashRow());
   tableBody.appendChild(createDebtRow());
@@ -49,8 +50,11 @@ export default function displayTerminalValueProjections() {
   tableBody.appendChild(createEquityValueRow());
   tableBody.appendChild(createOutstandingSharesRow());
   tableBody.appendChild(createBlankRow());
-  tableBody.appendChild(createFairPriceRow());
+
+  const tableFooter = createElement('tfoot');
+  tableFooter.appendChild(createFairPriceRow());
 
   table.appendChild(tableBody);
+  table.appendChild(tableFooter);
   return table;
 }

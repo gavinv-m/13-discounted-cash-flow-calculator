@@ -7,7 +7,6 @@ import {
   createTableFooter,
   createTableHead,
   createTotals,
-  createYearsRow,
 } from './create-table-rows';
 
 // Exports to dep-amort-ui-manager.js
@@ -19,7 +18,6 @@ export default function displayDepAmortProjections() {
   table.appendChild(createTableHead());
 
   const tableBody = createTableBody();
-  tableBody.appendChild(createYearsRow());
   tableBody.appendChild(createBlankRow());
   tableBody.appendChild(createCapexHeading());
   createDepreciationAmortRows(tableBody);

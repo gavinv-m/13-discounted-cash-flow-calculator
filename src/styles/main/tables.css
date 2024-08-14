@@ -2,9 +2,14 @@ table {
     border-spacing: 0px;
 }
 
+.days-outstanding {
+    background-color: #FFFFFF;
+}
+
 .rounded-heading,
 .projections-heading,
-.rev-percent {
+.rev-percent,
+.days-outstanding {
     color: #4648aa;
 }
 
@@ -13,11 +18,26 @@ table {
     color: #FFFFFF;
 }
 
-#revenue-and-expenses-projections tbody tr:nth-child(even) {
+#revenue-and-expenses-projections tbody tr:nth-child(even),
+#capex-projections tbody tr:nth-child(2),
+#dep-amort-projections thead tr:first-child,
+#dep-amort-projections tbody tr:nth-child(odd),
+#working-cap-projections tbody tr:nth-child(even) {
     background-color: #e5e7eb;
 }
 
-#revenue-and-expenses-projections tfoot tr {
+#revenue-and-expenses-projections tfoot tr,
+#dep-amort-projections tfoot tr,
+#working-cap-projections thead tr:nth-child(3) th,
+#working-cap-projections tfoot tr:first-child,
+#terminal-value-projections thead tr th:nth-of-type(n+2),
+#terminal-value-projections tfoot tr {
     background-color: #4648aa;
     color: #FFFFFF;
+}
+
+.total-row,
+#terminal-value-projections tbody tr:nth-child(2),
+#terminal-value-projections tbody tr:nth-last-child(3) {
+    background-color: #e4e4fd;
 }

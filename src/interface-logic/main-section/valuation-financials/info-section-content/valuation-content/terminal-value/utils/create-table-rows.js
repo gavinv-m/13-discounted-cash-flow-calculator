@@ -352,8 +352,6 @@ export function createRowsExcludedFromEBITDA(tableBody) {
   return;
 }
 
-export function createRowsExcludedFromFCF(tableBody) {}
-
 export function createWACCRow() {
   return percentRow('wacc');
 }

@@ -19,6 +19,28 @@ import {
  * All Exports to display-working-cap.js
  * Main multi-line function exports sorted alphabetically
  */
+const yearsRow = function createYearsRow() {
+  const tableRow = createElement('tr');
+
+  const emptyCell = createBlankData();
+  const historicalDays = createElement('td', {
+    innerHTML: `<em>Historical Days</em>`,
+  });
+  const priorFinYear = projectionYears.startingProjectionYear - 1;
+  const priorFinYearCell = createElement('th', { text: priorFinYear });
+
+  appendChildren(tableRow, emptyCell, historicalDays, priorFinYearCell);
+
+  const projectionPeriod = projectionYears.projectionYears;
+
+  projectionPeriod.forEach((year) => {
+    const cell = createElement('th', { text: year });
+    tableRow.appendChild(cell);
+  });
+
+  return tableRow;
+};
+
 export function createBlankRow() {
   return createElement('tr', { classList: ['blank-row'] });
 }
@@ -151,16 +173,21 @@ export function createTableHead() {
   const tableHeadRow = createElement('tr');
   const roundedToHeading = createElement('th', {
     innerHTML: '<span><em>(USD in millions)</em></span>',
+    classList: ['rounded-heading'],
   });
   roundedToHeading.setAttribute('colspan', '2');
 
   const blankRow = createBlankData();
 
-  const projectionsHeading = createElement('th', { text: 'Projections' });
+  const projectionsHeading = createElement('th', {
+    text: 'Projections',
+    classList: ['projections-heading'],
+  });
   projectionsHeading.setAttribute('colspan', '5');
 
   appendChildren(tableHeadRow, roundedToHeading, blankRow, projectionsHeading);
   appendChildren(tableHead, tableHeadRow, createBlankRow());
+  tableHead.appendChild(yearsRow());
 
   return tableHead;
 }
@@ -253,23 +280,4 @@ export function createTradeReceivables() {
 
 export function createTradePayables() {
   return createTradeRow('payables');
-}
-
-export function createYearsRow() {
-  const tableRow = createElement('tr');
-
-  const emptyCell = createBlankData();
-  const historicalDays = createElement('td', { text: 'Historical Days' });
-  const priorFinYear = projectionYears.startingProjectionYear - 1;
-
-  appendChildren(tableRow, emptyCell, historicalDays, priorFinYear);
-
-  const projectionPeriod = projectionYears.projectionYears;
-
-  projectionPeriod.forEach((year) => {
-    const cell = createElement('td', { text: year });
-    tableRow.appendChild(cell);
-  });
-
-  return tableRow;
 }
