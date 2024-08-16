@@ -234,6 +234,7 @@ export function createTableHead(yearsAndMonths) {
 
   const roundedToHeading = createElement('th', {
     innerHTML: '<span><em>(USD in millions)</em></span>',
+    classList: ['rounded-heading'],
   });
   tableRow.appendChild(roundedToHeading);
 

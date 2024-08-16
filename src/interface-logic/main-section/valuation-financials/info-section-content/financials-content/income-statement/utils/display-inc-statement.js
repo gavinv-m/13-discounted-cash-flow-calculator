@@ -39,9 +39,12 @@ export default function displayIncomeStatement(
   tableBody.appendChild(createProfitBeforeTaxTotal(yearsOnly));
   tableBody.appendChild(createBlankRow());
   createTaxExpenseSection(tableBody, yearsOnly);
-  tableBody.appendChild(createNetProfitTotal(yearsOnly));
+
+  const tableFooter = createElement('tfoot');
+  tableFooter.appendChild(createNetProfitTotal(yearsOnly));
 
   table.appendChild(tableBody);
+  table.appendChild(tableFooter);
 
   return table;
 }

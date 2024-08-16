@@ -31,13 +31,28 @@ table {
 #working-cap-projections thead tr:nth-child(3) th,
 #working-cap-projections tfoot tr:first-child,
 #terminal-value-projections thead tr th:nth-of-type(n+2),
-#terminal-value-projections tfoot tr {
+#terminal-value-projections tfoot tr,
+#bal-sheet-table thead tr th:not(.rounded-heading),
+.bal-sheet-total,
+#inc-statement-table tfoot tr,
+#inc-statement-table thead tr th:not(.rounded-heading),
+#cash-flow-table thead tr th:not(.rounded-heading), 
+#cash-flow-table tfoot tr {
     background-color: #4648aa;
     color: #FFFFFF;
 }
 
 .total-row,
 #terminal-value-projections tbody tr:nth-child(2),
-#terminal-value-projections tbody tr:nth-last-child(3) {
+#terminal-value-projections tbody tr:nth-last-child(3),
+.bal-sheet-component-total,
+.inc-stat-total, 
+.cash-flow-total {
     background-color: #e4e4fd;
+}
+
+#working-receivables  {
+    /* Descendants */
+    display: flex;
+    gap: 5px;
 }

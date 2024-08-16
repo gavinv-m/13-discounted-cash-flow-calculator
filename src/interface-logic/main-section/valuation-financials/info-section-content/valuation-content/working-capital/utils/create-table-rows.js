@@ -224,6 +224,7 @@ const createTradeRow = function createWorkingCapItemRow(rowName) {
   });
 
   if (rowDetails.name === 'Trade Receivables') {
+    nameAndQuestionCell.setAttribute('id', 'working-receivables');
     questionContainer.innerHTML = getQuestionMarkSvg();
 
     questionContainer.addEventListener('mouseover', () => {
