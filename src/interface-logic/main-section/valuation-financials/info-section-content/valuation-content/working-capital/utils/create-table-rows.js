@@ -20,7 +20,7 @@ import {
  * Main multi-line function exports sorted alphabetically
  */
 const yearsRow = function createYearsRow() {
-  const tableRow = createElement('tr');
+  const tableRow = createElement('tr', { classList: ['years'] });
 
   const emptyCell = createBlankData();
   const historicalDays = createElement('td', {

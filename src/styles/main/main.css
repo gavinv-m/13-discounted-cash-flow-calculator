@@ -1,6 +1,7 @@
 #main-content {
     background-color: #e5e7eb;
     height: 100%;
+    min-width: 800px;
 
     /* Descendants: */
     display: flex;

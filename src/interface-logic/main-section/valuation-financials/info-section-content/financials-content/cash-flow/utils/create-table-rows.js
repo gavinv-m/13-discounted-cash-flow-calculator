@@ -230,7 +230,7 @@ export function createOperatingActivityTotal(yearsOnly) {
 
 export function createTableHead(yearsAndMonths) {
   const head = createElement('thead');
-  const tableRow = createElement('tr');
+  const tableRow = createElement('tr', { classList: ['years'] });
 
   const roundedToHeading = createElement('th', {
     innerHTML: '<span><em>(USD in millions)</em></span>',

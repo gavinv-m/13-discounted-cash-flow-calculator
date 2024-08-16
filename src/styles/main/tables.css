@@ -2,20 +2,24 @@ table {
     border-spacing: 0px;
 }
 
-.days-outstanding {
-    background-color: #FFFFFF;
-}
-
+#terminal-value-projections .rounded-heading,
+#bal-sheet-table th.rounded-heading,
+#inc-statement-table th.rounded-heading,
+#cash-flow-table th.rounded-heading,
 .rounded-heading,
 .projections-heading,
 .rev-percent,
 .days-outstanding {
     color: #4648aa;
+    background-color: #FFFFFF;
 }
 
-.years th {
+.years th:not(.rounded-heading) {
     background-color: #4648aa;
     color: #FFFFFF;
+    letter-spacing: 2px;
+    text-align: right;
+    min-width: 90px;
 }
 
 #revenue-and-expenses-projections tbody tr:nth-child(even),
@@ -55,4 +59,43 @@ table {
     /* Descendants */
     display: flex;
     gap: 5px;
+}
+
+/* Stop page from jumping when viewing tables */
+#valuation-content,
+#financial-content {
+    min-height: 1000px;
+    overflow-x: scroll;
+    width: 100%;
+}
+
+#valuation-content table,
+#financial-content table {
+    margin-top: 10px;
+    padding: 2rem;
+    width: 100%;
+}
+
+#valuation-content table .blank-row,
+#financial-content table  .blank-row {
+    height: 15px;
+}
+
+#valuation-content table td,
+#financial-content table td,
+#valuation-content table tr,
+#financial-content table tr {
+   height: 35px;
+   line-height: 0.5;
+}
+
+#valuation-content tbody tr td:nth-child(n+2),
+#financial-content tbody tr td:nth-child(n+2),
+#valuation-content tfoot td:nth-child(n+2),
+#financial-content tfoot td:nth-child(n+2) {
+    text-align: right;
+}
+
+#financial-content td:first-child {
+    min-width: 275px;
 }

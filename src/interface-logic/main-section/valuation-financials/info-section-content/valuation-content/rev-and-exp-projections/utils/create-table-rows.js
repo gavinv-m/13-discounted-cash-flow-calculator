@@ -189,7 +189,9 @@ export function createRevenuePercentRow() {
   const cell = createElement('td', {
     innerHTML: `<span class='rev-percent'>% Growth:</span> ${percentGrowth}`,
   });
-  return tableRow.appendChild(cell);
+  tableRow.appendChild(cell);
+
+  return tableRow;
 }
 
 export function createTableBody() {

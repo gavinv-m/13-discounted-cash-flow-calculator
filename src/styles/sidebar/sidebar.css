@@ -1,5 +1,6 @@
 #sidebar {
     background-color: #e5e7eb;
+    min-width: 250px;
     height: 100%;
 
     /* Descendants: */
@@ -115,6 +116,7 @@
 }
 
 .metric-adjuster {
+    max-height: 60px;
     /* Descendants: */
     display: flex;
 }
