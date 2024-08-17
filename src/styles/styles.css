@@ -45,6 +45,7 @@ body {
 }
 
 footer {
+  background-color: #4648aa;
   grid-column: 1 / 2;
   grid-row: 3 / 4;
 }

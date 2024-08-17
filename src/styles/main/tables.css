@@ -99,3 +99,7 @@ table {
 #financial-content td:first-child {
     min-width: 275px;
 }
+
+#working-cap-projections tfoot tr td:first-child {
+    min-width: 150px;
+}

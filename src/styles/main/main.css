@@ -93,6 +93,11 @@
     outline: none;
 }
 
+#error-box {
+    color: #EF0107;
+    height: 20px;
+}
+
 /* Containers with ticker, co. name, sector and industry */
 #company-details > div {
     gap: 15px; 
@@ -266,7 +271,7 @@
     border-width: 4px;
     margin-left: 10px;
     padding-left: 10px;
-    width: 850px;
+    width: 75%;
 }
 
 .dropdown-section {
