@@ -5,5 +5,6 @@ import './styles/main/tables.css';
 import { mainController } from './main-controller';
 
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('test');
   mainController.initializeApp('IBM', 'demo');
 });
