@@ -6,8 +6,6 @@ The Discounted Cash Flow Calculator (DCCF) is a tool designed to help investors 
 
 This project aims to simplify the DCF calculation process, making it accessible to both beginners and experienced professionals. This calculator supports customization of discount rates, growth rates, and tax rates, providing flexibility to accommodate various financial models.
 
-## Installation
-
 To get started with the Discounted Cash Flow Calculator (DCCF), follow these steps:
 
 1. **Clone the Repository:**
